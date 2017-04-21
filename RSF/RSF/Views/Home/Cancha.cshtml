@@ -1,0 +1,34 @@
+﻿@using RSF.Models
+@model Cancha
+
+<form method="POST" action="@Url.Action("busCancha", "Home")">
+
+    @Html.ValidationMessageFor(x => x.nombre)<br />
+    Busque por Nombre de la Cancha: @Html.TextBoxFor(x => x.nombre) <br />
+
+    @Html.ValidationMessageFor(x => x.id)<br />
+    Busque por Id de la Cancha: @Html.TextBoxFor(x => x.id) <br />
+
+    @Html.ValidationMessageFor(x => x.Barrio)<br />
+    Busque por Barrio de la Cancha: @Html.TextBoxFor(x => x.Barrio) <br />
+
+    <input type="submit" value="Buscar" />
+
+</form>
+
+<form method="POST" action="@Url.Action("newCancha", "Home")">
+
+    @Html.ValidationMessageFor(x => x.nombre)<br />
+    Nombre de la Cancha: @Html.TextBoxFor(x => x.nombre) <br />
+
+    @Html.ValidationMessageFor(x => x.Telefono)<br />
+    Telefono de la Cancha: @Html.TextBoxFor(x => x.Telefono) <br />
+
+    @Html.ValidationMessageFor(x => x.Barrio)<br />
+    Barrio de la Cancha: @Html.TextBoxFor(x => x.Barrio) <br />
+
+    @Html.ValidationMessageFor(x => x.Calle)<br />
+    Calle de la Cancha: @Html.TextBoxFor(x => x.Calle) <br />
+
+    <input type="submit" value="Afiliar" />
+</form>

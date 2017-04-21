@@ -1,0 +1,12 @@
+﻿@using RSF.Models
+@model Usuario
+
+<br />
+<br />
+
+@foreach (Usuario usuarioo in ViewBag.A)
+{
+    @Html.DisplayTextFor(a => usuarioo.id)
+    @Html.DisplayTextFor(a => usuarioo.nombre)
+    <br />
+}

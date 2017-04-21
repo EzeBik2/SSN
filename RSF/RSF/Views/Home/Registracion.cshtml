@@ -1,0 +1,36 @@
+﻿@using RSF.Models
+@model Usuario
+
+
+<h2>Registracion</h2>
+
+<form method="POST" action="@Url.Action("Registrar", "Home")">
+
+    @Html.ValidationMessageFor(x => x.nombre)<br/>
+    Nombre:@Html.TextBoxFor(x => x.nombre)<br />
+
+    @Html.ValidationMessageFor(x => x.apellido )<br />
+    Apellido:@Html.TextBoxFor(x => x.apellido)<br />
+
+    @Html.ValidationMessageFor(x => x.edad)<br />
+    Edad:@Html.TextBoxFor(x => x.edad)<br />
+
+    @Html.ValidationMessageFor(x => x.email)<br />
+    Email:@Html.TextBoxFor(x => x.email)<br />
+
+    @Html.ValidationMessageFor(x => x.telefono)<br />
+    Telefono:@Html.TextBoxFor(x => x.telefono)<br />
+    
+    @Html.ValidationMessageFor(x => x.contraseña)<br />
+    Contraseña:@Html.PasswordFor(x => x.contraseña)<br />
+
+    @Html.ValidationMessageFor(x => x.Confcontraseña)<br />
+    Confirmar Contraseña:@Html.PasswordFor(x => x.Confcontraseña)<br />
+
+    <input type="submit" value="Registrar"/>
+    <br />
+    <br />
+    @ViewBag.Error
+</form>
+
+

@@ -1,0 +1,14 @@
+﻿@using RSF.Models
+@model Usuario
+
+<form method="POST" action="@Url.Action("LoguearUsuario", "Home")">
+    @Html.ValidationMessageFor(x => x.email)<br />
+    Email: @Html.TextBoxFor(x => x.email) <br />
+
+    @Html.ValidationMessageFor(x => x.contraseña)<br />
+    Contraseña: @Html.PasswordFor(x => x.contraseña)<br />
+
+    <input type="submit" value="Ingresar" />
+    @Html.ActionLink("Registrarse", "Registracion", "Home")
+    @ViewBag.A
+</form>

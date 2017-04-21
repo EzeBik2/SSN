@@ -1,0 +1,148 @@
+c:\users\eze\documents\visual studio 2017\Projects\RSF\RSF\obj\Debug\RSF.csprojResolveAssemblyReference.cache
+c:\users\eze\documents\visual studio 2017\Projects\RSF\RSF\bin\ApplicationInsights.config
+c:\users\eze\documents\visual studio 2017\Projects\RSF\RSF\bin\roslyn\csc.exe
+c:\users\eze\documents\visual studio 2017\Projects\RSF\RSF\bin\roslyn\csc.exe.config
+c:\users\eze\documents\visual studio 2017\Projects\RSF\RSF\bin\roslyn\csc.rsp
+c:\users\eze\documents\visual studio 2017\Projects\RSF\RSF\bin\roslyn\csi.exe
+c:\users\eze\documents\visual studio 2017\Projects\RSF\RSF\bin\roslyn\csi.rsp
+c:\users\eze\documents\visual studio 2017\Projects\RSF\RSF\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+c:\users\eze\documents\visual studio 2017\Projects\RSF\RSF\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+c:\users\eze\documents\visual studio 2017\Projects\RSF\RSF\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+c:\users\eze\documents\visual studio 2017\Projects\RSF\RSF\bin\roslyn\Microsoft.CodeAnalysis.dll
+c:\users\eze\documents\visual studio 2017\Projects\RSF\RSF\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
+c:\users\eze\documents\visual studio 2017\Projects\RSF\RSF\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+c:\users\eze\documents\visual studio 2017\Projects\RSF\RSF\bin\roslyn\Microsoft.CSharp.Core.targets
+c:\users\eze\documents\visual studio 2017\Projects\RSF\RSF\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
+c:\users\eze\documents\visual studio 2017\Projects\RSF\RSF\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
+c:\users\eze\documents\visual studio 2017\Projects\RSF\RSF\bin\roslyn\Microsoft.VisualBasic.Core.targets
+c:\users\eze\documents\visual studio 2017\Projects\RSF\RSF\bin\roslyn\System.AppContext.dll
+c:\users\eze\documents\visual studio 2017\Projects\RSF\RSF\bin\roslyn\System.Collections.Immutable.dll
+c:\users\eze\documents\visual studio 2017\Projects\RSF\RSF\bin\roslyn\System.Diagnostics.StackTrace.dll
+c:\users\eze\documents\visual studio 2017\Projects\RSF\RSF\bin\roslyn\System.IO.FileSystem.dll
+c:\users\eze\documents\visual studio 2017\Projects\RSF\RSF\bin\roslyn\System.IO.FileSystem.Primitives.dll
+c:\users\eze\documents\visual studio 2017\Projects\RSF\RSF\bin\roslyn\System.Reflection.Metadata.dll
+c:\users\eze\documents\visual studio 2017\Projects\RSF\RSF\bin\roslyn\vbc.exe
+c:\users\eze\documents\visual studio 2017\Projects\RSF\RSF\bin\roslyn\vbc.exe.config
+c:\users\eze\documents\visual studio 2017\Projects\RSF\RSF\bin\roslyn\vbc.rsp
+c:\users\eze\documents\visual studio 2017\Projects\RSF\RSF\bin\roslyn\VBCSCompiler.exe
+c:\users\eze\documents\visual studio 2017\Projects\RSF\RSF\bin\roslyn\VBCSCompiler.exe.config
+c:\users\eze\documents\visual studio 2017\Projects\RSF\RSF\bin\RSF.dll.config
+c:\users\eze\documents\visual studio 2017\Projects\RSF\RSF\bin\RSF.dll
+c:\users\eze\documents\visual studio 2017\Projects\RSF\RSF\bin\RSF.pdb
+c:\users\eze\documents\visual studio 2017\Projects\RSF\RSF\bin\Antlr3.Runtime.dll
+c:\users\eze\documents\visual studio 2017\Projects\RSF\RSF\bin\Microsoft.AI.Agent.Intercept.dll
+c:\users\eze\documents\visual studio 2017\Projects\RSF\RSF\bin\Microsoft.AI.DependencyCollector.dll
+c:\users\eze\documents\visual studio 2017\Projects\RSF\RSF\bin\Microsoft.AI.PerfCounterCollector.dll
+c:\users\eze\documents\visual studio 2017\Projects\RSF\RSF\bin\Microsoft.AI.ServerTelemetryChannel.dll
+c:\users\eze\documents\visual studio 2017\Projects\RSF\RSF\bin\Microsoft.AI.Web.dll
+c:\users\eze\documents\visual studio 2017\Projects\RSF\RSF\bin\Microsoft.AI.WindowsServer.dll
+c:\users\eze\documents\visual studio 2017\Projects\RSF\RSF\bin\Microsoft.ApplicationInsights.dll
+c:\users\eze\documents\visual studio 2017\Projects\RSF\RSF\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+c:\users\eze\documents\visual studio 2017\Projects\RSF\RSF\bin\Microsoft.Web.Infrastructure.dll
+c:\users\eze\documents\visual studio 2017\Projects\RSF\RSF\bin\Newtonsoft.Json.dll
+c:\users\eze\documents\visual studio 2017\Projects\RSF\RSF\bin\System.Web.Helpers.dll
+c:\users\eze\documents\visual studio 2017\Projects\RSF\RSF\bin\System.Web.Mvc.dll
+c:\users\eze\documents\visual studio 2017\Projects\RSF\RSF\bin\System.Web.Optimization.dll
+c:\users\eze\documents\visual studio 2017\Projects\RSF\RSF\bin\System.Web.Razor.dll
+c:\users\eze\documents\visual studio 2017\Projects\RSF\RSF\bin\System.Web.WebPages.Deployment.dll
+c:\users\eze\documents\visual studio 2017\Projects\RSF\RSF\bin\System.Web.WebPages.dll
+c:\users\eze\documents\visual studio 2017\Projects\RSF\RSF\bin\System.Web.WebPages.Razor.dll
+c:\users\eze\documents\visual studio 2017\Projects\RSF\RSF\bin\WebGrease.dll
+c:\users\eze\documents\visual studio 2017\Projects\RSF\RSF\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+c:\users\eze\documents\visual studio 2017\Projects\RSF\RSF\bin\System.Web.Helpers.xml
+c:\users\eze\documents\visual studio 2017\Projects\RSF\RSF\bin\System.Web.Mvc.xml
+c:\users\eze\documents\visual studio 2017\Projects\RSF\RSF\bin\System.Web.Optimization.xml
+c:\users\eze\documents\visual studio 2017\Projects\RSF\RSF\bin\System.Web.Razor.xml
+c:\users\eze\documents\visual studio 2017\Projects\RSF\RSF\bin\System.Web.WebPages.xml
+c:\users\eze\documents\visual studio 2017\Projects\RSF\RSF\bin\System.Web.WebPages.Deployment.xml
+c:\users\eze\documents\visual studio 2017\Projects\RSF\RSF\bin\System.Web.WebPages.Razor.xml
+c:\users\eze\documents\visual studio 2017\Projects\RSF\RSF\bin\Antlr3.Runtime.pdb
+c:\users\eze\documents\visual studio 2017\Projects\RSF\RSF\bin\Newtonsoft.Json.xml
+c:\users\eze\documents\visual studio 2017\Projects\RSF\RSF\bin\Microsoft.ApplicationInsights.xml
+c:\users\eze\documents\visual studio 2017\Projects\RSF\RSF\bin\Microsoft.AI.DependencyCollector.xml
+c:\users\eze\documents\visual studio 2017\Projects\RSF\RSF\bin\Microsoft.AI.ServerTelemetryChannel.xml
+c:\users\eze\documents\visual studio 2017\Projects\RSF\RSF\bin\Microsoft.AI.WindowsServer.xml
+c:\users\eze\documents\visual studio 2017\Projects\RSF\RSF\bin\Microsoft.AI.Web.xml
+c:\users\eze\documents\visual studio 2017\Projects\RSF\RSF\bin\es\System.Web.Helpers.resources.dll
+c:\users\eze\documents\visual studio 2017\Projects\RSF\RSF\bin\es\System.Web.Mvc.resources.dll
+c:\users\eze\documents\visual studio 2017\Projects\RSF\RSF\bin\es\System.Web.Optimization.resources.dll
+c:\users\eze\documents\visual studio 2017\Projects\RSF\RSF\bin\es\System.Web.Razor.resources.dll
+c:\users\eze\documents\visual studio 2017\Projects\RSF\RSF\bin\es\System.Web.WebPages.resources.dll
+c:\users\eze\documents\visual studio 2017\Projects\RSF\RSF\bin\es\System.Web.WebPages.Deployment.resources.dll
+c:\users\eze\documents\visual studio 2017\Projects\RSF\RSF\bin\es\System.Web.WebPages.Razor.resources.dll
+c:\users\eze\documents\visual studio 2017\Projects\RSF\RSF\obj\Debug\RSF.dll
+c:\users\eze\documents\visual studio 2017\Projects\RSF\RSF\obj\Debug\RSF.pdb
+D:\Users\42498978\Desktop\RSF\RSF\bin\ApplicationInsights.config
+D:\Users\42498978\Desktop\RSF\RSF\bin\roslyn\csc.exe
+D:\Users\42498978\Desktop\RSF\RSF\bin\roslyn\csc.exe.config
+D:\Users\42498978\Desktop\RSF\RSF\bin\roslyn\csc.rsp
+D:\Users\42498978\Desktop\RSF\RSF\bin\roslyn\csi.exe
+D:\Users\42498978\Desktop\RSF\RSF\bin\roslyn\csi.rsp
+D:\Users\42498978\Desktop\RSF\RSF\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+D:\Users\42498978\Desktop\RSF\RSF\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+D:\Users\42498978\Desktop\RSF\RSF\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+D:\Users\42498978\Desktop\RSF\RSF\bin\roslyn\Microsoft.CodeAnalysis.dll
+D:\Users\42498978\Desktop\RSF\RSF\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
+D:\Users\42498978\Desktop\RSF\RSF\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+D:\Users\42498978\Desktop\RSF\RSF\bin\roslyn\Microsoft.CSharp.Core.targets
+D:\Users\42498978\Desktop\RSF\RSF\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
+D:\Users\42498978\Desktop\RSF\RSF\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
+D:\Users\42498978\Desktop\RSF\RSF\bin\roslyn\Microsoft.VisualBasic.Core.targets
+D:\Users\42498978\Desktop\RSF\RSF\bin\roslyn\System.AppContext.dll
+D:\Users\42498978\Desktop\RSF\RSF\bin\roslyn\System.Collections.Immutable.dll
+D:\Users\42498978\Desktop\RSF\RSF\bin\roslyn\System.Diagnostics.StackTrace.dll
+D:\Users\42498978\Desktop\RSF\RSF\bin\roslyn\System.IO.FileSystem.dll
+D:\Users\42498978\Desktop\RSF\RSF\bin\roslyn\System.IO.FileSystem.Primitives.dll
+D:\Users\42498978\Desktop\RSF\RSF\bin\roslyn\System.Reflection.Metadata.dll
+D:\Users\42498978\Desktop\RSF\RSF\bin\roslyn\vbc.exe
+D:\Users\42498978\Desktop\RSF\RSF\bin\roslyn\vbc.exe.config
+D:\Users\42498978\Desktop\RSF\RSF\bin\roslyn\vbc.rsp
+D:\Users\42498978\Desktop\RSF\RSF\bin\roslyn\VBCSCompiler.exe
+D:\Users\42498978\Desktop\RSF\RSF\bin\roslyn\VBCSCompiler.exe.config
+D:\Users\42498978\Desktop\RSF\RSF\bin\RSF.dll.config
+D:\Users\42498978\Desktop\RSF\RSF\bin\RSF.dll
+D:\Users\42498978\Desktop\RSF\RSF\bin\RSF.pdb
+D:\Users\42498978\Desktop\RSF\RSF\bin\Antlr3.Runtime.dll
+D:\Users\42498978\Desktop\RSF\RSF\bin\Microsoft.AI.Agent.Intercept.dll
+D:\Users\42498978\Desktop\RSF\RSF\bin\Microsoft.AI.DependencyCollector.dll
+D:\Users\42498978\Desktop\RSF\RSF\bin\Microsoft.AI.PerfCounterCollector.dll
+D:\Users\42498978\Desktop\RSF\RSF\bin\Microsoft.AI.ServerTelemetryChannel.dll
+D:\Users\42498978\Desktop\RSF\RSF\bin\Microsoft.AI.Web.dll
+D:\Users\42498978\Desktop\RSF\RSF\bin\Microsoft.AI.WindowsServer.dll
+D:\Users\42498978\Desktop\RSF\RSF\bin\Microsoft.ApplicationInsights.dll
+D:\Users\42498978\Desktop\RSF\RSF\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+D:\Users\42498978\Desktop\RSF\RSF\bin\Microsoft.Web.Infrastructure.dll
+D:\Users\42498978\Desktop\RSF\RSF\bin\Newtonsoft.Json.dll
+D:\Users\42498978\Desktop\RSF\RSF\bin\System.Web.Helpers.dll
+D:\Users\42498978\Desktop\RSF\RSF\bin\System.Web.Mvc.dll
+D:\Users\42498978\Desktop\RSF\RSF\bin\System.Web.Optimization.dll
+D:\Users\42498978\Desktop\RSF\RSF\bin\System.Web.Razor.dll
+D:\Users\42498978\Desktop\RSF\RSF\bin\System.Web.WebPages.Deployment.dll
+D:\Users\42498978\Desktop\RSF\RSF\bin\System.Web.WebPages.dll
+D:\Users\42498978\Desktop\RSF\RSF\bin\System.Web.WebPages.Razor.dll
+D:\Users\42498978\Desktop\RSF\RSF\bin\WebGrease.dll
+D:\Users\42498978\Desktop\RSF\RSF\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+D:\Users\42498978\Desktop\RSF\RSF\bin\System.Web.Helpers.xml
+D:\Users\42498978\Desktop\RSF\RSF\bin\System.Web.Mvc.xml
+D:\Users\42498978\Desktop\RSF\RSF\bin\System.Web.Optimization.xml
+D:\Users\42498978\Desktop\RSF\RSF\bin\System.Web.Razor.xml
+D:\Users\42498978\Desktop\RSF\RSF\bin\System.Web.WebPages.xml
+D:\Users\42498978\Desktop\RSF\RSF\bin\System.Web.WebPages.Deployment.xml
+D:\Users\42498978\Desktop\RSF\RSF\bin\System.Web.WebPages.Razor.xml
+D:\Users\42498978\Desktop\RSF\RSF\bin\Antlr3.Runtime.pdb
+D:\Users\42498978\Desktop\RSF\RSF\bin\Newtonsoft.Json.xml
+D:\Users\42498978\Desktop\RSF\RSF\bin\Microsoft.ApplicationInsights.xml
+D:\Users\42498978\Desktop\RSF\RSF\bin\Microsoft.AI.DependencyCollector.xml
+D:\Users\42498978\Desktop\RSF\RSF\bin\Microsoft.AI.ServerTelemetryChannel.xml
+D:\Users\42498978\Desktop\RSF\RSF\bin\Microsoft.AI.WindowsServer.xml
+D:\Users\42498978\Desktop\RSF\RSF\bin\Microsoft.AI.Web.xml
+D:\Users\42498978\Desktop\RSF\RSF\bin\es\System.Web.Helpers.resources.dll
+D:\Users\42498978\Desktop\RSF\RSF\bin\es\System.Web.Mvc.resources.dll
+D:\Users\42498978\Desktop\RSF\RSF\bin\es\System.Web.Optimization.resources.dll
+D:\Users\42498978\Desktop\RSF\RSF\bin\es\System.Web.Razor.resources.dll
+D:\Users\42498978\Desktop\RSF\RSF\bin\es\System.Web.WebPages.resources.dll
+D:\Users\42498978\Desktop\RSF\RSF\bin\es\System.Web.WebPages.Deployment.resources.dll
+D:\Users\42498978\Desktop\RSF\RSF\bin\es\System.Web.WebPages.Razor.resources.dll
+D:\Users\42498978\Desktop\RSF\RSF\obj\Debug\RSF.csprojResolveAssemblyReference.cache
+D:\Users\42498978\Desktop\RSF\RSF\obj\Debug\RSF.dll
+D:\Users\42498978\Desktop\RSF\RSF\obj\Debug\RSF.pdb

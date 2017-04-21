@@ -1,0 +1,29 @@
+@using RSF.Models
+@model Usuario
+
+
+<form method="POST" action="@Url.Action("busJugadores", "Home")">
+
+    <br />
+    <br />
+    @ViewBag.Error
+    <br />
+
+    @Html.ValidationMessageFor(x => x.id)<br/>
+    Busque por Id del Jugador: @Html.TextBoxFor(x => x.id) <br/>
+
+    @Html.ValidationMessageFor(x => x.nombre)<br/>
+    Busque por Nombre del Jugador: @Html.TextBoxFor(x => x.nombre) <br/>
+
+    <input type="submit" value="Buscar Jugador"/>
+    
+</form>
+
+<br />
+<br />
+<br />
+@Html.ActionLink("Buscar o Agregar Cancha", "Cancha", "Home")
+<br />
+<br />
+@Html.ActionLink("Buscar o Agregar Equipo", "Equipo", "Home")
+
