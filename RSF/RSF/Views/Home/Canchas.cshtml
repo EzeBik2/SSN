@@ -1,10 +1,24 @@
 ﻿@using RSF.Models
-@model Cancha
+@model Equipo
 
 <br />
 <br />
 
-@foreach (Cancha canchaa in ViewBag.A)
+@foreach (Equipo equipoo in ViewBag.A)
 {
-    @Html.DisplayTextFor(a => canchaa.id)    @Html.DisplayTextFor(a => canchaa.nombre)    @Html.DisplayTextFor(a => canchaa.Telefono)    @Html.DisplayTextFor(a => canchaa.Barrio)    @Html.DisplayTextFor(a => canchaa.Calle)    <br />
+    @Html.DisplayTextFor(a => equipoo.id)    
+    @Html.DisplayTextFor(a => equipoo.nombre)    
+    @Html.DisplayTextFor(a => equipoo.cantjug)    
+    @Html.DisplayTextFor(a => equipoo.idjug1)    
+    @Html.DisplayTextFor(a => equipoo.idjug2)
+    @Html.DisplayTextFor(a => equipoo.idjug3)
+    @Html.DisplayTextFor(a => equipoo.idjug4)
+    @Html.DisplayTextFor(a => equipoo.idjug5)
+    @Html.DisplayTextFor(a => equipoo.idjug6)
+    @Html.DisplayTextFor(a => equipoo.idjug7)
+    @Html.DisplayTextFor(a => equipoo.idjug8)
+    @Html.DisplayTextFor(a => equipoo.idjug9)
+    @Html.DisplayTextFor(a => equipoo.idjug10)
+    @Html.DisplayTextFor(a => equipoo.idjug11)
+    <br />
 }

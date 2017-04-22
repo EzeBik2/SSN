@@ -1,0 +1,10 @@
+﻿@using RSF.Models
+@model Cancha
+
+<br />
+<br />
+
+@foreach (Cancha canchaa in ViewBag.A)
+{
+    @Html.DisplayTextFor(a => canchaa.id)    @Html.DisplayTextFor(a => canchaa.nombre)    @Html.DisplayTextFor(a => canchaa.Telefono)    @Html.DisplayTextFor(a => canchaa.Barrio)    @Html.DisplayTextFor(a => canchaa.Calle)    <br />
+}

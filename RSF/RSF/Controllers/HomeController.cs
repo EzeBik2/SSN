@@ -40,7 +40,6 @@ namespace RSF.Controllers
                 return View("Index");
             }
         }
-        [HttpPost]
         public ActionResult Registrar(Usuario unUsuario)
         {
             if (unUsuario.contraseña == unUsuario.Confcontraseña)
@@ -98,13 +97,40 @@ namespace RSF.Controllers
             bool Funciono = Canchas.GuardarCancha(unaCancha);
             if (Funciono)
             {
-                ViewBag.N = "SI";
+                ViewBag.Funciono = "Lo Has Logrado Chico";
             }
             else
             {
-                ViewBag.N = "NO";
+                ViewBag.Funciono = "Tenes un par de problemas";
             }
-            return View("Logueado");
+            return View("Cancha");
+        }
+        public ActionResult busEquipo (Equipo unEquipo)
+        {            
+            List<Equipo> ListadeEquipos = new List<Equipo>();
+            ListadeEquipos = Equipos.existeEquipo(unEquipo);
+            if (ListadeEquipos.Count > 0)
+            {
+                ViewBag.A = ListadeEquipos;
+                return View("Equipos");
+            }
+            else
+            {
+                return View("Equipo");
+            }
+        }
+        public ActionResult newEquipo(Equipo unEquipo)
+        {
+            bool Funciono = Equipos.GuardarEquipo(unEquipo);
+            if (Funciono)
+            {
+                ViewBag.Funciono = "Lo Has Logrado Chico";
+            }
+            else
+            {
+                ViewBag.Funciono = "Tenes un par de problemas";
+            }
+            return View("Equipo");
         }
     }
 }

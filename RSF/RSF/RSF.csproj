@@ -146,6 +146,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Cancha.cs" />
+    <Compile Include="Models\Equipos.cs" />
     <Compile Include="Models\Canchas.cs" />
     <Compile Include="Models\Equipo.cs" />
     <Compile Include="Models\Usuario.cs" />
@@ -193,6 +194,7 @@
     <Content Include="Views\Home\Equipo.cshtml" />
     <Content Include="Views\Home\Jugadores.cshtml" />
     <Content Include="Views\Home\Canchas.cshtml" />
+    <Content Include="Views\Home\Canchas - Copia.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

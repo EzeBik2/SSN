@@ -9,7 +9,7 @@ namespace RSF.Models.DataAccess
     public class Canchas
     {
         static string Proveedor = @"Provider=Microsoft.ACE.OLEDB.12.0;
-            Data Source=D:\Users\42498978\Desktop\RSF\RSF\Database1.accdb";
+            Data Source=|DataDirectory|\Database1.accdb";
 
         static OleDbConnection conn = new OleDbConnection();
 
