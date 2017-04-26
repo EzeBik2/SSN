@@ -194,7 +194,7 @@
     <Content Include="Views\Home\Equipo.cshtml" />
     <Content Include="Views\Home\Jugadores.cshtml" />
     <Content Include="Views\Home\Canchas.cshtml" />
-    <Content Include="Views\Home\Canchas - Copia.cshtml" />
+    <Content Include="Views\Home\Equipos.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -61,7 +61,6 @@ namespace RSF.Controllers
                 return View("Registracion");
             }           
         }
-
         public ActionResult busJugadores(Usuario unJugador)
         {
             List<Usuario> ListadeJugadores = new List<Usuario>();
@@ -77,7 +76,6 @@ namespace RSF.Controllers
                 return View("Logueado");
             }
         }
-
         public ActionResult busCancha(Cancha unaCancha)
         {
             List<Cancha> ListadeCanchas = new List<Cancha>();

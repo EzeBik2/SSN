@@ -1,0 +1,10 @@
+﻿@using RSF.Models
+@model Equipo
+
+<br />
+<br />
+
+@foreach (Equipo equipoo in ViewBag.A)
+{
+    @Html.DisplayTextFor(a => equipoo.id)    @Html.DisplayTextFor(a => equipoo.nombre)    @Html.DisplayTextFor(a => equipoo.cantjug)  <br />
+}
