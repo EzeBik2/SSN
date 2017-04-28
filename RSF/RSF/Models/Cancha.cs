@@ -9,18 +9,18 @@ namespace RSF.Models
     public class Cancha
     {
         [Required(ErrorMessage = "Campo obligatorio")]
-        public string id { get; set; }
+        public int id { get; set; }
 
         [Required(ErrorMessage = "Campo obligatorio")]
         public string nombre { get; set; }
 
         [Required(ErrorMessage = "Campo obligatorio")]
-        public string Telefono { get; set; }
-
-        [Required(ErrorMessage = "Campo obligatorio")]
-        public string Barrio { get; set; }
+        public string barrio { get; set; }
         
         [Required(ErrorMessage = "Campo obligatorio")]
-        public string Calle { get; set; }
+        public string calle { get; set; }
+
+        [Required(ErrorMessage = "Campo obligatorio")]
+        public int telefono { get; set; }
     }
 }

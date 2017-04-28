@@ -1,36 +1,36 @@
 ﻿@using RSF.Models
 @model Cancha
 
-<form method="POST" action="@Url.Action("busCancha", "Home")">
+<form method="POST" action="@Url.Action("BuscarCanchas", "Home")">
 
     @Html.ValidationMessageFor(x => x.nombre)<br />
-    Busque por Nombre de la Cancha: @Html.TextBoxFor(x => x.nombre) <br />
+    Busque por Nombre de la Cancha: @Html.TextBoxFor(x => x.nombre, new { @class = "form-control" }) <br />
 
     @Html.ValidationMessageFor(x => x.id)<br />
-    Busque por Id de la Cancha: @Html.TextBoxFor(x => x.id) <br />
+    Busque por Id de la Cancha: @Html.TextBoxFor(x => x.id, new { @class = "form-control" }) <br />
 
-    @Html.ValidationMessageFor(x => x.Barrio)<br />
-    Busque por Barrio de la Cancha: @Html.TextBoxFor(x => x.Barrio) <br />
+    @Html.ValidationMessageFor(x => x.barrio)<br />
+    Busque por Barrio de la Cancha: @Html.TextBoxFor(x => x.barrio, new { @class = "form-control" }) <br />
 
-    <input type="submit" value="Buscar" />
+    <input type="submit" value="Buscar" class = "btn btn-primary"/>
 
 </form>
 
-<form method="POST" action="@Url.Action("newCancha", "Home")">
-
+<form method="POST" action="@Url.Action("AgregarCancha", "Home")">
+    
     @Html.ValidationMessageFor(x => x.nombre)<br />
-    Nombre de la Cancha: @Html.TextBoxFor(x => x.nombre) <br />
+    Nombre de la Cancha: @Html.TextBoxFor(x => x.nombre, new { @class = "form-control" }) <br />
 
-    @Html.ValidationMessageFor(x => x.Telefono)<br />
-    Telefono de la Cancha: @Html.TextBoxFor(x => x.Telefono) <br />
+    @Html.ValidationMessageFor(x => x.telefono)<br />
+    Telefono de la Cancha: @Html.TextBoxFor(x => x.telefono, new { @class = "form-control" }) <br />
 
-    @Html.ValidationMessageFor(x => x.Barrio)<br />
-    Barrio de la Cancha: @Html.TextBoxFor(x => x.Barrio) <br />
+    @Html.ValidationMessageFor(x => x.barrio)<br />
+    Barrio de la Cancha: @Html.TextBoxFor(x => x.barrio, new { @class = "form-control" }) <br />
 
-    @Html.ValidationMessageFor(x => x.Calle)<br />
-    Calle de la Cancha: @Html.TextBoxFor(x => x.Calle) <br />
+    @Html.ValidationMessageFor(x => x.calle)<br />
+    Calle de la Cancha: @Html.TextBoxFor(x => x.calle, new { @class = "form-control" }) <br />
 
-    <input type="submit" value="Afiliar" />
+    <input type="submit" value="Afiliar" class = "btn btn-primary" />
 </form>
 
 @ViewBag.Funciono

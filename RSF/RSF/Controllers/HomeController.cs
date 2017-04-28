@@ -27,10 +27,10 @@ namespace RSF.Controllers
             return View();
         }
 
-        public ActionResult LoguearUsuario(Usuario unUsuario)
+        public ActionResult LoguearJugador(Jugador unJugador)
         {
-            bool existeUsuario = Usuarios.existeUsuario(unUsuario);
-            if (existeUsuario)
+            Jugador Jugadordevuelto = Jugadores.TraerUnJugador(unJugador);
+            if (Jugadordevuelto.id > 0)
             {
                 return View("Logueado");
             }
@@ -40,12 +40,12 @@ namespace RSF.Controllers
                 return View("Index");
             }
         }
-        public ActionResult Registrar(Usuario unUsuario)
+        public ActionResult Registrar(Jugador unJugador)
         {
-            if (unUsuario.contraseña == unUsuario.Confcontraseña)
+            if (unJugador.contraseña == unJugador.Confcontraseña)
             {
-                bool usuarioGuardado = Usuarios.GuardarUsuario(unUsuario);
-                if (usuarioGuardado)
+                bool jugadorGuardado = Jugadores.AgregarUnJugador(unJugador);
+                if (jugadorGuardado)
                 {
                     return View("Index");
                 }
@@ -59,12 +59,11 @@ namespace RSF.Controllers
             {
                 ViewBag.Error = "Error en la contraseña";
                 return View("Registracion");
-            }           
+            }
         }
-        public ActionResult busJugadores(Usuario unJugador)
+        public ActionResult BuscarJugador(Jugador unJugador)
         {
-            List<Usuario> ListadeJugadores = new List<Usuario>();
-            ListadeJugadores = Usuarios.buscarJugadores(unJugador);
+            List<Jugador> ListadeJugadores = Jugadores.TraerJugadores(unJugador);
             if (ListadeJugadores.Count > 0)
             {
                 ViewBag.A = ListadeJugadores;
@@ -72,14 +71,25 @@ namespace RSF.Controllers
             }
             else
             {
-                ViewBag.Error = "No se Encontraron Jugadores con esos datos";
                 return View("Logueado");
             }
         }
-        public ActionResult busCancha(Cancha unaCancha)
+        public ActionResult AgregarCancha(Cancha unaCancha)
         {
-            List<Cancha> ListadeCanchas = new List<Cancha>();
-            ListadeCanchas = Canchas.existeCancha(unaCancha);
+            bool canchaagregada = Canchas.AgregarUnaCancha(unaCancha);
+            if (canchaagregada)
+            {
+                return View("Logueado");
+            }
+            else
+            {
+                ViewBag.Funciono = "Error en la registracion";
+                return View("Cancha");
+            }
+        }
+        public ActionResult BuscarCanchas(Cancha unaCancha)
+        {
+            List<Cancha> ListadeCanchas = Canchas.TraerCanchas(unaCancha);
             if (ListadeCanchas.Count > 0)
             {
                 ViewBag.A = ListadeCanchas;
@@ -88,47 +98,8 @@ namespace RSF.Controllers
             else
             {
                 return View("Cancha");
-            }
+            }            
         }
-        public ActionResult newCancha(Cancha unaCancha)
-        {
-            bool Funciono = Canchas.GuardarCancha(unaCancha);
-            if (Funciono)
-            {
-                ViewBag.Funciono = "Lo Has Logrado Chico";
-            }
-            else
-            {
-                ViewBag.Funciono = "Tenes un par de problemas";
-            }
-            return View("Cancha");
-        }
-        public ActionResult busEquipo (Equipo unEquipo)
-        {            
-            List<Equipo> ListadeEquipos = new List<Equipo>();
-            ListadeEquipos = Equipos.existeEquipo(unEquipo);
-            if (ListadeEquipos.Count > 0)
-            {
-                ViewBag.A = ListadeEquipos;
-                return View("Equipos");
-            }
-            else
-            {
-                return View("Equipo");
-            }
-        }
-        public ActionResult newEquipo(Equipo unEquipo)
-        {
-            bool Funciono = Equipos.GuardarEquipo(unEquipo);
-            if (Funciono)
-            {
-                ViewBag.Funciono = "Lo Has Logrado Chico";
-            }
-            else
-            {
-                ViewBag.Funciono = "Tenes un par de problemas";
-            }
-            return View("Equipo");
-        }
+        
     }
 }

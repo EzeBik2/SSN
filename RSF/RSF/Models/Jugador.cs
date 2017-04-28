@@ -6,10 +6,10 @@ using System.ComponentModel.DataAnnotations;
 
 namespace RSF.Models
 {
-    public class Usuario
+    public class Jugador
     {
         [Required(ErrorMessage = "Campo obligatorio")]
-        public string id { get; set; }
+        public int id { get; set; }
 
         [Required(ErrorMessage = "Campo obligatorio")]
         public string nombre { get; set; }
@@ -18,16 +18,28 @@ namespace RSF.Models
         public string apellido { get; set; }
 
         [Required(ErrorMessage = "Campo obligatorio")]
-        public string edad { get; set; }
+        public string foto { get; set; }
+
+        [Required(ErrorMessage = "Campo obligatorio")]
+        public int edad { get; set; }
+
+        [Required(ErrorMessage = "Campo obligatorio")]
+        public int telefono { get; set; }
+
+        [Required(ErrorMessage = "Campo obligatorio")]
+        public int calificacion { get; set; }
+
+        [Required(ErrorMessage = "Campo obligatorio")]
+        public int cantidaddevotos { get; set; }
+
+        [Required(ErrorMessage = "Campo obligatorio")]
+        public int idequipos { get; set; }
+
+        [Required(ErrorMessage = "Campo obligatorio")]
+        public int idpartidos { get; set; }
 
         [Required(ErrorMessage = "Campo obligatorio")]
         public string email { get; set; }
-
-        [Required(ErrorMessage = "Campo obligatorio")]
-        public string telefono { get; set; }
-
-        [Required(ErrorMessage = "Campo obligatorio")]
-        public string amigo { get; set; }
 
         [Required(ErrorMessage = "Campo obligatorio")]
         public string contraseña { get; set; }

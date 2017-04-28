@@ -149,8 +149,8 @@
     <Compile Include="Models\Equipos.cs" />
     <Compile Include="Models\Canchas.cs" />
     <Compile Include="Models\Equipo.cs" />
-    <Compile Include="Models\Usuario.cs" />
-    <Compile Include="Models\Usuarios.cs" />
+    <Compile Include="Models\Jugador.cs" />
+    <Compile Include="Models\Jugadores.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

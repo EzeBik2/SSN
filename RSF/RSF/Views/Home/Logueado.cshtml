@@ -1,8 +1,7 @@
 @using RSF.Models
-@model Usuario
+@model Jugador
 
-
-<form method="POST" action="@Url.Action("busJugadores", "Home")">
+<form method="POST" action="@Url.Action("BuscarJugador", "Home")">
 
     <br />
     <br />
@@ -10,12 +9,12 @@
     <br />
 
     @Html.ValidationMessageFor(x => x.id)<br/>
-    Busque por Id del Jugador: @Html.TextBoxFor(x => x.id) <br/>
+    Busque por Id del Jugador: @Html.TextBoxFor(x => x.id, new { @class = "form-control" }) <br/>
 
     @Html.ValidationMessageFor(x => x.nombre)<br/>
-    Busque por Nombre del Jugador: @Html.TextBoxFor(x => x.nombre) <br/>
+    Busque por Nombre del Jugador: @Html.TextBoxFor(x => x.nombre, new { @class = "form-control" }) <br/>
 
-    <input type="submit" value="Buscar Jugador"/>
+    <input type="submit" value="Buscar Jugador" class="btn btn-primary"/>
     
 </form>
 

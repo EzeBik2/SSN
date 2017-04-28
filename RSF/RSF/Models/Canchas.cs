@@ -20,7 +20,7 @@ namespace RSF.Models.DataAccess
         }
 
 
-        public static bool GuardarCancha(Cancha canchaAGuardar)
+        public static bool AgregarUnaCancha(Cancha canchaAAgregar)
         {
             try
             {
@@ -28,18 +28,18 @@ namespace RSF.Models.DataAccess
 
                 OleDbCommand Consulta = conn.CreateCommand();
                 Consulta.CommandType = System.Data.CommandType.StoredProcedure;
-                Consulta.CommandText = "GuardarCancha";
+                Consulta.CommandText = "AgregarCancha";
 
-                OleDbParameter nombreCancha = new OleDbParameter("nombre", canchaAGuardar.nombre);
-                OleDbParameter telefonoCancha = new OleDbParameter("telefono", canchaAGuardar.Telefono);
-                OleDbParameter barrioCancha = new OleDbParameter("barrio", canchaAGuardar.Barrio);
-                OleDbParameter calleCancha = new OleDbParameter("calle", canchaAGuardar.Calle);
+                OleDbParameter nombre = new OleDbParameter("nombre", canchaAAgregar.nombre);
+                OleDbParameter barrio = new OleDbParameter("barrio", canchaAAgregar.barrio);
+                OleDbParameter calle = new OleDbParameter("calle", canchaAAgregar.calle);
+                OleDbParameter telefono = new OleDbParameter("telefono", canchaAAgregar.telefono);
 
 
-                Consulta.Parameters.Add(nombreCancha);
-                Consulta.Parameters.Add(telefonoCancha);
-                Consulta.Parameters.Add(barrioCancha);
-                Consulta.Parameters.Add(calleCancha);
+                Consulta.Parameters.Add(nombre);
+                Consulta.Parameters.Add(barrio);
+                Consulta.Parameters.Add(calle);
+                Consulta.Parameters.Add(telefono);
 
 
                 int resultado = (int)Consulta.ExecuteNonQuery();
@@ -59,67 +59,92 @@ namespace RSF.Models.DataAccess
                 return false;
             }
         }
-
-        public static List<Cancha> existeCancha(Cancha unCancha)
+        public static Cancha TraerUnaCancha(Cancha unaCancha)
         {
-            List<Cancha> ListadeCanchas = new List<Cancha>();
-            
+            Cancha unaCancha2 = new Cancha();
+
             try
             {
                 ConectarDB();
 
                 OleDbCommand Consulta = conn.CreateCommand();
                 Consulta.CommandType = System.Data.CommandType.StoredProcedure;
-                Consulta.CommandText = "TodasCanchas";
+                Consulta.CommandText = "TraerCanchas";
 
                 OleDbDataReader dr = Consulta.ExecuteReader();
                 while (dr.Read())
                 {
-                    if (unCancha.nombre != null)
+                    if (Convert.ToInt32(dr["Id"].ToString()) == unaCancha.id)
                     {
-                        if (unCancha.nombre == dr["Nombre"].ToString())
-                        {
-                            Cancha unCan = new Cancha();
-                            unCan.nombre = dr["Nombre"].ToString();
-                            unCan.id = dr["Id"].ToString();
-                            unCan.Barrio = dr["Barrio"].ToString();
-                            unCan.Calle = dr["Calle"].ToString();
-                            unCan.Telefono = dr["Telefono"].ToString();
-                            ListadeCanchas.Add(unCan);
-                        }
+                        unaCancha2.id = Convert.ToInt32(dr["Id"].ToString());
+                        unaCancha2.nombre = dr["Nombre"].ToString();
+                        unaCancha2.barrio = dr["Barrio"].ToString();
+                        unaCancha2.calle = dr["Calle"].ToString();
+                        unaCancha2.telefono = Convert.ToInt32(dr["Telefono"].ToString());
+                        conn.Close();
+                        return unaCancha2;
+                    }
+                    if (dr["Nombre"].ToString() == unaCancha.nombre)
+                    {
+                        unaCancha2.id = Convert.ToInt32(dr["Id"].ToString());
+                        unaCancha2.nombre = dr["Nombre"].ToString();
+                        unaCancha2.barrio = dr["Barrio"].ToString();
+                        unaCancha2.calle = dr["Calle"].ToString();
+                        unaCancha2.telefono = Convert.ToInt32(dr["Telefono"].ToString());
+                        conn.Close();
+                        return unaCancha2;
+                    }
+                }
+
+                conn.Close();
+                return unaCancha2;
+            }
+
+            catch (Exception e)
+            {
+                conn.Close();
+                return unaCancha2;
+            }
+        }
+        public static List<Cancha> TraerCanchas(Cancha unaCancha)
+        {
+            List<Cancha> ListadeCanchas = new List<Cancha>();
+            try
+            {
+                ConectarDB();
+
+                OleDbCommand Consulta = conn.CreateCommand();
+                Consulta.CommandType = System.Data.CommandType.StoredProcedure;
+                Consulta.CommandText = "TraerCanchas";
+
+                OleDbDataReader dr = Consulta.ExecuteReader();
+                while (dr.Read())
+                {
+                    Cancha unaCancha2 = new Cancha();
+                    unaCancha2.id = Convert.ToInt32(dr["Id"].ToString());
+                    unaCancha2.nombre = dr["Nombre"].ToString();
+                    unaCancha2.barrio = dr["Barrio"].ToString();
+                    unaCancha2.calle = dr["Calle"].ToString();
+                    unaCancha2.telefono = Convert.ToInt32(dr["Telefono"].ToString());
+                    if (unaCancha2.nombre == unaCancha.nombre)
+                    {
+                        ListadeCanchas.Add(unaCancha2);
                     }
                     else
                     {
-                        if (unCancha.id != null)
+                        if (unaCancha2.id == unaCancha.id)
                         {
-                            if (unCancha.id == dr["Id"].ToString())
-                            {
-                                Cancha unCan = new Cancha();
-                                unCan.nombre = dr["Nombre"].ToString();
-                                unCan.id = dr["Id"].ToString();
-                                unCan.Barrio = dr["Barrio"].ToString();
-                                unCan.Calle = dr["Calle"].ToString();
-                                unCan.Telefono = dr["Telefono"].ToString();
-                                ListadeCanchas.Add(unCan);
-                            }
-
+                            ListadeCanchas.Add(unaCancha2);
                         }
                         else
                         {
-                            if (unCancha.Barrio == dr["Barrio"].ToString())
+                            if (unaCancha2.barrio == unaCancha.barrio)
                             {
-                                Cancha unCan = new Cancha();
-                                unCan.nombre = dr["Nombre"].ToString();
-                                unCan.id = dr["Id"].ToString();
-                                unCan.Barrio = dr["Barrio"].ToString();
-                                unCan.Calle = dr["Calle"].ToString();
-                                unCan.Telefono = dr["Telefono"].ToString();
-                                ListadeCanchas.Add(unCan);
+                                ListadeCanchas.Add(unaCancha2);
                             }
                         }
                     }
                 }
-
                 conn.Close();
                 return ListadeCanchas;
             }
@@ -128,6 +153,43 @@ namespace RSF.Models.DataAccess
             {
                 conn.Close();
                 return ListadeCanchas;
+            }
+        }
+        public static bool EliminarUnaCancha(Cancha canchaAEliminar)
+        {
+            try
+            {
+                ConectarDB();
+
+                OleDbCommand Consulta = conn.CreateCommand();
+                Consulta.CommandType = System.Data.CommandType.StoredProcedure;
+                Consulta.CommandText = "EliminarCancha";
+
+                OleDbParameter nombre = new OleDbParameter("nombre", canchaAEliminar.nombre);
+                OleDbParameter barrio = new OleDbParameter("barrio", canchaAEliminar.barrio);
+                OleDbParameter calle = new OleDbParameter("calle", canchaAEliminar.calle);
+                OleDbParameter telefono = new OleDbParameter("telefono", Convert.ToInt32(canchaAEliminar.telefono));
+
+                Consulta.Parameters.Add(nombre);
+                Consulta.Parameters.Add(barrio);
+                Consulta.Parameters.Add(calle);
+                Consulta.Parameters.Add(telefono);
+
+                int resultado = (int)Consulta.ExecuteNonQuery();
+                bool funciono = false;
+                if (resultado == 1)
+                {
+                    funciono = true;
+                }
+
+                conn.Close();
+                return funciono;
+            }
+
+            catch (Exception e)
+            {
+                conn.Close();
+                return false;
             }
         }
 

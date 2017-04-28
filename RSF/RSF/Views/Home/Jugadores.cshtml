@@ -1,12 +1,31 @@
 ﻿@using RSF.Models
-@model Usuario
+@model Jugador
 
 <br />
 <br />
 
-@foreach (Usuario usuarioo in ViewBag.A)
-{
-    @Html.DisplayTextFor(a => usuarioo.id)
-    @Html.DisplayTextFor(a => usuarioo.nombre)
-    <br />
-}
+<table class="table table-bordered table-responsive table-hover">
+    <tr>
+        <th>Id</th>
+        <th>Nombre</th>
+        <th>Apellido</th>
+        <th>Foto</th>
+        <th>Edad</th>
+        <th>Calificacion</th>
+        <th>CantidadDeVotos</th>
+        <th>Mail</th>
+    </tr>
+    @foreach (Jugador jugadorr in ViewBag.A)
+    {
+        <tr>
+            <td>@Html.DisplayTextFor(a => jugadorr.id)</td>
+            <td>@Html.DisplayTextFor(a => jugadorr.nombre)</td>
+            <td>@Html.DisplayTextFor(a => jugadorr.apellido)</td>
+            <td>@Html.DisplayTextFor(a => jugadorr.foto)</td>
+            <td>@Html.DisplayTextFor(a => jugadorr.edad)</td>
+            <td>@Html.DisplayTextFor(a => jugadorr.calificacion)</td>
+            <td>@Html.DisplayTextFor(a => jugadorr.cantidaddevotos)</td>
+            <td>@Html.DisplayTextFor(a => jugadorr.email)</td>
+        </tr>
+    }
+</table>
