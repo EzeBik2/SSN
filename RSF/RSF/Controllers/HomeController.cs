@@ -100,6 +100,5 @@ namespace RSF.Controllers
                 return View("Cancha");
             }            
         }
-        
     }
 }
