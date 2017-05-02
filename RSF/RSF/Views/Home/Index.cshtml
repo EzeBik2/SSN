@@ -1,14 +1,26 @@
-﻿@using RSF.Models
+﻿@{
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+}
+
+@using RSF.Models
 @model Jugador
 
-<form method="POST" action="@Url.Action("LoguearJugador", "Home")">
+<br />
+<br />
+
+<form method="POST" action="@Url.Action("LoguearJugador", "Home")" style="width: 25%; float: right;">
+
     @Html.ValidationMessageFor(x => x.email)<br />
-    Email: @Html.TextBoxFor(x => x.email, new { @class = "form-control" }) <br />
+    Email: @Html.TextBoxFor(x => x.email, new { @class = "form-control", @type = "email" }) <br />
 
     @Html.ValidationMessageFor(x => x.contraseña)<br />
     Contraseña: @Html.PasswordFor(x => x.contraseña, new { @class = "form-control" })<br />
 
     <input type="submit" value="Ingresar" class = "btn btn-primary"/>
-    @Html.ActionLink("Registrarse", "Registracion", "Home")
+    <div style="float: right;">
+        <a href="@Url.Action("Registracion", "Home")">
+            <input type="button" value="Registrarse" class="btn btn-primary" />
+        </a>
+    </div>
     @ViewBag.A
 </form>

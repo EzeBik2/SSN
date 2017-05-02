@@ -1,0 +1,44 @@
+﻿@using RSF.Models
+@model Cancha
+
+@{Cancha canchaa = ViewBag.A;}
+
+<br />
+<br />
+<div style="float: right;">
+    <h3>
+        ID: @Html.DisplayTextFor(x => canchaa.id)<br />
+        NOMBRE: @Html.DisplayTextFor(x => canchaa.nombre)<br />
+        APELLIDO: @Html.DisplayTextFor(x => canchaa.telefono)<br />
+        FOTO: @Html.DisplayTextFor(x => canchaa.barrio)<br />
+        EDAD: @Html.DisplayTextFor(x => canchaa.calle)<br />
+    </h3>
+</div>
+
+<br />
+<br />
+
+<form method="POST" action="@Url.Action("ModificarJugador", "Home")">
+
+    @Html.ValidationMessageFor(x => x.nombre)<br />
+    Nombre:@Html.TextBoxFor(x => x.nombre, new { @class = "form-control" })<br />
+
+    @Html.ValidationMessageFor(x => x.nombre)<br />
+    Apellido:@Html.TextBoxFor(x => x.nombre, new { @class = "form-control" })<br />
+
+    @Html.ValidationMessageFor(x => x.telefono)<br />
+    Apellido:@Html.TextBoxFor(x => x.telefono, new { @class = "form-control" })<br />
+
+    @Html.ValidationMessageFor(x => x.barrio)<br />
+    Edad:@Html.TextBoxFor(x => x.barrio, new { @class = "form-control" })<br />
+
+    @Html.ValidationMessageFor(x => x.calle)<br />
+    Telefono:@Html.TextBoxFor(x => x.calle, new { @class = "form-control" })<br />
+
+    <input type="submit" value="Modificar" class="btn btn-primary" />
+
+    <br />
+
+</form>
+
+@Html.ActionLink("Eliminar", "EliminarJugador", "Home", new { A = canchaa.id }, null)

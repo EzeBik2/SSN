@@ -11,6 +11,7 @@
         <th>Barrio</th>
         <th>Calle</th>
         <th>Telefono</th>
+        <th>Ver Perfil</th>
     </tr>
     @foreach (Cancha canchaa in ViewBag.A)
     {
@@ -20,6 +21,7 @@
             <td>@Html.DisplayTextFor(a => canchaa.barrio)</td>
             <td>@Html.DisplayTextFor(a => canchaa.calle)</td>
             <td>@Html.DisplayTextFor(a => canchaa.telefono)</td>
+            <td>@Html.ActionLink("IR A PERFIL", "BuscarCanchas", "Home", canchaa, null)</td>
         </tr>
     }
 </table>

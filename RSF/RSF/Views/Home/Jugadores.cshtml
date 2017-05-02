@@ -14,6 +14,7 @@
         <th>Calificacion</th>
         <th>CantidadDeVotos</th>
         <th>Mail</th>
+        <th>Ver Perfil</th>
     </tr>
     @foreach (Jugador jugadorr in ViewBag.A)
     {
@@ -26,6 +27,7 @@
             <td>@Html.DisplayTextFor(a => jugadorr.calificacion)</td>
             <td>@Html.DisplayTextFor(a => jugadorr.cantidaddevotos)</td>
             <td>@Html.DisplayTextFor(a => jugadorr.email)</td>
+            <td>@Html.ActionLink("IR A PERFIL","BuscarJugador", "Home", jugadorr, null)</td>
         </tr>
     }
 </table>

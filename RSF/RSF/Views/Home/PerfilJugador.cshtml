@@ -1,0 +1,56 @@
+﻿@using RSF.Models
+@model Jugador
+
+@{Jugador jugadorr = ViewBag.A;}
+
+<br />
+<br />
+<div style="float: right;">
+    <h3>
+        ID: @Html.DisplayTextFor(x => jugadorr.id)<br />
+        NOMBRE: @Html.DisplayTextFor(x => jugadorr.nombre)<br />
+        APELLIDO: @Html.DisplayTextFor(x => jugadorr.apellido)<br />
+        FOTO: @Html.DisplayTextFor(x => jugadorr.foto)<br />
+        EDAD: @Html.DisplayTextFor(x => jugadorr.edad)<br />
+        CALIFICACION: @Html.DisplayTextFor(x => jugadorr.calificacion)<br />
+        CANTIDAD DE VOTOS: @Html.DisplayTextFor(x => jugadorr.cantidaddevotos)<br />
+        EMAIL: @Html.DisplayTextFor(x => jugadorr.email)
+    </h3>
+</div>
+
+<br />
+<br />
+
+<form method="POST" action="@Url.Action("ModificarJugador", "Home")">
+
+    @Html.ValidationMessageFor(x => x.nombre)<br />
+    Nombre:@Html.TextBoxFor(x => x.nombre, new { @class = "form-control" })<br />
+
+    @Html.ValidationMessageFor(x => x.apellido)<br />
+    Apellido:@Html.TextBoxFor(x => x.apellido, new { @class = "form-control" })<br />
+
+    @Html.ValidationMessageFor(x => x.apellido)<br />
+    Apellido:@Html.TextBoxFor(x => x.apellido, new { @class = "form-control" })<br />
+
+    @Html.ValidationMessageFor(x => x.edad)<br />
+    Edad:@Html.TextBoxFor(x => x.edad, new { @class = "form-control" })<br />
+
+    @Html.ValidationMessageFor(x => x.telefono)<br />
+    Telefono:@Html.TextBoxFor(x => x.telefono, new { @class = "form-control" })<br />
+
+    @Html.ValidationMessageFor(x => x.email)<br />
+    Email:@Html.TextBoxFor(x => x.email, new { @class = "form-control" })<br />
+
+    @Html.ValidationMessageFor(x => x.contraseña)<br />
+    Contraseña:@Html.PasswordFor(x => x.contraseña, new { @class = "form-control" })<br />
+
+    @Html.ValidationMessageFor(x => x.Confcontraseña)<br />
+    Confirmar Contraseña:@Html.PasswordFor(x => x.Confcontraseña, new { @class = "form-control" })<br />
+
+    <input type="submit" value="Modificar" class="btn btn-primary" />
+
+    <br />
+
+</form>
+
+@Html.ActionLink("Eliminar", "EliminarJugador", "Home", new { A = jugadorr.id }, null)

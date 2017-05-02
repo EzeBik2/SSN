@@ -1,7 +1,7 @@
 ﻿@using RSF.Models
 @model Cancha
 
-<form method="POST" action="@Url.Action("BuscarCanchas", "Home")">
+<form method="POST" action="@Url.Action("BuscarCanchas", "Home")" style="display: inline-block;">
 
     @Html.ValidationMessageFor(x => x.nombre)<br />
     Busque por Nombre de la Cancha: @Html.TextBoxFor(x => x.nombre, new { @class = "form-control" }) <br />
@@ -16,7 +16,7 @@
 
 </form>
 
-<form method="POST" action="@Url.Action("AgregarCancha", "Home")">
+<form method="POST" action="@Url.Action("AgregarCancha", "Home")" style="float: right; display: inline-block;">
     
     @Html.ValidationMessageFor(x => x.nombre)<br />
     Nombre de la Cancha: @Html.TextBoxFor(x => x.nombre, new { @class = "form-control" }) <br />

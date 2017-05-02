@@ -6,7 +6,7 @@ using System.Data.OleDb;
 
 namespace RSF.Models.DataAccess
 {
-    public class Equipos
+    public class EquiposJugadores
     {
         static string Proveedor = @"Provider=Microsoft.ACE.OLEDB.12.0;
             Data Source=|DataDirectory|\Database1.accdb";
@@ -18,8 +18,9 @@ namespace RSF.Models.DataAccess
             conn.ConnectionString = Proveedor;
             conn.Open();
         }
-        
-        public static bool AgregarUnEquipo(Equipo equipoAAgregar)
+
+
+        public static bool Agregar(EquipoJugador A)
         {
             try
             {
@@ -27,17 +28,16 @@ namespace RSF.Models.DataAccess
 
                 OleDbCommand Consulta = conn.CreateCommand();
                 Consulta.CommandType = System.Data.CommandType.StoredProcedure;
-                Consulta.CommandText = "AgregarEquipo";
+                Consulta.CommandText = "Agregar";
+                
+                OleDbParameter estado = new OleDbParameter("Estado", A.estado);
+                OleDbParameter equipo = new OleDbParameter("Idequipo", A.idEquipo);
+                OleDbParameter jugador = new OleDbParameter("Idjugador", A.idJugador);
 
-                OleDbParameter nombre = new OleDbParameter("nombre", equipoAAgregar.nombre);
-                OleDbParameter cantjug = new OleDbParameter("cantjug", equipoAAgregar.cantjug);
-                OleDbParameter calificacion = new OleDbParameter("calificacion", 0);
-                OleDbParameter cantidaddevotos = new OleDbParameter("cantvotos", 0);
 
-                Consulta.Parameters.Add(nombre);
-                Consulta.Parameters.Add(cantjug);
-                Consulta.Parameters.Add(calificacion);
-                Consulta.Parameters.Add(cantidaddevotos);
+                Consulta.Parameters.Add(estado);
+                Consulta.Parameters.Add(equipo);
+                Consulta.Parameters.Add(jugador);
 
 
                 int resultado = (int)Consulta.ExecuteNonQuery();
@@ -57,7 +57,7 @@ namespace RSF.Models.DataAccess
                 return false;
             }
         }
-        public static bool ModificarUnEquipo(Equipo equipoAModificar)
+        public static bool CambiarEstado(EquipoJugador A)
         {
             try
             {
@@ -65,17 +65,14 @@ namespace RSF.Models.DataAccess
 
                 OleDbCommand Consulta = conn.CreateCommand();
                 Consulta.CommandType = System.Data.CommandType.StoredProcedure;
-                Consulta.CommandText = "ModificarEquipo";
+                Consulta.CommandText = "CambiarEstado";
 
-                OleDbParameter nombre = new OleDbParameter("nombre", equipoAModificar.nombre);
-                OleDbParameter cantjug = new OleDbParameter("cantjug", equipoAModificar.cantjug);
-                OleDbParameter calificacion = new OleDbParameter("calificacion", 0);
-                OleDbParameter cantidaddevotos = new OleDbParameter("cantvotos", 0);
+                OleDbParameter id = new OleDbParameter("id", A.id);
+                OleDbParameter estado = new OleDbParameter("estado", A.estado);
 
-                Consulta.Parameters.Add(nombre);
-                Consulta.Parameters.Add(cantjug);
-                Consulta.Parameters.Add(calificacion);
-                Consulta.Parameters.Add(cantidaddevotos);
+                Consulta.Parameters.Add(estado);
+                Consulta.Parameters.Add(id);
+
 
                 int resultado = (int)Consulta.ExecuteNonQuery();
                 bool funciono = false;
@@ -94,9 +91,9 @@ namespace RSF.Models.DataAccess
                 return false;
             }
         }
-        public static Equipo TraerUnEquipo(Equipo unEquipo)
+        public static List<int> TraerJugadores(EquipoJugador A)
         {
-            Equipo unEquipo2 = new Equipo();
+            List<int> JugadoresdeEquipo = new List<int>();
 
             try
             {
@@ -104,69 +101,59 @@ namespace RSF.Models.DataAccess
 
                 OleDbCommand Consulta = conn.CreateCommand();
                 Consulta.CommandType = System.Data.CommandType.StoredProcedure;
-                Consulta.CommandText = "TraerEquipos";
+                Consulta.CommandText = "TraerJugadoresDeEquipos";
 
                 OleDbDataReader dr = Consulta.ExecuteReader();
                 while (dr.Read())
                 {
-                    if (Convert.ToInt32(dr["Id"].ToString()) == unEquipo.id)
+                    if (Convert.ToInt32(dr["Idequipo"].ToString()) == A.idEquipo)
                     {
-                        unEquipo2.id = Convert.ToInt32(dr["Id"].ToString());
-                        unEquipo2.nombre = dr["Nombre"].ToString();
-                        unEquipo2.cantjug = Convert.ToInt32(dr["Cantjug"].ToString());
-                        unEquipo2.calificacion = Convert.ToInt32(dr["Calificacion"].ToString());
-                        unEquipo2.cantvotos = Convert.ToInt32(dr["Cantvotos"].ToString());
-                        conn.Close();
-                        return unEquipo2;
+                        JugadoresdeEquipo.Add(Convert.ToInt32(dr["Idjugador"].ToString()));
                     }
                 }
-
+                
                 conn.Close();
-                return unEquipo2;
+                return JugadoresdeEquipo;
             }
 
             catch (Exception e)
             {
                 conn.Close();
-                return unEquipo2;
+                return JugadoresdeEquipo;
             }
         }
-        public static List<Equipo> TraerEquipos(Equipo unEquipo)
+        public static List<int> TraerEquipos(EquipoJugador A)
         {
-            List<Equipo> ListadeEquipos = new List<Equipo>();
+            List<int> EquiposDeJugador = new List<int>();
+
             try
             {
                 ConectarDB();
 
                 OleDbCommand Consulta = conn.CreateCommand();
                 Consulta.CommandType = System.Data.CommandType.StoredProcedure;
-                Consulta.CommandText = "TraerEquipos";
+                Consulta.CommandText = "TraerEquiposDeJugador";
 
                 OleDbDataReader dr = Consulta.ExecuteReader();
                 while (dr.Read())
                 {
-                    Equipo unEquipo2 = new Equipo();
-                    unEquipo2.id = Convert.ToInt32(dr["Id"].ToString());
-                    unEquipo2.nombre = dr["Nombre"].ToString();
-                    unEquipo2.cantjug = Convert.ToInt32(dr["Cantjug"].ToString());
-                    unEquipo2.calificacion = Convert.ToInt32(dr["Calificacion"].ToString());
-                    unEquipo2.cantvotos = Convert.ToInt32(dr["Cantvotos"].ToString());
-                    if (unEquipo2.nombre == unEquipo.nombre)
+                    if (Convert.ToInt32(dr["Idjugador"].ToString()) == A.idJugador)
                     {
-                        ListadeEquipos.Add(unEquipo2);
+                        EquiposDeJugador.Add(Convert.ToInt32(dr["Idequipo"].ToString()));
                     }
                 }
+
                 conn.Close();
-                return ListadeEquipos;
+                return EquiposDeJugador;
             }
 
             catch (Exception e)
             {
                 conn.Close();
-                return ListadeEquipos;
+                return EquiposDeJugador;
             }
         }
-        public static bool EliminarUnEquipo(int A)
+        public static bool EliminarEquipo(int A)
         {
             try
             {
@@ -174,7 +161,38 @@ namespace RSF.Models.DataAccess
 
                 OleDbCommand Consulta = conn.CreateCommand();
                 Consulta.CommandType = System.Data.CommandType.StoredProcedure;
-                Consulta.CommandText = "EliminarEquipo";
+                Consulta.CommandText = "EliminarEquipos";
+
+                OleDbParameter idequipo = new OleDbParameter("idequipo", A);
+
+                Consulta.Parameters.Add(idequipo);
+
+                int resultado = (int)Consulta.ExecuteNonQuery();
+                bool funciono = false;
+                if (resultado == 1)
+                {
+                    funciono = true;
+                }
+
+                conn.Close();
+                return funciono;
+            }
+
+            catch (Exception e)
+            {
+                conn.Close();
+                return false;
+            }
+        }
+        public static bool Eliminar(int A)
+        {
+            try
+            {
+                ConectarDB();
+
+                OleDbCommand Consulta = conn.CreateCommand();
+                Consulta.CommandType = System.Data.CommandType.StoredProcedure;
+                Consulta.CommandText = "Eliminar";
 
                 OleDbParameter id = new OleDbParameter("id", A);
 

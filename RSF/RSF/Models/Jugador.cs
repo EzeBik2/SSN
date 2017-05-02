@@ -33,12 +33,6 @@ namespace RSF.Models
         public int cantidaddevotos { get; set; }
 
         [Required(ErrorMessage = "Campo obligatorio")]
-        public int idequipos { get; set; }
-
-        [Required(ErrorMessage = "Campo obligatorio")]
-        public int idpartidos { get; set; }
-
-        [Required(ErrorMessage = "Campo obligatorio")]
         public string email { get; set; }
 
         [Required(ErrorMessage = "Campo obligatorio")]

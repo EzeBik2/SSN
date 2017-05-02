@@ -59,6 +59,46 @@ namespace RSF.Models.DataAccess
                 return false;
             }
         }
+        public static bool ModificarUnaCancha(Cancha canchaAmodificar)
+        {
+            try
+            {
+                ConectarDB();
+
+                OleDbCommand Consulta = conn.CreateCommand();
+                Consulta.CommandType = System.Data.CommandType.StoredProcedure;
+                Consulta.CommandText = "ModificarCancha";
+
+                OleDbParameter id = new OleDbParameter("id", canchaAmodificar.id);
+                OleDbParameter nombre = new OleDbParameter("nombre", canchaAmodificar.nombre);
+                OleDbParameter barrio = new OleDbParameter("barrio", canchaAmodificar.barrio);
+                OleDbParameter calle = new OleDbParameter("calle", canchaAmodificar.calle);
+                OleDbParameter telefono = new OleDbParameter("telefono", canchaAmodificar.telefono);
+
+                Consulta.Parameters.Add(nombre);
+                Consulta.Parameters.Add(barrio);
+                Consulta.Parameters.Add(calle);
+                Consulta.Parameters.Add(telefono);
+                Consulta.Parameters.Add(id);
+
+
+                int resultado = (int)Consulta.ExecuteNonQuery();
+                bool funciono = false;
+                if (resultado == 1)
+                {
+                    funciono = true;
+                }
+
+                conn.Close();
+                return funciono;
+            }
+
+            catch (Exception e)
+            {
+                conn.Close();
+                return false;
+            }
+        }
         public static Cancha TraerUnaCancha(Cancha unaCancha)
         {
             Cancha unaCancha2 = new Cancha();
@@ -155,7 +195,7 @@ namespace RSF.Models.DataAccess
                 return ListadeCanchas;
             }
         }
-        public static bool EliminarUnaCancha(Cancha canchaAEliminar)
+        public static bool EliminarUnaCancha(int idCancha)
         {
             try
             {
@@ -165,15 +205,9 @@ namespace RSF.Models.DataAccess
                 Consulta.CommandType = System.Data.CommandType.StoredProcedure;
                 Consulta.CommandText = "EliminarCancha";
 
-                OleDbParameter nombre = new OleDbParameter("nombre", canchaAEliminar.nombre);
-                OleDbParameter barrio = new OleDbParameter("barrio", canchaAEliminar.barrio);
-                OleDbParameter calle = new OleDbParameter("calle", canchaAEliminar.calle);
-                OleDbParameter telefono = new OleDbParameter("telefono", Convert.ToInt32(canchaAEliminar.telefono));
+                OleDbParameter id = new OleDbParameter("id", idCancha);
 
-                Consulta.Parameters.Add(nombre);
-                Consulta.Parameters.Add(barrio);
-                Consulta.Parameters.Add(calle);
-                Consulta.Parameters.Add(telefono);
+                Consulta.Parameters.Add(id);
 
                 int resultado = (int)Consulta.ExecuteNonQuery();
                 bool funciono = false;

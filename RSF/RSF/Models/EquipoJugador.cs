@@ -6,21 +6,18 @@ using System.ComponentModel.DataAnnotations;
 
 namespace RSF.Models
 {
-    public class Equipo
+    public class EquipoJugador
     {
         [Required(ErrorMessage = "Campo obligatorio")]
         public int id { get; set; }
 
         [Required(ErrorMessage = "Campo obligatorio")]
-        public string nombre { get; set; }
+        public string estado { get; set; }
 
         [Required(ErrorMessage = "Campo obligatorio")]
-        public int cantjug { get; set; }
+        public int idEquipo { get; set; }
 
         [Required(ErrorMessage = "Campo obligatorio")]
-        public int calificacion { get; set; }
-
-        [Required(ErrorMessage = "Campo obligatorio")]
-        public int cantvotos { get; set; }
+        public int idJugador { get; set; }
     }
 }

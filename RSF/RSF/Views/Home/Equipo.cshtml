@@ -1,7 +1,7 @@
 ﻿@using RSF.Models
 @model Equipo
 
-<form method="POST" action="@Url.Action("busEquipo", "Home")">
+<form method="POST" action="@Url.Action("BuscarEquipos", "Home")">
 
     @Html.ValidationMessageFor(x => x.id)<br />
     Busque por Id del Equipo: @Html.TextBoxFor(x => x.id) <br />
@@ -13,14 +13,14 @@
 
 </form>
 
-<form method="POST" action="@Url.Action("newEquipo", "Home")">
-
+<form method="POST" action="@Url.Action("CrearEquipo", "Home")">
+    
     @Html.ValidationMessageFor(x => x.nombre)<br />
-    Nombre Del Equipo: @Html.TextBoxFor(x => x.nombre) <br />
+    Cantidad de Jugadores: @Html.TextBoxFor(x => x.nombre) <br />
 
     @Html.ValidationMessageFor(x => x.cantjug)<br />
-    Cantidad de Jugadores: @Html.TextBoxFor(x => x.cantjug) <br />
+    Nombre del Equipo: @Html.TextBoxFor(x => x.cantjug) <br />
 
-    <input type="submit" value="Seguir" />
+    <input type="submit" value="Crear" />
 
 </form>
