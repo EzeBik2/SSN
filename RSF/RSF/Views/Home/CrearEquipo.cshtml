@@ -4,11 +4,11 @@
 <form method="POST" action="@Url.Action("CrearEquipo2", "Home")">
     
     @Html.ValidationMessageFor(x => x.idEquipo)<br />
-    Id Del Equipo: @Html.TextBoxFor(x => x.idEquipo) <br />
+    Id Del Equipo: @Html.TextBoxFor(x => x.idEquipo, new { @class = "form-control" }) <br />
 
     @Html.ValidationMessageFor(x => x.idJugador)<br />
-    Id Del Jugador: @Html.TextBoxFor(x => x.idJugador) <br />
+    Id Del Jugador: @Html.TextBoxFor(x => x.idJugador, new { @class = "form-control" }) <br />
 
-    <input type="submit" value="Crear" />
+    <input type="submit" value="Crear" class="btn btn-primary" />
 
 </form>
