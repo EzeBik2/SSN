@@ -1,0 +1,38 @@
+﻿@using RSF.Models
+@model Jugador
+
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+
+<table class="table table-hover" style="width: 700px; float: right;">
+    <thead class="thead-inverse">
+        <tr>
+            <th>Id</th>
+            <th>Nombre</th>
+            <th>#</th>
+        </tr>
+    </thead>
+    @foreach (Jugador jugadorr in ViewBag.A)
+    {
+        <tr>
+            <td>@Html.DisplayTextFor(a => jugadorr.id)</td>
+            <td>@Html.DisplayTextFor(a => jugadorr.nombre)</td>
+            <td>@Html.ActionLink("IR A PERFIL", "BuscarJugador", "Home", jugadorr, null)</td>
+        </tr>
+    }
+</table>
+
+<div style="margin-top: 10px;">
+    <a href="@Url.Action("CrearEquipo3", "Home")">
+        <input type="button" value="Agregar Jugador" class="btn btn-primary" />
+    </a>
+</div>
+<div style="margin-top: 10px;">
+    <a href="@Url.Action("EliminarEquipo3", "Home")">
+        <input type="button" value="Eliminar Jugador" class="btn btn-primary" />
+    </a>
+</div>

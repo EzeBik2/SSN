@@ -151,6 +151,7 @@
     <Compile Include="Models\Equipos.cs" />
     <Compile Include="Models\Canchas.cs" />
     <Compile Include="Models\Equipo.cs" />
+    <Compile Include="Models\Id.cs" />
     <Compile Include="Models\Jugador.cs" />
     <Compile Include="Models\Jugadores.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -202,6 +203,9 @@
     <Content Include="Views\Home\PerfilJugador.cshtml" />
     <Content Include="Views\Home\PerfilCancha.cshtml" />
     <Content Include="Views\Home\PerfilEquipo.cshtml" />
+    <Content Include="Views\Home\CrearEquipo.cshtml" />
+    <Content Include="Views\Home\Plantel.cshtml" />
+    <Content Include="Views\Home\EliminarEquipo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

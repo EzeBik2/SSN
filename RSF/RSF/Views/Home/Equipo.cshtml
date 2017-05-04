@@ -1,26 +1,35 @@
 ﻿@using RSF.Models
 @model Equipo
 
-<form method="POST" action="@Url.Action("BuscarEquipos", "Home")">
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
 
-    @Html.ValidationMessageFor(x => x.id)<br />
-    Busque por Id del Equipo: @Html.TextBoxFor(x => x.id) <br />
+<form method="POST" action="@Url.Action("BuscarEquipos", "Home")" style="display: inline-block;">
+    <h4>
+        @Html.ValidationMessageFor(x => x.id)<br />
+        Busque por Id del Equipo: @Html.TextBoxFor(x => x.id, new { @class = "form-control" }) <br />
+        
+        @Html.ValidationMessageFor(x => x.nombre)<br />
+        Busque por Nombre del Equipo: @Html.TextBoxFor(x => x.nombre, new { @class = "form-control" }) <br />
 
-    @Html.ValidationMessageFor(x => x.nombre)<br />
-    Busque por Nombre del Equipo: @Html.TextBoxFor(x => x.nombre) <br />
-
-    <input type="submit" value="Buscar" />
-
+        <input type="submit" value="Buscar" class="btn btn-primary" />
+    </h4>
 </form>
 
-<form method="POST" action="@Url.Action("CrearEquipo", "Home")">
-    
-    @Html.ValidationMessageFor(x => x.nombre)<br />
-    Cantidad de Jugadores: @Html.TextBoxFor(x => x.nombre) <br />
+<form method="POST" action="@Url.Action("CrearEquipo", "Home")" style="float: right; width: 350px; display: inline-block;">
+    <h4>
+        @Html.ValidationMessageFor(x => x.nombre)<br />
+        Nombre del Equipo: @Html.TextBoxFor(x => x.nombre, new { @class = "form-control" }) <br />
 
-    @Html.ValidationMessageFor(x => x.cantjug)<br />
-    Nombre del Equipo: @Html.TextBoxFor(x => x.cantjug) <br />
+        @Html.ValidationMessageFor(x => x.cantjug)<br />
+        Cantidad de Jugadores: @Html.TextBoxFor(x => x.cantjug, new { @class = "form-control" }) <br />
 
-    <input type="submit" value="Crear" />
-
+        <input type="submit" value="Armar" class="btn btn-primary" />
+    </h4>
 </form>

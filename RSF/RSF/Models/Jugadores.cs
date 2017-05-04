@@ -30,15 +30,24 @@ namespace RSF.Models.DataAccess
                 Consulta.CommandType = System.Data.CommandType.StoredProcedure;
                 Consulta.CommandText = "AgregarJugador";
 
-                OleDbParameter nombre = new OleDbParameter("nombre", jugadorAAgregar.nombre);
-                OleDbParameter apellido = new OleDbParameter("apellido", jugadorAAgregar.apellido);
-                OleDbParameter foto = new OleDbParameter("foto", "");
-                OleDbParameter edad = new OleDbParameter("edad", Convert.ToInt32(jugadorAAgregar.edad));
-                OleDbParameter telefono = new OleDbParameter("telefono", Convert.ToInt32(jugadorAAgregar.telefono));
-                OleDbParameter calificacion = new OleDbParameter("calificacion", 0);
-                OleDbParameter cantidaddevotos = new OleDbParameter("cantidaddevotos", 0);
-                OleDbParameter email = new OleDbParameter("email", jugadorAAgregar.email);
-                OleDbParameter contraseña = new OleDbParameter("contraseña", jugadorAAgregar.contraseña);
+                OleDbParameter nombre = new OleDbParameter("nombre", OleDbType.VarChar, 88);
+                nombre.Value = jugadorAAgregar.nombre;
+                OleDbParameter apellido = new OleDbParameter("apellido", OleDbType.VarChar, 88);
+                apellido.Value = jugadorAAgregar.apellido;
+                OleDbParameter foto = new OleDbParameter("foto", OleDbType.VarChar, 88);
+                foto.Value = "";
+                OleDbParameter edad = new OleDbParameter("edad", OleDbType.VarChar, 88);
+                edad.Value = Convert.ToInt32(jugadorAAgregar.edad);
+                OleDbParameter telefono = new OleDbParameter("telefono", OleDbType.VarChar, 88);
+                telefono.Value = Convert.ToInt32(jugadorAAgregar.telefono);
+                OleDbParameter calificacion = new OleDbParameter("calificacion", OleDbType.VarChar, 88);
+                calificacion.Value = 0;
+                OleDbParameter cantidaddevotos = new OleDbParameter("cantidaddevotos", OleDbType.VarChar, 88);
+                cantidaddevotos.Value = 0;
+                OleDbParameter email = new OleDbParameter("email", OleDbType.VarChar, 88);
+                email.Value = jugadorAAgregar.email;
+                OleDbParameter contraseña = new OleDbParameter("contraseña", OleDbType.VarChar, 88);
+                contraseña.Value = jugadorAAgregar.contraseña;
 
                 Consulta.Parameters.Add(nombre);
                 Consulta.Parameters.Add(apellido);
@@ -79,7 +88,7 @@ namespace RSF.Models.DataAccess
 
                 OleDbParameter nombre = new OleDbParameter("nombre", jugadorAModificar.nombre);
                 OleDbParameter apellido = new OleDbParameter("apellido", jugadorAModificar.apellido);
-                OleDbParameter foto = new OleDbParameter("foto", jugadorAModificar.foto);
+                OleDbParameter foto = new OleDbParameter("foto", "");
                 OleDbParameter edad = new OleDbParameter("edad", Convert.ToInt32(jugadorAModificar.edad));
                 OleDbParameter telefono = new OleDbParameter("telefono", Convert.ToInt32(jugadorAModificar.telefono));
                 OleDbParameter calificacion = new OleDbParameter("calificacion", jugadorAModificar.calificacion);

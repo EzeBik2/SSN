@@ -29,10 +29,14 @@ namespace RSF.Models.DataAccess
                 Consulta.CommandType = System.Data.CommandType.StoredProcedure;
                 Consulta.CommandText = "AgregarEquipo";
 
-                OleDbParameter nombre = new OleDbParameter("nombre", equipoAAgregar.nombre);
-                OleDbParameter cantjug = new OleDbParameter("cantjug", equipoAAgregar.cantjug);
-                OleDbParameter calificacion = new OleDbParameter("calificacion", 0);
-                OleDbParameter cantidaddevotos = new OleDbParameter("cantvotos", 0);
+                OleDbParameter nombre = new OleDbParameter("nombre", OleDbType.VarChar, 88);
+                nombre.Value = equipoAAgregar.nombre;
+                OleDbParameter cantjug = new OleDbParameter("cantjug", OleDbType.VarChar, 88);
+                cantjug.Value = equipoAAgregar.cantjug;
+                OleDbParameter calificacion = new OleDbParameter("calificacion", OleDbType.VarChar, 88);
+                calificacion.Value = equipoAAgregar.calificacion;
+                OleDbParameter cantidaddevotos = new OleDbParameter("cantvotos", OleDbType.VarChar, 88);
+                cantidaddevotos.Value = equipoAAgregar.cantvotos;
 
                 Consulta.Parameters.Add(nombre);
                 Consulta.Parameters.Add(cantjug);
@@ -152,6 +156,10 @@ namespace RSF.Models.DataAccess
                     unEquipo2.calificacion = Convert.ToInt32(dr["Calificacion"].ToString());
                     unEquipo2.cantvotos = Convert.ToInt32(dr["Cantvotos"].ToString());
                     if (unEquipo2.nombre == unEquipo.nombre)
+                    {
+                        ListadeEquipos.Add(unEquipo2);
+                    }
+                    if (unEquipo2.id == unEquipo.id)
                     {
                         ListadeEquipos.Add(unEquipo2);
                     }

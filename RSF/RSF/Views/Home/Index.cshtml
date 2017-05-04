@@ -10,6 +10,9 @@
 
 <form method="POST" action="@Url.Action("LoguearJugador", "Home")" style="width: 25%; float: right;">
 
+    <br />
+    @ViewBag.A    <br />
+
     @Html.ValidationMessageFor(x => x.email)<br />
     Email: @Html.TextBoxFor(x => x.email, new { @class = "form-control", @type = "email" }) <br />
 
@@ -22,5 +25,4 @@
             <input type="button" value="Registrarse" class="btn btn-primary" />
         </a>
     </div>
-    @ViewBag.A
 </form>

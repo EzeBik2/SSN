@@ -30,9 +30,17 @@ namespace RSF.Controllers
         {
             return View();
         }
+        public ActionResult CrearEquipo3()
+        {
+            return View("CrearEquipo");
+        }
         public ActionResult Endesarrollo()
         {
             return View("Endesarrollo");
+        }
+        public ActionResult EliminarEquipo3()
+        {
+            return View("EliminarEquipo");
         }
 
         public ActionResult LoguearJugador(Jugador unJugador)
@@ -117,7 +125,7 @@ namespace RSF.Controllers
             bool Funciono = Jugadores.EliminarUnJugador(A);
             if (Funciono)
             {
-                return View("Logueado");
+                return View("Index");
             }
             else
             {
@@ -171,7 +179,7 @@ namespace RSF.Controllers
         public ActionResult ModificarCancha(Cancha unaCancha)
         {
             bool funciono = Canchas.ModificarUnaCancha(unaCancha);
-            return View();            
+            return View("Logueado");
         }
         public ActionResult EliminarCancha(int A)
         {
@@ -186,11 +194,23 @@ namespace RSF.Controllers
             }
         }
 
-        public ActionResult CrearEquipo(Equipo unEquipo, EquipoJugador A)
+        public ActionResult CrearEquipo(Equipo unEquipo)
         {
             bool equipoagregado = Equipos.AgregarUnEquipo(unEquipo);
-            bool jugadoragregadoaequipo = EquiposJugadores.Agregar(A);
-            if (equipoagregado && jugadoragregadoaequipo)
+            if (equipoagregado)
+            {
+                return View("CrearEquipo");
+            }
+            else
+            {
+                ViewBag.Funciono = "Error en la registracion";
+                return View("Logueado");
+            }
+        }
+        public ActionResult CrearEquipo2(EquipoJugador unEquipo)
+        {
+            bool equipoagregado = EquiposJugadores.Agregar(unEquipo);
+            if (equipoagregado)
             {
                 return View("Logueado");
             }
@@ -207,16 +227,6 @@ namespace RSF.Controllers
                 Equipo unequipo2 = Equipos.TraerUnEquipo(unequipo);
                 if (unequipo2.id > 0)
                 {
-                    List<Jugador> LISTAAMOSTRAR = new List<Jugador>();
-                    //List<int> Listadejug = EquiposJugadores.TraerJugadores(A);
-                    //for (int i = 0; i < Listadejug.Count; i++)
-                    //{
-                    //    Jugador unJugador = new Jugador();
-                    //    unJugador.id = Listadejug[i];
-                    //    Jugador unJugador2 = Jugadores.TraerUnJugador(unJugador);
-                    //    LISTAAMOSTRAR.Add(unJugador2);
-                    //}
-                    //ViewBag.B = LISTAAMOSTRAR;
                     ViewBag.A = unequipo2;
                     return View("PerfilEquipo");
                 }
@@ -243,7 +253,7 @@ namespace RSF.Controllers
         public ActionResult ModificarEquipo(Equipo unEquipo)
         {
             bool funciono = Equipos.ModificarUnEquipo(unEquipo);
-            return View();
+            return View("Logueado");
 
         }
         public ActionResult EliminarEquipo(int A)
@@ -258,6 +268,35 @@ namespace RSF.Controllers
             {
                 return View("Logueado");
             }
+        }
+        public ActionResult VerPlantel(int A)
+        {
+            EquipoJugador B = new EquipoJugador();
+            B.idEquipo = A;
+            List<int> Lista = EquiposJugadores.TraerJugadores(B);
+            if (Lista.Count > 0)
+            {
+                List<Jugador> W = new List<Jugador>();
+                foreach (int J in Lista)
+                {
+                    Jugador m = new Jugador();
+                    m.id = J;
+                    m = Jugadores.TraerUnJugador(m);
+                    W.Add(m);
+                }
+                ViewBag.A = W;
+                return View("Plantel");
+            }
+            else
+            {
+                return View("Logueado");
+            }
+        }
+        public ActionResult EliminarEquipo2(EquipoJugador jugador)
+        {
+            jugador = EquiposJugadores.Traer(jugador);
+            bool funciono = EquiposJugadores.Eliminar(jugador.id);
+            return View("Logueado");
         }
     }
 }

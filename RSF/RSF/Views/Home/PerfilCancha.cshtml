@@ -5,40 +5,35 @@
 
 <br />
 <br />
-<div style="float: right;">
-    <h3>
-        ID: @Html.DisplayTextFor(x => canchaa.id)<br />
-        NOMBRE: @Html.DisplayTextFor(x => canchaa.nombre)<br />
-        APELLIDO: @Html.DisplayTextFor(x => canchaa.telefono)<br />
-        FOTO: @Html.DisplayTextFor(x => canchaa.barrio)<br />
-        EDAD: @Html.DisplayTextFor(x => canchaa.calle)<br />
-    </h3>
-</div>
 
-<br />
-<br />
+<form method="POST" action="@Url.Action("ModificarCancha", "Home")" style="width:300px; float: left;">
+    <h4>
+        ID:@Html.TextBoxFor(x => x.id, new { @class = "form-control" })<br />
 
-<form method="POST" action="@Url.Action("ModificarJugador", "Home")">
+        Nombre:@Html.TextBoxFor(x => x.nombre, new { @class = "form-control" })<br />
 
-    @Html.ValidationMessageFor(x => x.nombre)<br />
-    Nombre:@Html.TextBoxFor(x => x.nombre, new { @class = "form-control" })<br />
+        Telefono:@Html.TextBoxFor(x => x.telefono, new { @class = "form-control" })<br />
 
-    @Html.ValidationMessageFor(x => x.nombre)<br />
-    Apellido:@Html.TextBoxFor(x => x.nombre, new { @class = "form-control" })<br />
+        Barrio:@Html.TextBoxFor(x => x.barrio, new { @class = "form-control" })<br />
 
-    @Html.ValidationMessageFor(x => x.telefono)<br />
-    Apellido:@Html.TextBoxFor(x => x.telefono, new { @class = "form-control" })<br />
-
-    @Html.ValidationMessageFor(x => x.barrio)<br />
-    Edad:@Html.TextBoxFor(x => x.barrio, new { @class = "form-control" })<br />
-
-    @Html.ValidationMessageFor(x => x.calle)<br />
-    Telefono:@Html.TextBoxFor(x => x.calle, new { @class = "form-control" })<br />
+        Calle:@Html.TextBoxFor(x => x.calle, new { @class = "form-control" })<br />
+    </h4>
 
     <input type="submit" value="Modificar" class="btn btn-primary" />
-
-    <br />
-
+    <div style="margin-top: 10px;">
+        <a href="@Url.Action("EliminarCancha", "Home", new { A = canchaa.id }, null)">
+            <input type="button" value="Eliminar" class="btn btn-primary" />
+        </a>
+    </div>
 </form>
 
-@Html.ActionLink("Eliminar", "EliminarJugador", "Home", new { A = canchaa.id }, null)
+<div style="float: right;">
+    <h3>
+        <br />
+        ID: @Html.DisplayTextFor(x => canchaa.id)<br /><br />
+        NOMBRE: @Html.DisplayTextFor(x => canchaa.nombre)<br /><br />
+        TELEFONO: @Html.DisplayTextFor(x => canchaa.telefono)<br /><br />
+        BARRIO: @Html.DisplayTextFor(x => canchaa.barrio)<br /><br />
+        CALLE: @Html.DisplayTextFor(x => canchaa.calle)
+    </h3>
+</div>

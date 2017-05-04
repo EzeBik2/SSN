@@ -30,7 +30,7 @@ namespace RSF.Models.DataAccess
                 Consulta.CommandType = System.Data.CommandType.StoredProcedure;
                 Consulta.CommandText = "Agregar";
                 
-                OleDbParameter estado = new OleDbParameter("Estado", A.estado);
+                OleDbParameter estado = new OleDbParameter("Estado", "En Formacion");
                 OleDbParameter equipo = new OleDbParameter("Idequipo", A.idEquipo);
                 OleDbParameter jugador = new OleDbParameter("Idjugador", A.idJugador);
 
@@ -101,7 +101,7 @@ namespace RSF.Models.DataAccess
 
                 OleDbCommand Consulta = conn.CreateCommand();
                 Consulta.CommandType = System.Data.CommandType.StoredProcedure;
-                Consulta.CommandText = "TraerJugadoresDeEquipos";
+                Consulta.CommandText = "Traer";
 
                 OleDbDataReader dr = Consulta.ExecuteReader();
                 while (dr.Read())
@@ -151,6 +151,40 @@ namespace RSF.Models.DataAccess
             {
                 conn.Close();
                 return EquiposDeJugador;
+            }
+        }
+        public static EquipoJugador Traer(EquipoJugador X)
+        {
+            EquipoJugador W = new EquipoJugador();
+            try
+            {
+                ConectarDB();
+
+                OleDbCommand Consulta = conn.CreateCommand();
+                Consulta.CommandType = System.Data.CommandType.StoredProcedure;
+                Consulta.CommandText = "Traer";
+
+                OleDbDataReader dr = Consulta.ExecuteReader();
+                while (dr.Read())
+                {
+                    if (Convert.ToInt32(dr["Id"].ToString()) == X.id)
+                    {
+                        W.id = X.id;
+                        W.estado = dr["Estado"].ToString();
+                        W.idEquipo = Convert.ToInt32(dr["Idequipo"].ToString());
+                        W.idJugador = Convert.ToInt32(dr["Idjugador"].ToString());
+                        return W;
+                    }
+                }
+
+                conn.Close();
+                return W;
+            }
+
+            catch (Exception e)
+            {
+                conn.Close();
+                return W;
             }
         }
         public static bool EliminarEquipo(int A)

@@ -1,0 +1,14 @@
+﻿@using RSF.Models
+@model EquipoJugador
+
+<form method="POST" action="@Url.Action("CrearEquipo2", "Home")">
+    
+    @Html.ValidationMessageFor(x => x.idEquipo)<br />
+    Id Del Equipo: @Html.TextBoxFor(x => x.idEquipo) <br />
+
+    @Html.ValidationMessageFor(x => x.idJugador)<br />
+    Id Del Jugador: @Html.TextBoxFor(x => x.idJugador) <br />
+
+    <input type="submit" value="Crear" />
+
+</form>

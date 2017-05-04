@@ -1,42 +1,41 @@
 ﻿@using RSF.Models
 @model Equipo
 
-@{Equipo equipo = ViewBag.A;}
+@{Equipo equipoo = ViewBag.A;}
 
-<br />
-<br />
-<div style="float: right;">
-    <h3>
-        ID: @Html.DisplayTextFor(x => equipo.id)<br />
-        NOMBRE: @Html.DisplayTextFor(x => equipo.nombre)<br />
-        CANTIDAD DE JUGADORES: @Html.DisplayTextFor(x => equipo.cantjug)<br />        
-        CALIFICACION: @Html.DisplayTextFor(x => equipo.calificacion)<br />        
-        CANTIDAD DE VOTOS: @Html.DisplayTextFor(x => equipo.cantvotos)<br />
-        VER LOS JUGADORES: @Html.ActionLink("IR A PERFIL", "BuscarJugador", "Home", jugadorr, null)
-    </h3>
-</div>
+</br>
+</br>
 
-<br />
-<br />
+<form method="POST" action="@Url.Action("ModificarEquipo", "Home")" style="width:300px; float: left;">
+    <h4>
+        ID: @Html.TextBoxFor(x => x.id, new { @class = "form-control" })<br />
 
-<form method="POST" action="@Url.Action("ModificarEquipo", "Home")">
+        Nombre: @Html.TextBoxFor(x => x.nombre, new { @class = "form-control" })<br />
 
-    @Html.ValidationMessageFor(x => x.nombre)<br />
-    Nombre:@Html.TextBoxFor(x => x.nombre, new { @class = "form-control" })<br />
+        Cantidad de Jugadores: @Html.TextBoxFor(x => x.cantjug, new { @class = "form-control" })<br />
+    </h4>
 
-    @Html.ValidationMessageFor(x => x.cantjug)<br />
-    Apellido:@Html.TextBoxFor(x => x.cantjug, new { @class = "form-control" })<br />
-
-    @Html.ValidationMessageFor(x => x.calificacion)<br />
-    Apellido:@Html.TextBoxFor(x => x.calificacion, new { @class = "form-control" })<br />
-
-    @Html.ValidationMessageFor(x => x.cantvotos)<br />
-    Edad:@Html.TextBoxFor(x => x.cantvotos, new { @class = "form-control" })<br />
-
-    <input type="submit" value="Modificar" class="btn btn-primary" />
-
-    <br />
-
+    <input type="submit" value="Modificar" class="btn btn-primary" /><br />
+    <div style="margin-top: 10px;">
+        <a href="@Url.Action("EliminarEquipo", "Home", new { A = equipoo.id }, null)">
+            <input type="button" value="Eliminar" class="btn btn-primary" />
+        </a>
+    </div>
 </form>
 
-@Html.ActionLink("Eliminar", "EliminarEquipo", "Home", new { A = equipo.id }, null)
+<div style="float: right;">
+    <h3>
+        <br />
+        ID: @Html.DisplayTextFor(x => equipoo.id)<br /><br />
+        NOMBRE: @Html.DisplayTextFor(x => equipoo.nombre)<br /><br />
+        CANTIDAD DE JUGADORES: @Html.DisplayTextFor(x => equipoo.cantjug)<br /><br />
+        CALIFICACION: @Html.DisplayTextFor(x => equipoo.calificacion)<br /><br />
+        CANTIDAD DE VOTOS: @Html.DisplayTextFor(x => equipoo.cantvotos)<br /><br />
+    </h3>
+
+    <div style="margin-top: 10px;">
+        <a href="@Url.Action("VerPlantel", "Home", new { A = equipoo.id }, null)">
+            <input type="button" value="Ver Plantel" class="btn btn-primary" />
+        </a>
+    </div>
+</div>

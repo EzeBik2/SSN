@@ -1,28 +1,27 @@
 @using RSF.Models
 @model Jugador
 
-<form method="POST" action="@Url.Action("BuscarJugador", "Home")">
-
-    <br />
+<form method="POST" action="@Url.Action("BuscarJugador", "Home")" style="width: 25%; float: right;">
     <br />
     @ViewBag.Error
     <br />
 
-    @Html.ValidationMessageFor(x => x.id)<br/>
     Busque por Id del Jugador: @Html.TextBoxFor(x => x.id, new { @class = "form-control" }) <br/>
 
-    @Html.ValidationMessageFor(x => x.nombre)<br/>
     Busque por Nombre del Jugador: @Html.TextBoxFor(x => x.nombre, new { @class = "form-control" }) <br/>
 
     <input type="submit" value="Buscar Jugador" class="btn btn-primary"/>
-    
-</form>
 
-<br />
-<br />
-<br />
-@Html.ActionLink("Buscar o Agregar Cancha", "Cancha", "Home")
-<br />
-<br />
-@Html.ActionLink("Buscar o Agregar Equipo", "Equipo", "Home")
+    <div style="margin-top: 8px;">
+        <a href="@Url.Action("Cancha", "Home")">
+            <input type="button" value="Buscar o Agregar Cancha" class="btn btn-primary" />
+        </a>
+    </div>
+
+    <div style="margin-top: 8px;">
+        <a href="@Url.Action("Equipo", "Home")">
+            <input type="button" value="Buscar o Agregar Equipo" class="btn btn-primary" />
+        </a>
+    </div>
+</form>
 

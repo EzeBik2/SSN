@@ -8,25 +8,13 @@
     <tr>
         <th>Id</th>
         <th>Nombre</th>
-        <th>Apellido</th>
-        <th>Foto</th>
-        <th>Edad</th>
-        <th>Calificacion</th>
-        <th>CantidadDeVotos</th>
-        <th>Mail</th>
-        <th>Ver Perfil</th>
+        <th>#</th>
     </tr>
     @foreach (Jugador jugadorr in ViewBag.A)
     {
         <tr>
             <td>@Html.DisplayTextFor(a => jugadorr.id)</td>
             <td>@Html.DisplayTextFor(a => jugadorr.nombre)</td>
-            <td>@Html.DisplayTextFor(a => jugadorr.apellido)</td>
-            <td>@Html.DisplayTextFor(a => jugadorr.foto)</td>
-            <td>@Html.DisplayTextFor(a => jugadorr.edad)</td>
-            <td>@Html.DisplayTextFor(a => jugadorr.calificacion)</td>
-            <td>@Html.DisplayTextFor(a => jugadorr.cantidaddevotos)</td>
-            <td>@Html.DisplayTextFor(a => jugadorr.email)</td>
             <td>@Html.ActionLink("IR A PERFIL","BuscarJugador", "Home", jugadorr, null)</td>
         </tr>
     }
