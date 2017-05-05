@@ -71,15 +71,22 @@ namespace RSF.Models.DataAccess
                 Consulta.CommandType = System.Data.CommandType.StoredProcedure;
                 Consulta.CommandText = "ModificarEquipo";
 
-                OleDbParameter nombre = new OleDbParameter("nombre", equipoAModificar.nombre);
-                OleDbParameter cantjug = new OleDbParameter("cantjug", equipoAModificar.cantjug);
-                OleDbParameter calificacion = new OleDbParameter("calificacion", 0);
-                OleDbParameter cantidaddevotos = new OleDbParameter("cantvotos", 0);
+                OleDbParameter nombre = new OleDbParameter("nombre", OleDbType.VarChar, 88);
+                nombre.Value = equipoAModificar.nombre;
+                OleDbParameter cantjug = new OleDbParameter("cantjug", OleDbType.VarChar, 88);
+                cantjug.Value = equipoAModificar.cantjug;
+                OleDbParameter calificacion = new OleDbParameter("calificacion", OleDbType.VarChar, 88);
+                calificacion.Value = equipoAModificar.calificacion;
+                OleDbParameter cantidaddevotos = new OleDbParameter("cantvotos", OleDbType.VarChar, 88);
+                cantidaddevotos.Value = equipoAModificar.cantvotos;
+                OleDbParameter id = new OleDbParameter("id", OleDbType.VarChar, 88);
+                id.Value = equipoAModificar.id;
 
                 Consulta.Parameters.Add(nombre);
                 Consulta.Parameters.Add(cantjug);
                 Consulta.Parameters.Add(calificacion);
                 Consulta.Parameters.Add(cantidaddevotos);
+                Consulta.Parameters.Add(id);
 
                 int resultado = (int)Consulta.ExecuteNonQuery();
                 bool funciono = false;

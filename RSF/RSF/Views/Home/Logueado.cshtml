@@ -1,5 +1,17 @@
 @using RSF.Models
 @model Jugador
+<div style="float: left; margin-left: 250px;">
+    <div style="text-align: center;">
+        <h3>
+            <br />
+            Pasos para Crear Equipo:<br /><br />
+            1. Buscar Id De Tu Jugador<br /><br />
+            2. Agregar Equipo<br /><br />
+            3. Buscar Id De Tu Equipo Agregado<br /><br />
+            3. Agregar Jugador a Equipo Utilizando Ambos Ids<br /><br />
+        </h3>
+    </div>
+</div>
 
 <form method="POST" action="@Url.Action("BuscarJugador", "Home")" style="width: 25%; float: right;">
     <br />

@@ -197,28 +197,12 @@ namespace RSF.Controllers
         public ActionResult CrearEquipo(Equipo unEquipo)
         {
             bool equipoagregado = Equipos.AgregarUnEquipo(unEquipo);
-            if (equipoagregado)
-            {
-                return View("CrearEquipo");
-            }
-            else
-            {
-                ViewBag.Funciono = "Error en la registracion";
-                return View("Logueado");
-            }
+            return View("Logueado");
         }
         public ActionResult CrearEquipo2(EquipoJugador unEquipo)
         {
             bool equipoagregado = EquiposJugadores.Agregar(unEquipo);
-            if (equipoagregado)
-            {
-                return View("Logueado");
-            }
-            else
-            {
-                ViewBag.Funciono = "Error en la registracion";
-                return View("Logueado");
-            }
+            return View("Logueado");
         }
         public ActionResult BuscarEquipos(Equipo unequipo)
         {
@@ -274,23 +258,16 @@ namespace RSF.Controllers
             EquipoJugador B = new EquipoJugador();
             B.idEquipo = A;
             List<int> Lista = EquiposJugadores.TraerJugadores(B);
-            if (Lista.Count > 0)
+            List<Jugador> W = new List<Jugador>();
+            foreach (int J in Lista)
             {
-                List<Jugador> W = new List<Jugador>();
-                foreach (int J in Lista)
-                {
-                    Jugador m = new Jugador();
-                    m.id = J;
-                    m = Jugadores.TraerUnJugador(m);
-                    W.Add(m);
-                }
-                ViewBag.A = W;
-                return View("Plantel");
+                Jugador m = new Jugador();
+                m.id = J;
+                m = Jugadores.TraerUnJugador(m);
+                W.Add(m);
             }
-            else
-            {
-                return View("Logueado");
-            }
+            ViewBag.A = W;
+            return View("Plantel");
         }
         public ActionResult EliminarEquipo2(EquipoJugador jugador)
         {

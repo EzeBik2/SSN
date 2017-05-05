@@ -173,6 +173,16 @@ namespace RSF.Models.DataAccess
                         W.estado = dr["Estado"].ToString();
                         W.idEquipo = Convert.ToInt32(dr["Idequipo"].ToString());
                         W.idJugador = Convert.ToInt32(dr["Idjugador"].ToString());
+                        conn.Close();
+                        return W;
+                    }
+                    if (Convert.ToInt32(dr["Idjugador"].ToString()) == X.idJugador && Convert.ToInt32(dr["Idequipo"].ToString()) == X.idEquipo)
+                    {
+                        W.id = Convert.ToInt32(dr["Id"].ToString());
+                        W.estado = dr["Estado"].ToString();
+                        W.idEquipo = Convert.ToInt32(dr["Idequipo"].ToString());
+                        W.idJugador = Convert.ToInt32(dr["Idjugador"].ToString());
+                        conn.Close();
                         return W;
                     }
                 }
