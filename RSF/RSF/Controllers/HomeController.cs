@@ -42,10 +42,82 @@ namespace RSF.Controllers
         {
             return View("EliminarEquipo");
         }
-
+    
+        public ActionResult BuscarTodo(Todos J)
+        {
+            string A = J.nombre;
+            if (A.Substring(0, 1) == "#")
+            {
+                switch (A.Substring(1, 1))
+                {
+                    case "C":
+                        Cancha canchaa = new Cancha();
+                        canchaa.id = Convert.ToInt32(A.Substring(2, A.Length - 3));
+                        canchaa = Canchas.TraerUnaCancha(canchaa);
+                        ViewBag.A = canchaa;
+                        return View("PerfilCancha");
+                    case "E": 
+                        Equipo equipoo = new Equipo();
+                        equipoo.id = Convert.ToInt32(A.Substring(2, A.Length - 3));
+                        equipoo = Equipos.TraerUnEquipo(equipoo);
+                        ViewBag.A = equipoo;
+                        return View("PerfilEquipo");
+                    case "J":
+                        Jugador jugadorr = new Jugador();
+                        jugadorr.id = Convert.ToInt32(A.Substring(2, A.Length - 2));
+                        jugadorr = Jugadores.TraerUnJugador(jugadorr);
+                        ViewBag.A = jugadorr;
+                        return View("PerfilJugador");
+                    default:
+                        return View("Logueado");
+                }
+            }
+            else
+            {
+                Equipo B = new Equipo();
+                B.nombre = A;
+                List<Equipo> C = Equipos.TraerEquipos(B);
+                Cancha D = new Cancha();
+                D.nombre = A;
+                List<Cancha> E = Canchas.TraerCanchas(D);
+                Jugador F = new Jugador();
+                F.nombre = A;
+                List<Jugador> G = Jugadores.TraerJugadores(F);
+                List<Todos> W = new List<Todos>();
+                for (int i = 0; i < C.Count; i++)
+                {
+                    Todos P = new Todos();
+                    P.id = C[i].id;
+                    P.nombre = C[i].nombre;
+                    P.tipo = "Equipo";
+                    W.Add(P);
+                }
+                for (int i = 0; i < E.Count; i++)
+                {
+                    Todos P = new Todos();
+                    P.id = E[i].id;
+                    P.nombre = E[i].nombre;
+                    P.tipo = "Cancha";
+                    W.Add(P);
+                }
+                for (int i = 0; i < G.Count; i++)
+                {
+                    Todos P = new Todos();
+                    P.id = G[i].id;
+                    P.nombre = G[i].nombre;
+                    P.tipo = "Jugador";
+                    W.Add(P);
+                }
+                ViewBag.A = W;
+                return View("Todos");
+            }
+        }
+        
         public ActionResult LoguearJugador(Jugador unJugador)
         {
             Jugador Jugadordevuelto = Jugadores.TraerUnJugador(unJugador);
+            ViewBag.B = Jugadordevuelto;
+            //ViewBag.C = Partidos.TraerPartidosLogueado();
             if (Jugadordevuelto.id > 0)
             {
                 return View("Logueado");
@@ -132,6 +204,22 @@ namespace RSF.Controllers
                 return View("Logueado");
             }
         }
+        public ActionResult EquiposJugador(Jugador unJugador)
+        {
+            EquipoJugador A = new EquipoJugador();
+            A.idJugador = unJugador.id;
+            List<int> B = EquiposJugadores.TraerEquipos(A);
+            List<Equipo> C = new List<Equipo>();
+            for (int i = 0; i < B.Count; i++)
+            {
+                Equipo D = new Equipo();
+                D.id = B[i];
+                D = Equipos.TraerUnEquipo(D);
+                C.Add(D);
+            }
+            ViewBag.E = C;
+            return View("EquiposJugador");
+        }
 
         public ActionResult AgregarCancha(Cancha unaCancha)
         {
@@ -194,15 +282,19 @@ namespace RSF.Controllers
             }
         }
 
-        public ActionResult CrearEquipo(Equipo unEquipo)
+        public ActionResult CrearEquipo(Todos unEquipo)
         {
-            bool equipoagregado = Equipos.AgregarUnEquipo(unEquipo);
-            return View("Logueado");
-        }
-        public ActionResult CrearEquipo2(EquipoJugador unEquipo)
-        {
-            bool equipoagregado = EquiposJugadores.Agregar(unEquipo);
-            return View("Logueado");
+            Equipo unEquipo2 = new Equipo();
+            unEquipo2.nombre = unEquipo.nombre;
+            unEquipo2.cantjug = unEquipo.cantjug;
+            bool equipoagregado = Equipos.AgregarUnEquipo(unEquipo2);
+            Equipo traer = Equipos.TraerUnEquipo(unEquipo2);
+            EquipoJugador A = new EquipoJugador();
+            A.idEquipo = traer.id;
+            A.idJugador = unEquipo2.id;
+            bool jugadoragregado = EquiposJugadores.Agregar(A);
+            ViewBag.A = Equipos.TraerUnEquipo(traer);
+            return View("PerfilEquipo");
         }
         public ActionResult BuscarEquipos(Equipo unequipo)
         {

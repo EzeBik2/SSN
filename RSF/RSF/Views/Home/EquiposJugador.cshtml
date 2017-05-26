@@ -12,8 +12,7 @@
     <thead class="thead-inverse">
         <tr>
             <th>Id</th>
-            <th>Cancha</th>
-            <th>Barrio</th>
+            <th>Nombre</th>
             <th>#</th>
         </tr>
     </thead>
@@ -22,8 +21,7 @@
         <tr>
             <td>@Html.DisplayTextFor(a => equipoo.id)</td>
             <td>@Html.DisplayTextFor(a => equipoo.nombre)</td>
-            <td>@Html.DisplayTextFor(a => equipoo.cantjug)</td>
-            <td>@Html.ActionLink("VER PERFIL", "BuscarEquipos", "Home", equipoo, null)</td>
+            <td>@Html.ActionLink("VER PERFIL", "BuscarEquipo", "Home", equipoo, null)</td>
         </tr>
     }
 </table>

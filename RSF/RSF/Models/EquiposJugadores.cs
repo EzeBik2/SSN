@@ -132,7 +132,7 @@ namespace RSF.Models.DataAccess
 
                 OleDbCommand Consulta = conn.CreateCommand();
                 Consulta.CommandType = System.Data.CommandType.StoredProcedure;
-                Consulta.CommandText = "TraerEquiposDeJugador";
+                Consulta.CommandText = "Traer";
 
                 OleDbDataReader dr = Consulta.ExecuteReader();
                 while (dr.Read())

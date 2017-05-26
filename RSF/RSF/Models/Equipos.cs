@@ -120,16 +120,32 @@ namespace RSF.Models.DataAccess
                 OleDbDataReader dr = Consulta.ExecuteReader();
                 while (dr.Read())
                 {
-                    if (Convert.ToInt32(dr["Id"].ToString()) == unEquipo.id)
+                    if (unEquipo.id > 0)
                     {
-                        unEquipo2.id = Convert.ToInt32(dr["Id"].ToString());
-                        unEquipo2.nombre = dr["Nombre"].ToString();
-                        unEquipo2.cantjug = Convert.ToInt32(dr["Cantjug"].ToString());
-                        unEquipo2.calificacion = Convert.ToInt32(dr["Calificacion"].ToString());
-                        unEquipo2.cantvotos = Convert.ToInt32(dr["Cantvotos"].ToString());
-                        conn.Close();
-                        return unEquipo2;
+                        if (Convert.ToInt32(dr["Id"].ToString()) == unEquipo.id)
+                        {
+                            unEquipo2.id = Convert.ToInt32(dr["Id"].ToString());
+                            unEquipo2.nombre = dr["Nombre"].ToString();
+                            unEquipo2.cantjug = Convert.ToInt32(dr["Cantjug"].ToString());
+                            unEquipo2.calificacion = Convert.ToInt32(dr["Calificacion"].ToString());
+                            unEquipo2.cantvotos = Convert.ToInt32(dr["Cantvotos"].ToString());
+                            conn.Close();
+                            return unEquipo2;
+                        }
                     }
+                    else
+                    {
+                        if (dr["Nombre"].ToString() == unEquipo.nombre)
+                        {
+                            unEquipo2.id = Convert.ToInt32(dr["Id"].ToString());
+                            unEquipo2.nombre = dr["Nombre"].ToString();
+                            unEquipo2.cantjug = Convert.ToInt32(dr["Cantjug"].ToString());
+                            unEquipo2.calificacion = Convert.ToInt32(dr["Calificacion"].ToString());
+                            unEquipo2.cantvotos = Convert.ToInt32(dr["Cantvotos"].ToString());
+                            conn.Close();
+                            return unEquipo2;
+                        }
+                    }                    
                 }
 
                 conn.Close();

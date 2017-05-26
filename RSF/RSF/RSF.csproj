@@ -154,6 +154,7 @@
     <Compile Include="Models\Id.cs" />
     <Compile Include="Models\Jugador.cs" />
     <Compile Include="Models\Jugadores.cs" />
+    <Compile Include="Models\Todos.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -194,11 +195,6 @@
     <Content Include="Views\Home\Logueado.cshtml" />
     <Content Include="Views\Home\Registracion.cshtml" />
     <Content Include="Views\Home\Cancha.cshtml" />
-    <Content Include="Views\Home\Equipo.cshtml" />
-    <Content Include="Views\Home\Jugadores.cshtml" />
-    <Content Include="Views\Home\Canchas.cshtml" />
-    <Content Include="Views\Home\Equipos.cshtml" />
-    <Content Include="Views\Home\Endesarrollo.cshtml" />
     <Content Include="Views\Shared\_Layout2.cshtml" />
     <Content Include="Views\Home\PerfilJugador.cshtml" />
     <Content Include="Views\Home\PerfilCancha.cshtml" />
@@ -206,6 +202,8 @@
     <Content Include="Views\Home\CrearEquipo.cshtml" />
     <Content Include="Views\Home\Plantel.cshtml" />
     <Content Include="Views\Home\EliminarEquipo.cshtml" />
+    <Content Include="Views\Home\Todos.cshtml" />
+    <Content Include="Views\Home\EquiposJugador.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,0 +1,39 @@
+﻿@using RSF.Models
+@model Todos
+
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+
+<table class="table table-hover" style="width: 700px; float: right;">
+    <thead class="thead-inverse">
+        <tr>
+            <th>Id</th>
+            <th>Nombre</th>
+            <th>Tipo</th>
+            <th>#</th>
+        </tr>
+    </thead>
+    @foreach (Todos todo in ViewBag.A)
+    {
+        <tr>
+            <td>@Html.DisplayTextFor(a => todo.id)</td>
+            <td>@Html.DisplayTextFor(a => todo.nombre)</td>
+            <td>@Html.DisplayTextFor(a => todo.tipo)</td>
+            <td>
+                @if(todo.tipo == "Jugador")
+                {
+                    @Html.ActionLink("VER PERFIL", "Buscar" + todo.tipo, "Home", todo, null)
+                }
+                else
+                {
+                    @Html.ActionLink("VER PERFIL", "Buscar" + todo.tipo + "s", "Home", todo, null)
+                }
+            </td>
+        </tr>
+    }
+</table>
+
