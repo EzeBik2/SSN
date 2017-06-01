@@ -20,7 +20,7 @@
     Edad:@Html.TextBoxFor(x => x.edad, new { @class = "form-control" })<br />
 
     @Html.ValidationMessageFor(x => x.telefono)<br />
-    Telefono:@Html.TextBoxFor(x => x.telefono, new { @class = "form-control" })<br />
+    Telefono:@Html.TextBoxFor(x => x.telefono, new { @class = "form-control",  })<br />
 
     @Html.ValidationMessageFor(x => x.email)<br />
     Email:@Html.TextBoxFor(x => x.email, new { @class = "form-control" })<br />
@@ -37,4 +37,4 @@
     @ViewBag.Error
 </form>
 
-
+<!-- Validaciones y Boton Volver Atras -->

@@ -1,39 +1,105 @@
 @using RSF.Models
-@model Jugador
-<div style="float: left; margin-left: 250px;">
-    <div style="text-align: center;">
-        <h3>
-            <br />
-            Pasos para Crear Equipo:<br /><br />
-            1. Buscar Id De Tu Jugador<br /><br />
-            2. Agregar Equipo<br /><br />
-            3. Buscar Id De Tu Equipo Agregado<br /><br />
-            3. Agregar Jugador a Equipo Utilizando Ambos Ids<br /><br />
-        </h3>
+@model Todos
+
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+        <div class="collapse navbar-collapse">
+            <a href="@Url.Action("Logueado", "Home")">
+                <span class="btn btn-default glyphicon glyphicon-home" style="float: left; margin-top: 11px;" />
+            </a>
+            <form method="POST" action="@Url.Action("BuscarTodo", "Home", ViewBag.A, null)" class="navbar-form navbar-left">
+                <div class="form-group">
+                    @Html.TextBoxFor(x => x.id, new { @style="display: none;", @Value = "" + ViewBag.B.id })
+                    @Html.TextBoxFor(x => x.nombre, new { @class = "form-control"})
+                </div>
+                <button type="submit" class="btn btn-default" aria-haspopup="true" aria-expanded="false"> <span class="glyphicon glyphicon-search"> </span></button>
+            </form>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="#">Mensajes <span class="badge">42</span></a></li>
+                <li><a href="#">Notificaciones <span class="badge">3</span></a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <span class="glyphicon glyphicon-user"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="@Url.Action("BuscarJugador", "Home", ViewBag.B, null)">Editar Perfil</a></li>
+                        <li><a href="@Url.Action("EquiposJugador", "Home", ViewBag.B, null)">Mis Equipos</a></li>
+                        <li><a href="#">Cerrar Cuenta</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
     </div>
+</nav>
+
+<div style="float: left; width: 300px; display: inline-block;">
+    <form method="POST" action="@Url.Action("CrearEquipo", "Home")" style="width: 350px;">
+
+        @Html.TextBoxFor(x => x.id, new { @style = "display: none;", @Value = "" + ViewBag.B.id })<br />
+        Nombre del Equipo: @Html.TextBoxFor(x => x.nombre, new { @class = "form-control" }) <br /><br />
+        Cantidad de Jugadores: @Html.TextBoxFor(x => x.cantjug, new { @class = "form-control" }) <br /><br />
+
+        <input type="submit" value="Armar Equipo" class="btn btn-primary" />
+
+    </form>
+    <form method="POST" action="@Url.Action("CrearPartido", "Home")" style="width: 350px;">
+
+        @Html.TextBoxFor(x => x.id, new { @style = "display: none;", @Value = "" + ViewBag.B.id })<br />
+        Fecha: @Html.TextBoxFor(x => x.fecha, new { @class = "form-control", @type = "date" }) <br /><br />
+        Cantidad de Jugadores: @Html.TextBoxFor(x => x.cantjug, new { @class = "form-control" }) <br /><br />
+        Cancha: @Html.DropDownListFor(x => x.canchas, new SelectList(ViewBag.C), new { @class = "form-control" }) <br /><br />
+
+        <input type="submit" value="Crear Partido" class="btn btn-primary" />
+
+    </form>
 </div>
 
-<form method="POST" action="@Url.Action("BuscarJugador", "Home")" style="width: 25%; float: right;">
-    <br />
-    @ViewBag.Error
-    <br />
+<div style="float: left; display: inline-block; width: 400px;">
+    <br/>
+    <table class="table table-hover">
+        <thead class="thead-inverse">
+            <tr>
+                <th>Id</th>
+                <th>CantJug</th>
+                <th>Fecha</th>
+                <th>Cancha</th>
+                <th>#</th>
+            </tr>
+        </thead>
+        @foreach (Partido partidoo in ViewBag.D)
+        {
+            <tr>
+                <td>@Html.Label(partidoo.id.ToString())</td>
+                <td>@Html.Label(partidoo.CantJug.ToString())</td>
+                <td>@Html.Label(partidoo.Fecha.ToString())</td>
+                <td>@Html.Label(partidoo.IdCancha.ToString())</td>
+                <td>@Html.ActionLink("VER PARTIDO", "BuscarPartido", "Home", partidoo, null)</td>
+            </tr>
+        }
+    </table>
+</div>
 
-    Busque por Id del Jugador: @Html.TextBoxFor(x => x.id, new { @class = "form-control" }) <br/>
+<div style="float: left; display: inline-block; width: 400px; margin-left:10px;">
+    <br/>
+    <table class="table table-hover">
+        <thead class="thead-inverse">
+            <tr>
+                <th>Id</th>
+                <th>CantJug</th>
+                <th>Fecha</th>
+                <th>Cancha</th>
+                <th>#</th>
+            </tr>
+        </thead>
+        @foreach (Partido partidoo in ViewBag.F)
+        {
+            <tr>
+                <td>@Html.Label(partidoo.id.ToString())</td>
+                <td>@Html.Label(partidoo.CantJug.ToString())</td>
+                <td>@Html.Label(partidoo.Fecha.ToString())</td>
+                <td>@Html.Label(partidoo.IdCancha.ToString())</td>
+                <td>@Html.ActionLink("VER PARTIDO", "BuscarPartido", "Home", partidoo, null)</td>
+            </tr>
+        }
+    </table>
+</div>
 
-    Busque por Nombre del Jugador: @Html.TextBoxFor(x => x.nombre, new { @class = "form-control" }) <br/>
-
-    <input type="submit" value="Buscar Jugador" class="btn btn-primary"/>
-
-    <div style="margin-top: 8px;">
-        <a href="@Url.Action("Cancha", "Home")">
-            <input type="button" value="Buscar o Agregar Cancha" class="btn btn-primary" />
-        </a>
-    </div>
-
-    <div style="margin-top: 8px;">
-        <a href="@Url.Action("Equipo", "Home")">
-            <input type="button" value="Buscar o Agregar Equipo" class="btn btn-primary" />
-        </a>
-    </div>
-</form>
-
+<!-- Falta Menu de Navegacion, Crear Partido, Crear Desafio, Crear Equipo, Partidos a Jugar, Partidos/Desafios a Jugar del Jugador, Pie de Pagina -->

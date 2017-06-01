@@ -8,34 +8,50 @@
 
 <form method="POST" action="@Url.Action("ModificarEquipo", "Home")" style="width:300px; float: left;">
     <h4>
-        ID: @Html.TextBoxFor(x => x.id, new { @class = "form-control" })<br />
-
-        Nombre: @Html.TextBoxFor(x => x.nombre, new { @class = "form-control" })<br />
-
-        Cantidad de Jugadores: @Html.TextBoxFor(x => x.cantjug, new { @class = "form-control" })<br />
+        @{
+            @Html.TextBoxFor(x => x.id, new { @style = "display: none;" }); <br />
+            @Html.Label("Nombre: ");
+            @Html.TextBoxFor(x => x.nombre, new { @class = "form-control", @Value = ViewBag.B.nombre }); <br />
+            @Html.Label("Cantidad de Jugadores: ");
+            @Html.TextBoxFor(x => x.cantjug, new { @class = "form-control", @Value = ViewBag.B.edad }); <br />
+        }
     </h4>
 
     <input type="submit" value="Modificar" class="btn btn-primary" /><br />
     <div style="margin-top: 10px;">
-        <a href="@Url.Action("EliminarEquipo", "Home", new { A = equipoo.id }, null)">
+        <a href="@Url.Action("EliminarJugador", "Home", new { A = equipoo.id }, null)">
             <input type="button" value="Eliminar" class="btn btn-primary" />
         </a>
     </div>
+
 </form>
 
 <div style="float: right;">
     <h3>
         <br />
-        ID: @Html.DisplayTextFor(x => equipoo.id)<br /><br />
-        NOMBRE: @Html.DisplayTextFor(x => equipoo.nombre)<br /><br />
-        CANTIDAD DE JUGADORES: @Html.DisplayTextFor(x => equipoo.cantjug)<br /><br />
-        CALIFICACION: @Html.DisplayTextFor(x => equipoo.calificacion)<br /><br />
-        CANTIDAD DE VOTOS: @Html.DisplayTextFor(x => equipoo.cantvotos)<br /><br />
+        ID: @Html.Label("#E" + equipoo.id);<br /><br />
+        CALIFICACION: @Html.Label(equipoo.calificacion.ToString())<br /><br />
+        CANTIDAD DE VOTOS: @Html.Label(equipoo.cantvotos.ToString())<br /><br />
     </h3>
-
-    <div style="margin-top: 10px;">
-        <a href="@Url.Action("VerPlantel", "Home", new { A = equipoo.id }, null)">
-            <input type="button" value="Ver Plantel" class="btn btn-primary" />
-        </a>
-    </div>
+    <table class="table table-hover" style="width: 700px; float: right;">
+        <thead class="thead-inverse">
+            <tr>
+                <th>Id</th>
+                <th>Nombre</th>
+                <th>#</th>
+            </tr>
+        </thead>
+        @foreach (Jugador jugadorr in ViewBag.G)
+        {
+            <tr>
+                <td>@Html.DisplayTextFor(a => jugadorr.id)</td>
+                <td>@Html.DisplayTextFor(a => jugadorr.nombre)</td>
+                @{
+                    Todos nuevo = new Todos();
+                    nuevo.nombre = "#J" + jugadorr.id.ToString();
+                }
+                <td>@Html.ActionLink("VER PERFIL", "BuscarTodo", "Home", nuevo, null)</td>
+            </tr>
+        }
+    </table>
 </div>

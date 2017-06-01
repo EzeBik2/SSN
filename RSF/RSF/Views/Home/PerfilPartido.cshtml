@@ -1,0 +1,39 @@
+﻿@using RSF.Models
+@model Partido
+
+@{Partido partidoo = ViewBag.A;}
+
+</br>
+</br>
+
+<div style="float: right;">
+    <h3>
+        <br />
+        ID: @Html.Label("#P" + partidoo.id);<br /><br />
+        CANTIDAD DE JUGADORES: @Html.Label(partidoo.CantJug.ToString())<br /><br />
+        FECHA: @Html.Label(partidoo.Fecha.ToString())<br /><br />
+        CANCHA: @ViewBag.W<br /><br /><br /><br />
+        EQUIPOS:
+    </h3>
+    <table class="table table-hover" style="width: 700px; float: right;">
+        <thead class="thead-inverse">
+            <tr>
+                <th>Id</th>
+                <th>Nombre</th>
+                <th>#</th>
+            </tr>
+        </thead>
+        @foreach (Jugador jugadorr in ViewBag.G)
+        {
+            <tr>
+                <td>@Html.DisplayTextFor(a => jugadorr.id)</td>
+                <td>@Html.DisplayTextFor(a => jugadorr.nombre)</td>
+                @{
+                    Todos nuevo = new Todos();
+                    nuevo.nombre = "#J" + jugadorr.id.ToString();
+                }
+                <td>@Html.ActionLink("VER PERFIL", "BuscarTodo", "Home", nuevo, null)</td>
+            </tr>
+                    }
+    </table>
+</div>

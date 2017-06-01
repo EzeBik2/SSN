@@ -20,19 +20,30 @@
     @foreach (Todos todo in ViewBag.A)
     {
         <tr>
-            <td>@Html.DisplayTextFor(a => todo.id)</td>
-            <td>@Html.DisplayTextFor(a => todo.nombre)</td>
-            <td>@Html.DisplayTextFor(a => todo.tipo)</td>
-            <td>
-                @if(todo.tipo == "Jugador")
-                {
-                    @Html.ActionLink("VER PERFIL", "Buscar" + todo.tipo, "Home", todo, null)
-                }
-                else
-                {
-                    @Html.ActionLink("VER PERFIL", "Buscar" + todo.tipo + "s", "Home", todo, null)
-                }
-            </td>
+            @if (todo.tipo == "Jugador")
+            {
+                <td>@Html.Label("#J" + todo.id)</td>
+                <td>@Html.Label("" + todo.nombre)</td>
+                todo.nombre = "#J" + todo.id;
+                <td>@Html.Label("" + todo.tipo)</td>
+                <td>@Html.ActionLink("VER PERFIL", "BuscarTodo", "Home", todo, null)</td>
+            }
+            @if (todo.tipo == "Equipo")
+            {
+                <td>@Html.Label("#E" + todo.id)</td>
+                <td>@Html.Label("" + todo.nombre)</td>
+                todo.nombre = "#E" + todo.id;
+                <td>@Html.Label("" + todo.tipo)</td>
+                <td>@Html.ActionLink("VER PERFIL", "BuscarTodo", "Home", todo, null)</td>
+            }
+            @if (todo.tipo == "Cancha")
+            {
+                <td>@Html.Label("#J" + todo.id)</td>
+                <td>@Html.Label("" + todo.nombre)</td>
+                todo.nombre = "#C" + todo.id;
+                <td>@Html.Label("" + todo.tipo)</td>
+                <td>@Html.ActionLink("VER PERFIL", "BuscarTodo", "Home", todo, null)</td>
+            }
         </tr>
     }
 </table>

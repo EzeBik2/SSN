@@ -145,8 +145,11 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\PartidosJugadores.cs" />
+    <Compile Include="Models\PartidoJugador.cs" />
     <Compile Include="Models\EquipoJugador.cs" />
     <Compile Include="Models\Cancha.cs" />
+    <Compile Include="Models\Partidos.cs" />
     <Compile Include="Models\EquiposJugadores.cs" />
     <Compile Include="Models\Equipos.cs" />
     <Compile Include="Models\Canchas.cs" />
@@ -154,6 +157,7 @@
     <Compile Include="Models\Id.cs" />
     <Compile Include="Models\Jugador.cs" />
     <Compile Include="Models\Jugadores.cs" />
+    <Compile Include="Models\Partido.cs" />
     <Compile Include="Models\Todos.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -195,7 +199,6 @@
     <Content Include="Views\Home\Logueado.cshtml" />
     <Content Include="Views\Home\Registracion.cshtml" />
     <Content Include="Views\Home\Cancha.cshtml" />
-    <Content Include="Views\Shared\_Layout2.cshtml" />
     <Content Include="Views\Home\PerfilJugador.cshtml" />
     <Content Include="Views\Home\PerfilCancha.cshtml" />
     <Content Include="Views\Home\PerfilEquipo.cshtml" />
@@ -204,6 +207,7 @@
     <Content Include="Views\Home\EliminarEquipo.cshtml" />
     <Content Include="Views\Home\Todos.cshtml" />
     <Content Include="Views\Home\EquiposJugador.cshtml" />
+    <Content Include="Views\Home\PerfilPartido.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

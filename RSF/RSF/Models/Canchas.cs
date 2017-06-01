@@ -184,6 +184,10 @@ namespace RSF.Models.DataAccess
                             }
                         }
                     }
+                    if (unaCancha.id == 0 && unaCancha.nombre==null)
+                    {
+                        ListadeCanchas.Add(unaCancha2);
+                    }
                 }
                 conn.Close();
                 return ListadeCanchas;

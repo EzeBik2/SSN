@@ -8,21 +8,42 @@
 
 <form method="POST" action="@Url.Action("ModificarJugador", "Home")" style="width:300px; float: left;">
     <h4>
-        ID: @Html.TextBoxFor(x => x.id, new { @class = "form-control" })<br />
+        @{ 
+        if (ViewBag.B.id == jugadorr.id)
+        {
+            @Html.TextBoxFor(x => x.id, new { @style = "display: none;" }); <br/>
 
-        Nombre: @Html.TextBoxFor(x => x.nombre, new { @class = "form-control" })<br />
+            @Html.Label("Nombre: ");
+            @Html.TextBoxFor(x => x.nombre, new { @class = "form-control", @Value=ViewBag.B.nombre }); <br/>
 
-        Apellido: @Html.TextBoxFor(x => x.apellido, new { @class = "form-control" })<br />
+            @Html.Label("Apellido: ");
+            @Html.TextBoxFor(x => x.apellido, new { @class = "form-control", @Value = ViewBag.B.apellido }); <br />
 
-        Edad: @Html.TextBoxFor(x => x.edad, new { @class = "form-control" })<br />
+            @Html.Label("Edad: ");
+            @Html.TextBoxFor(x => x.edad, new { @class = "form-control", @Value = ViewBag.B.edad }); <br />
 
-        Telefono: @Html.TextBoxFor(x => x.telefono, new { @class = "form-control" })<br />
+            @Html.Label("Foto: ");
+            @Html.TextBoxFor(x => x.foto, new { @class = "form-control", @Value = ViewBag.B.foto }); <br />
 
-        Email: @Html.TextBoxFor(x => x.email, new { @class = "form-control" })<br />
+            @Html.Label("Telefono: ");
+            @Html.TextBoxFor(x => x.telefono, new { @class = "form-control", @Value = ViewBag.B.telefono }); <br />
 
-        Contraseña: @Html.PasswordFor(x => x.contraseña, new { @class = "form-control" })<br />
+            @Html.Label("Contraseña: ");
+            @Html.TextBoxFor(x => x.contraseña, new { @class = "form-control"}); <br />
 
-        Confirmar Contraseña: @Html.PasswordFor(x => x.Confcontraseña, new { @class = "form-control" })<br />
+            @Html.Label("Confirmar Contraseña: ");
+            @Html.TextBoxFor(x => x.Confcontraseña, new { @class = "form-control"}); <br />
+            }
+            else
+            {
+                @Html.Label("Nombre: " + jugadorr.nombre);
+                @Html.Label("Apellido: " + jugadorr.apellido);
+                @Html.Label("Edad: " + jugadorr.edad);
+                @Html.Label("Foto: " + jugadorr.foto);
+                @Html.Label("Telefono: " + jugadorr.telefono);
+            }
+        }
+        
     </h4>
 
     <input type="submit" value="Modificar" class="btn btn-primary"/><br />
@@ -37,14 +58,39 @@
 <div style="float: right;">
     <h3>
         <br />
-        ID: @Html.DisplayTextFor(x => jugadorr.id)<br /><br />
-        NOMBRE: @Html.DisplayTextFor(x => jugadorr.nombre)<br /><br />
-        APELLIDO: @Html.DisplayTextFor(x => jugadorr.apellido)<br /><br />
-        FOTO: @Html.DisplayTextFor(x => jugadorr.foto)<br /><br />
-        EDAD: @Html.DisplayTextFor(x => jugadorr.edad)<br /><br />
-        CALIFICACION: @Html.DisplayTextFor(x => jugadorr.calificacion)<br /><br />
-        CANTIDAD DE VOTOS: @Html.DisplayTextFor(x => jugadorr.cantidaddevotos)<br /><br />
-        EMAIL: @Html.DisplayTextFor(x => jugadorr.email)
+        ID: @Html.Label("#J" + jugadorr.id);<br /><br />
+        CALIFICACION: @Html.Label(jugadorr.calificacion.ToString())<br /><br />
+        CANTIDAD DE VOTOS: @Html.Label(jugadorr.cantidaddevotos.ToString())<br /><br />
+        EMAIL: @Html.Label("" + jugadorr.email)<br /><br /><br /><br />
+        EQUIPOS:
     </h3>
+    <table class="table table-hover" style="width: 700px; float: right;">
+        <thead class="thead-inverse">
+            <tr>
+                <th>Id</th>
+                <th>Nombre</th>
+                <th>#</th>
+            </tr>
+        </thead>
+        @foreach (Equipo equipoo in ViewBag.G)
+        {
+            if (equipoo.id == 0)
+            {
+
+            }
+            else
+            {
+                <tr>
+                    <td>@Html.Label("#E" + equipoo.id)</td>
+                    <td>@Html.Label(equipoo.nombre)</td>
+                    @{
+                        Todos nuevo = new Todos();
+                        nuevo.nombre = "#E" + equipoo.id.ToString();
+                    }
+                    <td>@Html.ActionLink("VER PERFIL", "BuscarTodo", "Home", nuevo, null)</td>
+                </tr>
+            }
+        }
+    </table>
 </div>
 

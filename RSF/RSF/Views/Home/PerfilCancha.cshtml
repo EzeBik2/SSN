@@ -6,34 +6,37 @@
 <br />
 <br />
 
-<form method="POST" action="@Url.Action("ModificarCancha", "Home")" style="width:300px; float: left;">
-    <h4>
-        ID:@Html.TextBoxFor(x => x.id, new { @class = "form-control" })<br />
-
-        Nombre:@Html.TextBoxFor(x => x.nombre, new { @class = "form-control" })<br />
-
-        Telefono:@Html.TextBoxFor(x => x.telefono, new { @class = "form-control" })<br />
-
-        Barrio:@Html.TextBoxFor(x => x.barrio, new { @class = "form-control" })<br />
-
-        Calle:@Html.TextBoxFor(x => x.calle, new { @class = "form-control" })<br />
-    </h4>
-
-    <input type="submit" value="Modificar" class="btn btn-primary" />
-    <div style="margin-top: 10px;">
-        <a href="@Url.Action("EliminarCancha", "Home", new { A = canchaa.id }, null)">
-            <input type="button" value="Eliminar" class="btn btn-primary" />
-        </a>
-    </div>
-</form>
-
 <div style="float: right;">
     <h3>
         <br />
-        ID: @Html.DisplayTextFor(x => canchaa.id)<br /><br />
-        NOMBRE: @Html.DisplayTextFor(x => canchaa.nombre)<br /><br />
-        TELEFONO: @Html.DisplayTextFor(x => canchaa.telefono)<br /><br />
-        BARRIO: @Html.DisplayTextFor(x => canchaa.barrio)<br /><br />
-        CALLE: @Html.DisplayTextFor(x => canchaa.calle)
+        ID: @Html.Label("#C" + canchaa.id)<br /><br />        
+        NOMBRE: @Html.Label("" + canchaa.nombre)<br /><br />        
+        TELEFONO: @Html.Label("" + canchaa.telefono)<br /><br />
+        BARRIO: @Html.Label("" + canchaa.barrio)<br /><br />
+        CALLE: @Html.Label("" + canchaa.calle)<br /><br /><br /><br />
+        PARTIDOS A JUGAR EN ESTA CANCHA:
     </h3>
+    <table class="table table-hover" style="width: 700px; float: right;">
+        <thead class="thead-inverse">
+            <tr>
+                <th>Id del Partido</th>
+                <th>Cantidad de Jugadores</th>
+                <th>Fecha</th>
+                <th>#</th>
+            </tr>
+        </thead>
+        @foreach (Partido partidoo in ViewBag.G)
+        {
+            <tr>
+                <td>@Html.Label("#P" + partidoo.id)</td>
+                <td>@Html.Label("" + partidoo.CantJug)</td>
+                <td>@Html.Label("" + partidoo.Fecha)</td>
+                @{ 
+                    Todos nuevo = new Todos();
+                    nuevo.nombre = "#P" + partidoo.id.ToString();
+                }
+                <td>@Html.ActionLink("VER PERFIL", "BuscarTodo", "Home", nuevo, null)</td>
+            </tr>
+        }
+    </table>
 </div>
