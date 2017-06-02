@@ -11,7 +11,7 @@
         @{ 
         if (ViewBag.B.id == jugadorr.id)
         {
-            @Html.TextBoxFor(x => x.id, new { @style = "display: none;" }); <br/>
+            @Html.TextBoxFor(x => x.id, new { @style = "display: none;", @Value=ViewBag.B.id }); <br/>
 
             @Html.Label("Nombre: ");
             @Html.TextBoxFor(x => x.nombre, new { @class = "form-control", @Value=ViewBag.B.nombre }); <br/>
@@ -24,6 +24,8 @@
 
             @Html.Label("Foto: ");
             @Html.TextBoxFor(x => x.foto, new { @class = "form-control", @Value = ViewBag.B.foto }); <br />
+
+            @Html.TextBoxFor(x => x.email, new { @style = "display: none;", @Value = ViewBag.B.email });
 
             @Html.Label("Telefono: ");
             @Html.TextBoxFor(x => x.telefono, new { @class = "form-control", @Value = ViewBag.B.telefono }); <br />

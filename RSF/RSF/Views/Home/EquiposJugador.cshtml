@@ -21,7 +21,11 @@
         <tr>
             <td>@Html.DisplayTextFor(a => equipoo.id)</td>
             <td>@Html.DisplayTextFor(a => equipoo.nombre)</td>
-            <td>@Html.ActionLink("VER PERFIL", "BuscarEquipo", "Home", equipoo, null)</td>
+            @{
+                Todos nuevooo = new Todos();
+                nuevooo.nombre = "#E" + equipoo.id.ToString();
+            }
+            <td>@Html.ActionLink("VER PARTIDO", "BuscarTodo", "Home", nuevooo, null)</td>
         </tr>
     }
 </table>

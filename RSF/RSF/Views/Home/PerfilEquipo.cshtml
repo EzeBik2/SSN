@@ -9,11 +9,11 @@
 <form method="POST" action="@Url.Action("ModificarEquipo", "Home")" style="width:300px; float: left;">
     <h4>
         @{
-            @Html.TextBoxFor(x => x.id, new { @style = "display: none;" }); <br />
+            @Html.TextBoxFor(x => x.id, new { @style = "display: none;", @Value = equipoo.id }); <br />
             @Html.Label("Nombre: ");
-            @Html.TextBoxFor(x => x.nombre, new { @class = "form-control", @Value = ViewBag.B.nombre }); <br />
+            @Html.TextBoxFor(x => x.nombre, new { @class = "form-control", @Value = equipoo.nombre }); <br />
             @Html.Label("Cantidad de Jugadores: ");
-            @Html.TextBoxFor(x => x.cantjug, new { @class = "form-control", @Value = ViewBag.B.edad }); <br />
+            @Html.TextBoxFor(x => x.cantjug, new { @class = "form-control", @Value = equipoo.cantjug }); <br />
         }
     </h4>
 

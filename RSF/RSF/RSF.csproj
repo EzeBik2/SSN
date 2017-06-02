@@ -154,7 +154,6 @@
     <Compile Include="Models\Equipos.cs" />
     <Compile Include="Models\Canchas.cs" />
     <Compile Include="Models\Equipo.cs" />
-    <Compile Include="Models\Id.cs" />
     <Compile Include="Models\Jugador.cs" />
     <Compile Include="Models\Jugadores.cs" />
     <Compile Include="Models\Partido.cs" />
