@@ -1,16 +1,16 @@
 @using RSF.Models
 @model Todos
 
-<nav class="navbar navbar-default navbar-fixed-top">
+<nav class="navbar navbar-default navbar-fixed-top" style="display: block; width: 100%; height:5%; background-color: darkslateblue; color: black;">
     <div class="container">
         <div class="collapse navbar-collapse">
-            <a href="@Url.Action("Logueado", "Home")">
+            <a href="@Url.Action("Logueado", "Home", ViewBag.B, null)">
                 <span class="btn btn-default glyphicon glyphicon-home" style="float: left; margin-top: 11px;" />
             </a>
             <form method="POST" action="@Url.Action("BuscarTodo", "Home")" class="navbar-form navbar-left">
                 <div class="form-group">
                     @Html.TextBoxFor(x => x.id, new { @style="display: none;", @Value = "" + ViewBag.B.id })
-                    @Html.TextBoxFor(x => x.nombre, new { @class = "form-control"})
+                    @Html.TextBoxFor(x => x.nombre, new { @class = "form-control", @Value = "" })
                 </div>
                 <button type="submit" class="btn btn-default" aria-haspopup="true" aria-expanded="false"> <span class="glyphicon glyphicon-search"> </span></button>
             </form>
@@ -23,7 +23,7 @@
                         @{
                             Todos nuevo = new Todos();
                             nuevo.id = ViewBag.B.id;
-                            nuevo.nombre = "#J" + ViewBag.B.id.ToString();
+                            nuevo.nombre = "#J" + ViewBag.B.id;
                         }
                         <li><a href="@Url.Action("BuscarTodo", "Home", nuevo, null)">Editar Perfil</a></li>
                         <li><a href="@Url.Action("EquiposJugador", "Home", ViewBag.B, null)">Mis Equipos</a></li>
@@ -35,86 +35,183 @@
     </div>
 </nav>
 
-<div style="float: left; width: 300px; display: inline-block;">
-    <form method="POST" action="@Url.Action("CrearEquipo", "Home")" style="width: 350px;">
+<div style="margin-left: 270px; margin-top: 20px;">
+        <div style="float:left; display: inline-block; margin:5px; padding: 9px 14px; background-color: #f7f7f9; border: 1px solid #e1e1e8; border-radius: 4px;">
+            <form method="POST" action="@Url.Action("CrearEquipo", "Home")" id="formularioo">
 
-        @Html.TextBoxFor(x => x.id, new { @style = "display: none;", @Value = "" + ViewBag.B.id })<br />
-        Nombre del Equipo: @Html.TextBoxFor(x => x.nombre, new { @class = "form-control" }) <br /><br />
-        Cantidad de Jugadores: @Html.TextBoxFor(x => x.cantjug, new { @class = "form-control" }) <br /><br />
+                @Html.TextBoxFor(x => x.id, new { @style = "display: none;", @Value = "" + ViewBag.B.id })<br />
+                <div id="txtjugadores">
+                    Nombre del Equipo: @Html.TextBoxFor(x => x.nombre, new { @class = "form-control", @Value = "" })
+                </div>
+                <div id="txtcantjugadores" style="display: none;">
+                    Cantidad de Jugadores: @Html.TextBoxFor(x => x.cantjug, new { @class = "form-control", @Value = "" })
+                </div>
+                <br />
+                <div id="botonnn">
+                    <input type="button" value="Armar Equipo" onclick="ScriptArmarEquipo()" class="btn btn-primary" />
+                </div>
+                <div id="boton2" style="display: none;">
+                    <input type="submit" value="Ultimo Paso" class="btn btn-primary" />
+                </div>
 
-        <input type="submit" value="Armar Equipo" class="btn btn-primary" />
+                <script>
+                    function ScriptArmarEquipo()
+                    {
+                        document.getElementById("txtjugadores").style.display = "none";
+                        document.getElementById("txtcantjugadores").style.display = "block";
+                        document.getElementById("botonnn").style.display = "none";
+                        document.getElementById("boton2").style.display = "block";
+                    }
+                </script>
+            </form>
 
-    </form>
-    <form method="POST" action="@Url.Action("CrearPartido", "Home")" style="width: 350px;">
+            <form method="POST" action="@Url.Action("CrearPartido", "Home")" style="width: 250px;">
 
-        @Html.TextBoxFor(x => x.id, new { @style = "display: none;", @Value = "" + ViewBag.B.id })<br />
-        Fecha: @Html.TextBoxFor(x => x.fecha, new { @class = "form-control", @type = "date" }) <br /><br />
-        Cantidad de Jugadores: @Html.TextBoxFor(x => x.cantjug, new { @class = "form-control" }) <br /><br />
-        Cancha: @Html.DropDownListFor(x => x.canchas, new SelectList(ViewBag.C), new { @class = "form-control" }) <br /><br />
+                @Html.TextBoxFor(x => x.id, new { @style = "display: none;", @Value = "" + ViewBag.B.id })<br />
+                <div id="fechaa">
+                    Fecha: @Html.TextBoxFor(x => x.fecha, new { @class = "form-control", @type = "datetime-local", @Value = "" })
+                </div>
+                <div id="cantjugadoress" style="display:none;">
+                    Cantidad de Jugadores: @Html.TextBoxFor(x => x.cantjug, new { @class = "form-control", @Value = "" })
+                </div>
+                <div id="canchaa" style="display:none;">
+                    Cancha: @Html.DropDownListFor(x => x.canchas, new SelectList(ViewBag.C), new { @class = "form-control", @Value = "" })
+                </div>
+                <br />
+                <input type="button" value="Crear Partido" onclick="CrearPartido()" id="A" class="btn btn-primary" />
+                <input type="button" value="Segundo Paso" onclick="CrearPartido2()" id="B" style="display:none;" class="btn btn-primary" />
+                <input type="submit" value="Ultimo Paso" id="C" style="display:none;" class="btn btn-primary" />
 
-        <input type="submit" value="Crear Partido" class="btn btn-primary" />
-
-    </form>
-</div>
-
-<div style="float: left; display: inline-block; width: 400px;">
-    <h3 style="text-align: center;">PARTIDOS A JUGAR</h3>
-    <br/>
-    <table class="table table-hover">
-        <thead class="thead-inverse">
-            <tr>
-                <th>Id</th>
-                <th>CantJug</th>
-                <th>Fecha</th>
-                <th>Cancha</th>
-                <th>#</th>
-            </tr>
-        </thead>
-        @foreach (Partido partidoo in ViewBag.D)
-        {
-            <tr>
-                <td>@Html.Label("#P" + partidoo.id.ToString())</td>
-                <td>@Html.Label(partidoo.CantJug.ToString())</td>
-                <td>@Html.Label(partidoo.Fecha.ToString())</td>
-                <td>@Html.Label(partidoo.IdCancha.ToString())</td>
-                @{
-                    Todos nuevoo = new Todos();
-                    nuevoo.nombre = "#P" + partidoo.id.ToString();
+                <script>
+                    function CrearPartido()
+                    {
+                        document.getElementById("fechaa").style.display = "none";
+                        document.getElementById("cantjugadoress").style.display = "block";
+                        document.getElementById("A").style.display = "none";
+                        document.getElementById("B").style.display = "block";
+                    }
+                    function CrearPartido2() {
+                        document.getElementById("cantjugadoress").style.display = "none";
+                        document.getElementById("canchaa").style.display = "block";
+                        document.getElementById("B").style.display = "none";
+                        document.getElementById("C").style.display = "block";
+                    }
+                </script>
+            </form>
+        </div>
+    
+        <div style="display: inline-block; margin:5px; padding: 9px 14px; background-color: #f7f7f9; border: 1px solid #e1e1e8; border-radius: 4px;">
+            <h3 style="text-align: center;">PARTIDOS A JUGAR</h3>
+            <br />
+            <table class="table table-hover">
+                <thead class="thead-inverse">
+                    <tr>
+                        <th>Id</th>
+                        <th>CantJug</th>
+                        <th>Fecha</th>
+                        <th>Cancha</th>
+                        <th>#</th>
+                    </tr>
+                </thead>
+                @for (int i = 0; i < ViewBag.D.Count; i++)
+                {
+                    <tr>
+                        @{
+                            Partido A = ViewBag.D[i];
+                            int PPPP = ViewBag.WWWW[i];
+                        }
+                        <td>@Html.Label("#P" + A.id)</td>
+                        <td>@Html.Label(A.CantJug.ToString() + "/" + PPPP)</td>
+                        <td>@Html.Label(A.Fecha.ToString())</td>
+                        @{
+                            for (int k = 0; k < ViewBag.Y.Count; k++)
+                            {
+                                if (ViewBag.Y[k].id == A.IdCancha)
+                                {
+                                    Cancha L = ViewBag.Y[k];
+                                    <td>@Html.Label(L.nombre)</td>
+                                }
+                            }
+                            Todos nuevoo = new Todos();
+                            nuevoo.nombre = "#P" + A.id;
+                            nuevoo.id = ViewBag.B.id;
+                        }
+                        <td>@Html.ActionLink("VER PARTIDO", "BuscarTodo", "Home", nuevoo, null)</td>
+                    </tr>
                 }
-                <td>@Html.ActionLink("VER PARTIDO", "BuscarTodo", "Home", nuevoo, null)</td>
-            </tr>
-        }
-    </table>
-</div>
-
-<div style="float: left; display: inline-block; width: 400px; margin-left:10px;">
-    <h3 style="text-align: center;">MIS PARTIDOS A JUGAR</h3>
-    <br/>
-    <table class="table table-hover">
-        <thead class="thead-inverse">
-            <tr>
-                <th>Id</th>
-                <th>CantJug</th>
-                <th>Fecha</th>
-                <th>Cancha</th>
-                <th>#</th>
-            </tr>
-        </thead>
-        @foreach (Partido partidoo in ViewBag.F)
-        {
-            <tr>
-                <td>@Html.Label(partidoo.id.ToString())</td>
-                <td>@Html.Label(partidoo.CantJug.ToString())</td>
-                <td>@Html.Label(partidoo.Fecha.ToString())</td>
-                <td>@Html.Label(partidoo.IdCancha.ToString())</td>
-                @{
-                    Todos nuevooo = new Todos();
-                    nuevooo.nombre = "#P" + partidoo.id.ToString();
+            </table>
+        </div>
+    
+        <div style="display: inline-block; margin:5px; padding: 9px 14px; background-color: #f7f7f9; border: 1px solid #e1e1e8; border-radius: 4px;">
+            <h3 style="text-align: center;">MIS PARTIDOS A JUGAR</h3>
+            <br />
+            <table class="table table-hover">
+                <thead class="thead-inverse">
+                    <tr>
+                        <th>Id</th>
+                        <th>CantJug</th>
+                        <th>Fecha</th>
+                        <th>Cancha</th>
+                        <th>#</th>
+                    </tr>
+                </thead>
+                @for (int i = 0; i < ViewBag.F.Count; i++)
+                {
+                    <tr>
+                        @{
+                            Partido A = ViewBag.F[i];
+                        }
+                        <td>@Html.Label("#P" + A.id)</td>
+                        <td>@Html.Label(A.CantJug.ToString())</td>
+                        <td>@Html.Label(A.Fecha.ToString())</td>
+                        @for (int k = 0; k < ViewBag.Y.Count; k++)
+                            {
+                                if (ViewBag.Y[k].id == A.IdCancha)
+                                {
+                                    Cancha L = ViewBag.Y[k];
+                                    <td>@Html.Label(L.nombre)</td>
+                                }
+                            }
+                        @{
+                            Todos nuevoo = new Todos();
+                            nuevoo.nombre = "#P" + A.id;
+                            nuevoo.id = ViewBag.B.id;
+                        }
+                        <td>@Html.ActionLink("VER PARTIDO", "BuscarTodo", "Home", nuevoo, null)</td>
+                    </tr>
                 }
-                <td>@Html.ActionLink("VER PARTIDO", "BuscarTodo", "Home", nuevooo, null)</td>
-            </tr>
-        }
-    </table>
+            </table>
+        </div>
 </div>
 
-<!-- Falta Menu de Navegacion, Crear Partido, Crear Desafio, Crear Equipo, Partidos a Jugar, Partidos/Desafios a Jugar del Jugador, Pie de Pagina -->
+<footer style="display:block; margin-left: 270px; margin-top: 20px;">
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" style=" float: right; margin-right: 50px;"> AFILIAR UNA CANCHA </button>
+
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header"> <h4 class="modal-title" id="myModalLabel">AFILIAR UNA CANCHA</h4> </div>
+                <div class="modal-body">
+                    <form action="@Url.Action("AgregarCancha", "Home")" method="POST">
+                        @Html.TextBoxFor(x => x.id, new { @style = "display: none;", @Value = "" + ViewBag.B.id })<br />
+                        <H2 style="color: red;">@ViewBag.Error</H2>
+                        <H3 style="color: red;">@Html.ValidationMessageFor(x => x.nombre)</H3>
+                        <h4> Nombre de la Cancha: @Html.TextBoxFor(x => x.nombre, new { @class = "form-control" }) <br /><br /></h4>
+
+                        <H3 style="color: red;">@Html.ValidationMessageFor(x => x.telefono)</H3>
+                        <h4> Telefono de la Cancha: @Html.TextBoxFor(x => x.telefono, new { @class = "form-control" }) <br /><br /></h4>
+
+                        <H3 style="color: red;">@Html.ValidationMessageFor(x => x.barrio)</H3>
+                        <h4> Barrio de la Cancha: @Html.TextBoxFor(x => x.barrio, new { @class = "form-control" }) <br /><br /></h4>
+
+                        <H3 style="color: red;">@Html.ValidationMessageFor(x => x.calle)</H3>
+                        <h4> Calle de la Cancha: @Html.TextBoxFor(x => x.calle, new { @class = "form-control" }) <br /><br /></h4>
+
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <input type="submit" value="Afiliar" class="btn btn-primary" />
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>

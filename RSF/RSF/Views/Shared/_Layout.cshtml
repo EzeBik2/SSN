@@ -8,12 +8,10 @@
         @Styles.Render("~/Content/css")
         @Scripts.Render("~/bundles/modernizr")
     </head>
-    <body background="~/Content/Fondo.jpg" style="background-repeat:no-repeat; background-size: 100%">
-        <div class="container body-content">
-            @RenderBody()
-        </div>
+    <body background="~/Content/Fondo3.jpg" style="background-repeat:no-repeat; background-attachment: fixed; background-size: 100%">
+        @RenderBody()
         @Scripts.Render("~/bundles/jquery")
         @Scripts.Render("~/bundles/bootstrap")
         @RenderSection("scripts", required: false)
-</body>
+    </body>
 </html>

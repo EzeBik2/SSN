@@ -1,11 +1,47 @@
 ﻿@using RSF.Models
 @model Jugador
 
-@{Jugador jugadorr = ViewBag.A;}
+@{Jugador jugadorr = ViewBag.A;
+    Todos A = new Todos();}
 
 </br>
 </br>
 
+<nav class="navbar navbar-default navbar-fixed-top" style="display: block; width: 100%; height:5%; background-color: darkslateblue; color: black;">
+    <div class="container">
+        <div class="collapse navbar-collapse">
+            <a href="@Url.Action("Logueado", "Home", ViewBag.B, null)">
+                <span class="btn btn-default glyphicon glyphicon-home" style="float: left; margin-top: 11px;" />
+            </a>
+            <form method="POST" action="@Url.Action("BuscarTodo", "Home")" class="navbar-form navbar-left">
+                <div class="form-group">
+                    @Html.TextBoxFor(x => x.id, new { @style = "display: none;", @Value = "" + ViewBag.B.id })
+                    @Html.TextBoxFor(x => x.nombre, new { @class = "form-control", @Value = "" })
+                </div>
+                <button type="submit" class="btn btn-default" aria-haspopup="true" aria-expanded="false"> <span class="glyphicon glyphicon-search"> </span></button>
+            </form>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="#">Mensajes <span class="badge">42</span></a></li>
+                <li><a href="#">Notificaciones <span class="badge">3</span></a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <span class="glyphicon glyphicon-user"></span></a>
+                    <ul class="dropdown-menu">
+                        @{
+                            Todos nuevoo = new Todos();
+                            nuevoo.id = ViewBag.B.id;
+                            nuevoo.nombre = "#J" + ViewBag.B.id.ToString();
+                        }
+                        <li><a href="@Url.Action("BuscarTodo", "Home", nuevoo, null)">Editar Perfil</a></li>
+                        <li><a href="@Url.Action("EquiposJugador", "Home", ViewBag.B, null)">Mis Equipos</a></li>
+                        <li><a href="#">Cerrar Cuenta</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!--
 <form method="POST" action="@Url.Action("ModificarJugador", "Home")" style="width:300px; float: left;">
     <h4>
         @{ 
@@ -36,14 +72,6 @@
             @Html.Label("Confirmar Contraseña: ");
             @Html.TextBoxFor(x => x.Confcontraseña, new { @class = "form-control"}); <br />
             }
-            else
-            {
-                @Html.Label("Nombre: " + jugadorr.nombre);
-                @Html.Label("Apellido: " + jugadorr.apellido);
-                @Html.Label("Edad: " + jugadorr.edad);
-                @Html.Label("Foto: " + jugadorr.foto);
-                @Html.Label("Telefono: " + jugadorr.telefono);
-            }
         }
         
     </h4>
@@ -56,22 +84,30 @@
     </div>
 
 </form>
+    -->
 
-<div style="float: right;">
+<div style="float: left; margin-left: 270px; display: inline-block;">
     <h3>
-        <br />
-        ID: @Html.Label("#J" + jugadorr.id);<br /><br />
+        ID: @Html.Label("#J" + jugadorr.id)<br /><br />
+        NOMBRE: @Html.Label(jugadorr.nombre)<br /><br />
+        APELLIDO: @Html.Label(jugadorr.apellido)<br /><br />
+        EDAD: @Html.Label("" + jugadorr.edad)<br /><br />
+        FOTO: @Html.Label(jugadorr.foto)<br /><br />
+        TELEFONO: @Html.Label("" + jugadorr.telefono)<br /><br />
         CALIFICACION: @Html.Label(jugadorr.calificacion.ToString())<br /><br />
         CANTIDAD DE VOTOS: @Html.Label(jugadorr.cantidaddevotos.ToString())<br /><br />
         EMAIL: @Html.Label("" + jugadorr.email)<br /><br /><br /><br />
-        EQUIPOS:
     </h3>
+</div>
+
+<div style="display: inline-block; padding: 9px 14px; background-color: lightgray; border: 1px solid black; border-radius: 4px; text-align: center; float: right; margin-right: 150px;">
+    <h2>EQUIPOS</h2> <br />
     <table class="table table-hover" style="width: 700px; float: right;">
         <thead class="thead-inverse">
             <tr>
-                <th>Id</th>
-                <th>Nombre</th>
-                <th>#</th>
+                <th style="text-align: center;">Id</th>
+                <th style="text-align: center;">Nombre</th>
+                <th style="text-align: center;">#</th>
             </tr>
         </thead>
         @foreach (Equipo equipoo in ViewBag.G)
@@ -87,7 +123,8 @@
                     <td>@Html.Label(equipoo.nombre)</td>
                     @{
                         Todos nuevo = new Todos();
-                        nuevo.nombre = "#E" + equipoo.id.ToString();
+                        nuevo.id = ViewBag.B.id;
+                        nuevo.nombre = "#E" + equipoo.id;
                     }
                     <td>@Html.ActionLink("VER PERFIL", "BuscarTodo", "Home", nuevo, null)</td>
                 </tr>

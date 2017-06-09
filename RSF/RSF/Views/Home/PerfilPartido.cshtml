@@ -1,39 +1,120 @@
 ﻿@using RSF.Models
-@model Partido
+@model Todos
 
-@{Partido partidoo = ViewBag.A;}
+@{Partido partidoo = ViewBag.A;
+    int Contador = 0;
+    int Contador2 = 0;
+    Todos A = new Todos();
+    }
+
+<nav class="navbar navbar-default navbar-fixed-top" style="display: block; width: 100%; height:5%; background-color: darkslateblue; color: black;">
+    <div class="container">
+        <div class="collapse navbar-collapse">
+            <a href="@Url.Action("Logueado", "Home", ViewBag.B, null)">
+                <span class="btn btn-default glyphicon glyphicon-home" style="float: left; margin-top: 11px;" />
+            </a>
+            <form method="POST" action="@Url.Action("BuscarTodo", "Home")" class="navbar-form navbar-left">
+                <div class="form-group">
+                    @Html.TextBoxFor(x => x.id, new { @style = "display: none;", @Value = "" + ViewBag.B.id })
+                    @Html.TextBoxFor(x => x.nombre, new { @class = "form-control", @Value = "" })
+                </div>
+                <button type="submit" class="btn btn-default" aria-haspopup="true" aria-expanded="false"> <span class="glyphicon glyphicon-search"> </span></button>
+            </form>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="#">Mensajes <span class="badge">42</span></a></li>
+                <li><a href="#">Notificaciones <span class="badge">3</span></a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <span class="glyphicon glyphicon-user"></span></a>
+                    <ul class="dropdown-menu">
+                        @{
+                            Todos nuevoo = new Todos();
+                            nuevoo.id = ViewBag.B.id;
+                            nuevoo.nombre = "#J" + ViewBag.B.id.ToString();
+                        }
+                        <li><a href="@Url.Action("BuscarTodo", "Home", nuevoo, null)">Editar Perfil</a></li>
+                        <li><a href="@Url.Action("EquiposJugador", "Home", ViewBag.B, null)">Mis Equipos</a></li>
+                        <li><a href="#">Cerrar Cuenta</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
 
 </br>
 </br>
 
-<div style="float: right;">
+<div style="float: right; margin-right: 150px;">
     <h3>
         <br />
-        ID: @Html.Label("#P" + partidoo.id);<br /><br />
+        ID: @Html.Label("#P" + partidoo.id)<br /><br />
         CANTIDAD DE JUGADORES: @Html.Label(partidoo.CantJug.ToString())<br /><br />
         FECHA: @Html.Label(partidoo.Fecha.ToString())<br /><br />
-        CANCHA: @ViewBag.W<br /><br /><br /><br />
-        JUGADORES:
+        CANCHA: @ViewBag.W<br /><br />
     </h3>
-    <table class="table table-hover" style="width: 700px; float: right;">
-        <thead class="thead-inverse">
-            <tr>
-                <th>Id</th>
-                <th>Nombre</th>
-                <th>#</th>
-            </tr>
-        </thead>
-        @foreach (Jugador jugadorr in ViewBag.G)
-        {
-            <tr>
-                <td>@Html.DisplayTextFor(a => jugadorr.id)</td>
-                <td>@Html.DisplayTextFor(a => jugadorr.nombre)</td>
-                @{
-                    Todos nuevo = new Todos();
-                    nuevo.nombre = "#J" + jugadorr.id.ToString();
-                }
-                <td>@Html.ActionLink("VER PERFIL", "BuscarTodo", "Home", nuevo, null)</td>
-            </tr>
+    <div style="padding: 9px 14px; background-color: lightgray; border: 1px solid black; border-radius: 4px; text-align: center;">
+        <h2>JUGADORES</h2>
+        <table class="table table-hover" style="width: 700px; float: right;">
+            <thead class="thead-inverse">
+                <tr>
+                    <th style="text-align: center;">Id</th>
+                    <th style="text-align: center;">Nombre</th>
+                    <th style="text-align: center;">#</th>
+                </tr>
+            </thead>
+            @foreach (Jugador jugadorr in ViewBag.G)
+            {
+                <tr>
+                    <td>@Html.Label("#J" + jugadorr.id)</td>
+                    @{
+                        if (jugadorr.id == ViewBag.B.id)
+                        {
+                            Contador++;
+                        }
+                        Contador2++;
                     }
-    </table>
+                    <td>@Html.Label(jugadorr.nombre)</td>
+                    @{
+                        Todos nuevo = new Todos();
+                        nuevo.id = ViewBag.B.id;
+                        nuevo.nombre = "#J" + jugadorr.id;
+                    }
+                    <td>@Html.ActionLink("VER PERFIL", "BuscarTodo", "Home", nuevo, null)</td>
+                </tr>
+                        }
+        </table>
+        @{
+            if (Contador2 < partidoo.CantJug)
+            {
+                if (Contador == 0)
+                {
+                    PartidoJugador L = new PartidoJugador();
+                    L.idPartido = partidoo.id;
+                    L.idJugador = ViewBag.B.id;
+                    <br /><br />
+                    <a href="@Url.Action("JugadorAPartido", "Home", L, null)"><input type="button" value="Entrar al Partido" class="btn btn-primary" /></a>
+                }
+                else
+                {
+                    PartidoJugador L = new PartidoJugador();
+                    L.idPartido = partidoo.id;
+                    L.idJugador = ViewBag.B.id;
+                    <br /><br />
+                    <a href="@Url.Action("JugadorDelPartido", "Home", L, null)"><input type="button" value="Salir del Partido" class="btn btn-primary" /></a>
+                }
+            }
+            else
+            {
+                if (Contador > 0)
+                {
+                    PartidoJugador L = new PartidoJugador();
+                    L.idPartido = partidoo.id;
+                    L.idJugador = ViewBag.B.id;
+                    <br /><br />
+                    <a href="@Url.Action("JugadorDelPartido", "Home", L, null)"><input type="button" value="Salir del Partido" class="btn btn-primary" /></a>
+                }
+            }
+
+        }
+    </div>
 </div>

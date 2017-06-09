@@ -26,21 +26,41 @@ namespace RSF.Controllers
         {
             return View();
         }
-        public ActionResult Logueado()
+        public ActionResult Logueado(Jugador A)
         {
-            return View();
-        }
-        public ActionResult CrearEquipo3()
-        {
-            return View("CrearEquipo");
-        }
-        public ActionResult Endesarrollo()
-        {
-            return View("Endesarrollo");
-        }
-        public ActionResult EliminarEquipo3()
-        {
-            return View("EliminarEquipo");
+            ViewBag.B = A;
+            Cancha nuevacancha = new Cancha();
+            List<Cancha> ListadeCanchas = Canchas.TraerCanchas(nuevacancha);
+            List<string> ListadeNombresDeCanchas = new List<string>();
+            for (int i = 0; i < ListadeCanchas.Count; i++)
+            {
+                ListadeNombresDeCanchas.Add(ListadeCanchas[i].nombre);
+            }
+            ViewBag.C = ListadeNombresDeCanchas;
+            ViewBag.Y = ListadeCanchas;
+            ViewBag.D = Partidos.TraerPartidos();
+            List<Partido> Q = Partidos.TraerPartidos();
+            List<int> CANTJUGPART = new List<int>();
+            for (int m = 0; m < Q.Count; m++)
+            {
+                PartidoJugador PPPP = new PartidoJugador();
+                PPPP.idPartido = Q[m].id;
+                int ti = PartidosJugadores.TraerJugadores(PPPP).Count;
+                CANTJUGPART.Add(ti);
+            }
+            PartidoJugador nuevo = new PartidoJugador();
+            nuevo.idJugador = A.id;
+            List<int> E = PartidosJugadores.TraerPartidos(nuevo);
+            List<Partido> Enviar = new List<Partido>();
+            for (int i = 0; i < E.Count; i++)
+            {
+                Partido JJ = new Partido();
+                JJ.id = E[i];
+                Enviar.Add(Partidos.TraerUnPartido(JJ));
+            }
+            ViewBag.WWWW = CANTJUGPART;
+            ViewBag.F = Enviar;
+            return View("Logueado");
         }
 
         public ActionResult ModificarCancha(Cancha unaCancha)
@@ -95,8 +115,7 @@ namespace RSF.Controllers
             bool funciono = EquiposJugadores.Eliminar(jugador.id);
             return View("Logueado");
         }
-
-
+        
         public ActionResult BuscarJugador(Jugador unJugador)
         {
             if (unJugador.id > 0)
@@ -125,19 +144,6 @@ namespace RSF.Controllers
                     ViewBag.Error = "No funciono";
                     return View("Logueado");
                 }
-            }
-        }
-        public ActionResult AgregarCancha(Cancha unaCancha)
-        {
-            bool canchaagregada = Canchas.AgregarUnaCancha(unaCancha);
-            if (canchaagregada)
-            {
-                return View("Logueado");
-            }
-            else
-            {
-                ViewBag.Funciono = "Error en la registracion";
-                return View("Cancha");
             }
         }
         public ActionResult BuscarCanchas(Cancha unaCancha)
@@ -184,7 +190,6 @@ namespace RSF.Controllers
         }
 
 
-
         public ActionResult Registrar(Jugador unJugador)
         {
             if (unJugador.contraseña == unJugador.Confcontraseña)
@@ -192,18 +197,18 @@ namespace RSF.Controllers
                 bool jugadorGuardado = Jugadores.AgregarUnJugador(unJugador);
                 if (jugadorGuardado)
                 {
-                    return View("Index");
+                    return LoguearJugador(unJugador);
                 }
                 else
                 {
-                    ViewBag.Error = "Error en la registracion";
-                    return View("Registracion");
+                    ViewBag.Error = "Error en la registracion por parte del programa.";
+                    return View("Index");
                 }
             }
             else
             {
-                ViewBag.Error = "Error en la contraseña";
-                return View("Registracion");
+                ViewBag.Error = "Las Contraseñas no coinciden.";
+                return View("Index");
             }
         }
         public ActionResult LoguearJugador(Jugador unJugador)
@@ -218,7 +223,17 @@ namespace RSF.Controllers
                 ListadeNombresDeCanchas.Add(ListadeCanchas[i].nombre);
             }
             ViewBag.C = ListadeNombresDeCanchas;
+            ViewBag.Y = ListadeCanchas;
             ViewBag.D = Partidos.TraerPartidos();
+            List<Partido> Q = Partidos.TraerPartidos();
+            List<int> CANTJUGPART = new List<int>();
+            for (int m = 0; m < Q.Count; m++)
+            {
+                PartidoJugador PPPP = new PartidoJugador();
+                PPPP.idPartido = Q[m].id;
+                int ti = PartidosJugadores.TraerJugadores(PPPP).Count;
+                CANTJUGPART.Add(ti);
+            }
             PartidoJugador nuevo = new PartidoJugador();
             nuevo.idJugador = Jugadordevuelto.id;
             List<int> E = PartidosJugadores.TraerPartidos(nuevo);
@@ -229,6 +244,7 @@ namespace RSF.Controllers
                 JJ.id = E[i];
                 Enviar.Add(Partidos.TraerUnPartido(JJ));
             }
+            ViewBag.WWWW = CANTJUGPART;
             ViewBag.F = Enviar;
             if (Jugadordevuelto.id > 0)
             {
@@ -431,6 +447,7 @@ namespace RSF.Controllers
         }
         public ActionResult EquiposJugador(Jugador unJugador)
         {
+            ViewBag.B = unJugador;
             EquipoJugador A = new EquipoJugador();
             A.idJugador = unJugador.id;
             List<int> B = EquiposJugadores.TraerEquipos(A);
@@ -459,9 +476,10 @@ namespace RSF.Controllers
             A.idEquipo = traer.id;
             A.idJugador = unEquipo.id;
             bool jugadoragregado = EquiposJugadores.Agregar(A);
-            traer = Equipos.TraerUnEquipo(traer);
-            IrAPerfilEquipo("#E" + traer.id);
-            return View("PerfilEquipo");
+            Todos M = new Todos();
+            M.nombre = "#E" + traer.id;
+            M.id = unEquipo.id;
+            return BuscarTodo(M);
         }
         public ActionResult CrearPartido(Todos unPartido)
         {
@@ -480,6 +498,46 @@ namespace RSF.Controllers
             traer = Partidos.TraerUnPartido(traer);
             IrAPerfilPartido("#P" + traer.id);
             return View("PerfilPartido");
+        }
+        public ActionResult AgregarCancha(Todos unaCancha)
+        {
+            Cancha A = new Models.Cancha();
+            A.nombre = unaCancha.nombre;
+            A.telefono = unaCancha.telefono;
+            A.calle = unaCancha.calle;
+            A.barrio = unaCancha.barrio;
+            Jugador B = new Jugador();
+            B.id = unaCancha.id;
+            B = Jugadores.TraerUnJugador(B);
+            bool canchaagregada = Canchas.AgregarUnaCancha(A);
+            if (canchaagregada)
+            {
+                return Logueado(B);
+            }
+            else
+            {
+                ViewBag.Funciono = "Error en la registracion";
+                return Logueado(B);
+            }
+        }
+        public ActionResult EntrarAEquipo(EquipoJugador unequipojugador)
+        {
+            unequipojugador = EquiposJugadores.Traer(unequipojugador);
+            bool A = EquiposJugadores.Agregar(unequipojugador);
+            unequipojugador = EquiposJugadores.Traer(unequipojugador);
+            Todos B = new Todos();
+            B.nombre = "#E" + unequipojugador.idEquipo;
+            B.id = unequipojugador.id;
+            return BuscarTodo(B);
+        }
+        public ActionResult SalirDelEquipo(EquipoJugador unequipojugador)
+        {
+            unequipojugador = EquiposJugadores.Traer(unequipojugador);
+            bool A = EquiposJugadores.Eliminar(unequipojugador.id);
+            Todos B = new Todos();
+            B.nombre = "#E" + unequipojugador.idEquipo;
+            B.id = unequipojugador.id;
+            return BuscarTodo(B);
         }
 
     }

@@ -13,6 +13,12 @@ namespace RSF.Models
 
         public int cantjug { get; set; }
 
+        public int telefono { get; set; }
+
+        public string barrio { get; set; }
+
+        public string calle { get; set; }
+
         public string tipo { get; set; }
 
         public DateTime fecha { get; set; }

@@ -1,24 +1,108 @@
-﻿@using RSF.Models
+﻿<head>
+    <script type="text/javascript" src="~/Content/jquery-3.2.1.min.js"></script>
+</head>
+
+@using RSF.Models
 @model Jugador
 
 <br />
 <br />
 
-<form method="POST" action="@Url.Action("LoguearJugador", "Home")" style="width: 25%; float: right;">
-    
-    <br /> <h3>@ViewBag.A </h3><br />
+<div style="margin-left: 500px;">
+    <form method="POST" action="@Url.Action("LoguearJugador", "Home")">
 
-    Email: @Html.TextBoxFor(x => x.email, new { @class = "form-control", @type = "email" }) <br />
+        <br /> <h3>@ViewBag.A </h3><br />
 
-    Contraseña: @Html.PasswordFor(x => x.contraseña, new { @class = "form-control" })<br />
+        Email: @Html.TextBoxFor(x => x.email, new { @class = "form-control", @type = "email" }) <br />
 
-    <input type="submit" value="Ingresar" class = "btn btn-primary"/>
+        Contraseña: @Html.PasswordFor(x => x.contraseña, new { @class = "form-control" })<br />
 
-    <div style="float: right;">
-        <a href="@Url.Action("Registracion", "Home")">
-            <input type="button" value="Registrarse" class="btn btn-primary" />
-        </a>
+        <input type="submit" value="Ingresar" class="btn btn-primary" style="display: inline-block" />
+
+    </form>
+
+    <br />
+
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal"> Registrarse </button>
+
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header"> <h4 class="modal-title" id="myModalLabel">Registro</h4> </div>
+                <div class="modal-body">
+                    <form name="formular" id="formular" action="@Url.Action("Registrar", "Home")" method="POST">
+                        @ViewBag.Error
+
+                        @Html.ValidationMessageFor(x => x.nombre)
+                        Nombre:@Html.TextBoxFor(x => x.nombre, new { @class = "form-control", @id="Nombre", @Value="" })<br />
+
+                        @Html.ValidationMessageFor(x => x.apellido)<br />
+                        Apellido:@Html.TextBoxFor(x => x.apellido, new { @class = "form-control", @id = "Apellido", @Value = "" })<br />
+
+                        @Html.ValidationMessageFor(x => x.edad)<br />
+                        Edad:@Html.TextBoxFor(x => x.edad, new { @class = "form-control", @type = "number", @id = "Edad", @Value = "" })<br />
+
+                        @Html.ValidationMessageFor(x => x.telefono)<br />
+                        Telefono:@Html.TextBoxFor(x => x.telefono, new { @class = "form-control", @type = "tel", @id = "Telefono", @Value = "" })<br />
+
+                        @Html.ValidationMessageFor(x => x.email)<br />
+                        Email:@Html.TextBoxFor(x => x.email, new { @class = "form-control", @type = "email", @id = "Email", @Value = "" })<br />
+
+                        @Html.ValidationMessageFor(x => x.contraseña)<br />
+                        Contraseña:@Html.PasswordFor(x => x.contraseña, new { @class = "form-control", @id = "Contraseña", @Value = "" })<br />
+
+                        @Html.ValidationMessageFor(x => x.Confcontraseña)<br />
+                        Confirmar Contraseña:@Html.PasswordFor(x => x.Confcontraseña, new { @class = "form-control", @id = "ConfirmarContraseña", @Value = "" })<br /><br />
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <input type="button" value="Registrar" onclick="Validar()" class="btn btn-primary" />
+                    </form>
+                    <script>
+                        function Validar()
+                        {
+                            var nombre = $("#Nombre").val();
+                            var apellido = $("#Apellido").val();
+                            var email = $("#Email").val();
+                            var telefono = $("#Telefono").val();
+                            var fecha = $("#Edad").val();
+                            var clave = $("#Contraseña").val();
+                            var claveb = $("#ConfirmarContraseña").val();
+                            var errores = "";
+
+                            if (nombre == "")
+                            {
+                                errores += "<p>-Debe completar el campo nombre.</p>"
+                            }
+                            if (apellido == "") {
+                                errores += "<p>-Debe completar el campo apellido.</p>"
+                            }
+                            if (email == "") {
+                                errores += "<p>-Debe completar el campo email.</p>"
+                            }
+                            if (telefono == "") {
+                                errores += "<p>-Debe completar el campo telefono.</p>"
+                            }
+                            if (fecha == "") {
+                                errores += "<p>-Debe completar el campo fecha.</p>"
+                            }
+                            if (clave == "") {
+                                errores += "<p>-Debe completar el campo contraseña.</p>"
+                            }
+                            if (claveb == "") {
+                                errores += "<p>-Debe completar el campo confirmar contraseña.</p>"
+                            }
+                            if (errores == "") {
+                                $("#formular").submit();
+                            }
+                            else {
+                                $("#erroresss").html(errores);
+                            }
+                        }
+                    </script>
+                    <div class="modal-footer" id="erroresss" style="text-align: left; color: red;">
+
+                    </div>
+                </div>     
+            </div>
+        </div>
     </div>
-</form>
-
-<!-- Porque No Se Logueo -->
+</div>
