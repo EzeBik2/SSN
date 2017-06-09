@@ -1,6 +1,10 @@
 ﻿@using RSF.Models
 @model Equipo
 
+<head>
+    <script type="text/javascript" src="~/Content/jquery-3.2.1.min.js"></script>
+</head>
+
 @{
     Equipo equipoo = ViewBag.A;
     int Contador = 0;
@@ -46,39 +50,106 @@
 </br>
 </br>
 
-<!--
-<form method="POST" action="@Url.Action("ModificarEquipo", "Home")" style="width:300px; float: left;">
-    <h4>
-        @{
-            @Html.TextBoxFor(x => x.id, new { @style = "display: none;", @Value = equipoo.id }); <br />
-            @Html.Label("Nombre: ");
-            @Html.TextBoxFor(x => x.nombre, new { @class = "form-control", @Value = equipoo.nombre }); <br />
-            @Html.Label("Cantidad de Jugadores: ");
-            @Html.TextBoxFor(x => x.cantjug, new { @class = "form-control", @Value = equipoo.cantjug }); <br />
-        }
-    </h4>
+<div style="display: none;">
+    <form method="POST" id="OFRMU" action="@Url.Action("ModificarEquipo", "Home")" style="width:300px; float: left;">
+        <h4>
+            @{
+                @Html.TextBoxFor(x => x.id, new { @style = "display: none;", @Value = equipoo.id }); <br />
+                @Html.Label("Nombre: ");
+                @Html.TextBoxFor(x => x.nombre, new { @class = "form-control", @Value = equipoo.nombre }); <br />
+                @Html.Label("Cantidad de Jugadores: ");
+                @Html.TextBoxFor(x => x.cantjug, new { @class = "form-control", @Value = equipoo.cantjug }); <br />
+            }
+        </h4>
 
-    <input type="submit" value="Modificar" class="btn btn-primary" /><br />
-    <div style="margin-top: 10px;">
-        <a href="@Url.Action("EliminarJugador", "Home", new { A = equipoo.id }, null)">
-            <input type="button" value="Eliminar" class="btn btn-primary" />
-        </a>
+        <input type="submit" value="Modificar" class="btn btn-primary" /><br />
+        <div style="margin-top: 10px;">
+            <a href="@Url.Action("EliminarJugador", "Home", new { A = equipoo.id }, null)">
+                <input type="button" value="Eliminar" class="btn btn-primary" />
+            </a>
+        </div>
+
+    </form>
+</div>
+
+
+
+<script>
+    function myfunction()
+    {
+        $('#form-popover').popover({
+            content: $('#form').parent().html(),
+            html: true,
+        });
+    }
+    function myfunction2() {
+        $('#form-popover').popover({
+            content: $('#form2').parent().html(),
+            html: true,
+        });
+    }
+</script>
+
+<div style="float: left; margin-left: 280px; display: inline-block;">
+        
+    <div class="hidden">
+        <form method="POST" id="form" action="@Url.Action("ModificarEquipo", "Home")" style="width:220px; float: left;">     
+            <div style="float: left; display:inline-block;">
+                @foreach (Jugador jugadorr in ViewBag.G)
+                {
+                    if (jugadorr.id == ViewBag.B.id)
+                    {
+                        Contador++;
+                    }
+                }
+                @if (Contador > 0)
+                {
+                    @Html.TextBoxFor(x => x.id2, new { @style = "display: none;", @Value = ViewBag.B.id });
+                    @Html.TextBoxFor(x => x.id, new { @style = "display: none;", @Value = equipoo.id });
+
+                    @Html.TextBoxFor(x => x.nombre, new { @class = "form-control", @Value = equipoo.nombre, @style="width: 160px;" }); <br />
+                    Contador = 0;
+                }
+            </div>
+            <button type="submit" class="btn btn-primary" style="display:inline-block; float: right; margin-left: 10px;">
+                <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+            </button>
+        </form>
+        <form method="POST" id="form2" action="@Url.Action("ModificarEquipo", "Home")" style="width:220px; float: left;">
+            <div style="float: left; display:inline-block;">
+                @foreach (Jugador jugadorr in ViewBag.G)
+                {
+                    if (jugadorr.id == ViewBag.B.id)
+                    {
+                        Contador++;
+                    }
+                }
+                @if (Contador > 0)
+                {
+                    @Html.TextBoxFor(x => x.id2, new { @style = "display: none;", @Value = ViewBag.B.id });
+                    @Html.TextBoxFor(x => x.id, new { @style = "display: none;", @Value = equipoo.id });
+
+                    @Html.TextBoxFor(x => x.cantjug, new { @class = "form-control", @type = "number", @Value = equipoo.cantjug, @style = "width: 160px;" }); <br />
+                    Contador = 0;
+                }
+            </div>
+            <button type="submit" class="btn btn-primary" style="display:inline-block; float: right; margin-left: 10px;">
+                <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+            </button>
+        </form>
     </div>
 
-</form>
-    -->
-<div style="float: left; margin-left: 270px; display: inline-block;">
     <h3>
-        ID: @Html.Label("#E" + equipoo.id)<br /><br />        
-        NOMBRE: @Html.Label(equipoo.nombre)<br /><br />
-        CANTIDAD DE JUGADORES: @Html.Label("" + equipoo.cantjug)<br /><br />
+        ID: @Html.Label("#E" + equipoo.id)<br /><br />
+        NOMBRE: @Html.Label(equipoo.nombre)<a id="form-popover" onclick="myfunction()">[Editar]</a><br /><br />
+        CANTIDAD DE JUGADORES: @Html.Label("" + equipoo.cantjug)<a id="form-popover" onclick="myfunction2()">[Editar]</a><br /><br />
         CALIFICACION: @Html.Label(equipoo.calificacion.ToString())<br /><br />
         CANTIDAD DE VOTOS: @Html.Label(equipoo.cantvotos.ToString())<br /><br />
     </h3>
 </div>
 <div style="display: inline-block; padding: 9px 14px; background-color: lightgray; border: 1px solid black; border-radius: 4px; text-align: center; float: right; margin-right: 150px;">
     <h3>JUGADORES</h3>
-    <table class="table table-hover" style="width: 700px; float: right;">
+    <table class="table table-hover" style="width: 400px;">
         <thead class="thead-inverse">
             <tr>
                 <th style="text-align: center;">Id</th>
@@ -95,7 +166,7 @@
                     {
                         Contador++;
                     }
-                    Contador2++;                    
+                    Contador2++;
                 }
                 <td>@Html.Label(jugadorr.nombre)</td>
                 @{

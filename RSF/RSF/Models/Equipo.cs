@@ -8,6 +8,8 @@ namespace RSF.Models
 {
     public class Equipo
     {
+        public int id2 { get; set; }
+
         [Required(ErrorMessage = "Campo obligatorio")]
         public int id { get; set; }
 

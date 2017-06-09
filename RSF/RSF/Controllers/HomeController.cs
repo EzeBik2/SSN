@@ -356,9 +356,11 @@ namespace RSF.Controllers
         }
         public ActionResult ModificarEquipo(Equipo unEquipo)
         {
+            Todos A = new Todos();
+            A.id = unEquipo.id2;
             bool funciono = Equipos.ModificarUnEquipo(unEquipo);
-            return View("Index");
-
+            A.nombre = "#E" + Equipos.TraerUnEquipo(unEquipo).id;
+            return BuscarTodo(A);
         }
         public ActionResult IrAPerfilCancha(string A)
         {
@@ -494,10 +496,12 @@ namespace RSF.Controllers
             PartidoJugador A = new PartidoJugador();
             A.idPartido = traer.id;
             A.idJugador = unPartido.id;
-            bool jugadoragregado = PartidosJugadores.AgregarB(A);
+            bool jugadoragregado = PartidosJugadores.Agregar(A);
             traer = Partidos.TraerUnPartido(traer);
-            IrAPerfilPartido("#P" + traer.id);
-            return View("PerfilPartido");
+            Todos tooddooss = new Todos();
+            tooddooss.id = unPartido.id;
+            tooddooss.nombre = "#P" + traer.id;
+            return BuscarTodo(tooddooss);
         }
         public ActionResult AgregarCancha(Todos unaCancha)
         {
@@ -522,12 +526,11 @@ namespace RSF.Controllers
         }
         public ActionResult EntrarAEquipo(EquipoJugador unequipojugador)
         {
-            unequipojugador = EquiposJugadores.Traer(unequipojugador);
             bool A = EquiposJugadores.Agregar(unequipojugador);
             unequipojugador = EquiposJugadores.Traer(unequipojugador);
             Todos B = new Todos();
             B.nombre = "#E" + unequipojugador.idEquipo;
-            B.id = unequipojugador.id;
+            B.id = unequipojugador.idJugador;
             return BuscarTodo(B);
         }
         public ActionResult SalirDelEquipo(EquipoJugador unequipojugador)
@@ -536,9 +539,26 @@ namespace RSF.Controllers
             bool A = EquiposJugadores.Eliminar(unequipojugador.id);
             Todos B = new Todos();
             B.nombre = "#E" + unequipojugador.idEquipo;
-            B.id = unequipojugador.id;
+            B.id = unequipojugador.idJugador;
             return BuscarTodo(B);
         }
-
+        public ActionResult EntrarAPartido(PartidoJugador unpartidojugador)
+        {
+            bool A = PartidosJugadores.Agregar(unpartidojugador);
+            unpartidojugador = PartidosJugadores.Traer(unpartidojugador);
+            Todos B = new Todos();
+            B.nombre = "#P" + unpartidojugador.idPartido;
+            B.id = unpartidojugador.idJugador;
+            return BuscarTodo(B);
+        }
+        public ActionResult SalirDelPartido(PartidoJugador unpartidojugador)
+        {
+            unpartidojugador = PartidosJugadores.Traer(unpartidojugador);
+            bool A = PartidosJugadores.Eliminar(unpartidojugador.id);
+            Todos B = new Todos();
+            B.nombre = "#P" + unpartidojugador.idPartido;
+            B.id = unpartidojugador.idJugador;
+            return BuscarTodo(B);
+        }
     }
 }

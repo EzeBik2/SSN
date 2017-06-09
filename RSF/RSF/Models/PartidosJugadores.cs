@@ -20,7 +20,7 @@ namespace RSF.Models.DataAccess
         }
 
 
-        public static bool AgregarB(PartidoJugador A)
+        public static bool Agregar(PartidoJugador A)
         {
             try
             {
@@ -153,16 +153,16 @@ namespace RSF.Models.DataAccess
                 return PartidosDeJugador;
             }
         }
-        public static EquipoJugador Traer(EquipoJugador X)
+        public static PartidoJugador Traer(PartidoJugador X)
         {
-            EquipoJugador W = new EquipoJugador();
+            PartidoJugador W = new PartidoJugador();
             try
             {
                 ConectarDB();
 
                 OleDbCommand Consulta = conn.CreateCommand();
                 Consulta.CommandType = System.Data.CommandType.StoredProcedure;
-                Consulta.CommandText = "Traer";
+                Consulta.CommandText = "TraerB";
 
                 OleDbDataReader dr = Consulta.ExecuteReader();
                 while (dr.Read())
@@ -171,16 +171,16 @@ namespace RSF.Models.DataAccess
                     {
                         W.id = X.id;
                         W.estado = dr["Estado"].ToString();
-                        W.idEquipo = Convert.ToInt32(dr["Idequipo"].ToString());
+                        W.idPartido = Convert.ToInt32(dr["Idpartido"].ToString());
                         W.idJugador = Convert.ToInt32(dr["Idjugador"].ToString());
                         conn.Close();
                         return W;
                     }
-                    if (Convert.ToInt32(dr["Idjugador"].ToString()) == X.idJugador && Convert.ToInt32(dr["Idequipo"].ToString()) == X.idEquipo)
+                    if (Convert.ToInt32(dr["Idjugador"].ToString()) == X.idJugador && Convert.ToInt32(dr["Idpartido"].ToString()) == X.idPartido)
                     {
                         W.id = Convert.ToInt32(dr["Id"].ToString());
                         W.estado = dr["Estado"].ToString();
-                        W.idEquipo = Convert.ToInt32(dr["Idequipo"].ToString());
+                        W.idPartido = Convert.ToInt32(dr["Idpartido"].ToString());
                         W.idJugador = Convert.ToInt32(dr["Idjugador"].ToString());
                         conn.Close();
                         return W;
@@ -236,7 +236,7 @@ namespace RSF.Models.DataAccess
 
                 OleDbCommand Consulta = conn.CreateCommand();
                 Consulta.CommandType = System.Data.CommandType.StoredProcedure;
-                Consulta.CommandText = "Eliminar";
+                Consulta.CommandText = "EliminarB";
 
                 OleDbParameter id = new OleDbParameter("id", A);
 

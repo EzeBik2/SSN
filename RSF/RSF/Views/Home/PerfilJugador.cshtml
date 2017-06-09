@@ -4,9 +4,6 @@
 @{Jugador jugadorr = ViewBag.A;
     Todos A = new Todos();}
 
-</br>
-</br>
-
 <nav class="navbar navbar-default navbar-fixed-top" style="display: block; width: 100%; height:5%; background-color: darkslateblue; color: black;">
     <div class="container">
         <div class="collapse navbar-collapse">
@@ -44,33 +41,33 @@
 <!--
 <form method="POST" action="@Url.Action("ModificarJugador", "Home")" style="width:300px; float: left;">
     <h4>
-        @{ 
+        { 
         if (ViewBag.B.id == jugadorr.id)
         {
-            @Html.TextBoxFor(x => x.id, new { @style = "display: none;", @Value=ViewBag.B.id }); <br/>
+            Html.TextBoxFor(x => x.id, new { style = "display: none;", Value=ViewBag.B.id });
 
-            @Html.Label("Nombre: ");
-            @Html.TextBoxFor(x => x.nombre, new { @class = "form-control", @Value=ViewBag.B.nombre }); <br/>
+            Html.Label("Nombre: ");
+            Html.TextBoxFor(x => x.nombre, new { class = "form-control", Value=ViewBag.B.nombre }); <br/>
+    
+            Html.Label("Apellido: ");
+            Html.TextBoxFor(x => x.apellido, new { class = "form-control", Value = ViewBag.B.apellido }); <br />
 
-            @Html.Label("Apellido: ");
-            @Html.TextBoxFor(x => x.apellido, new { @class = "form-control", @Value = ViewBag.B.apellido }); <br />
+            Html.Label("Edad: ");
+            Html.TextBoxFor(x => x.edad, new { class = "form-control", Value = ViewBag.B.edad }); <br />
 
-            @Html.Label("Edad: ");
-            @Html.TextBoxFor(x => x.edad, new { @class = "form-control", @Value = ViewBag.B.edad }); <br />
+            Html.Label("Foto: ");
+            Html.TextBoxFor(x => x.foto, new { class = "form-control", Value = ViewBag.B.foto }); <br />
 
-            @Html.Label("Foto: ");
-            @Html.TextBoxFor(x => x.foto, new { @class = "form-control", @Value = ViewBag.B.foto }); <br />
+            Html.TextBoxFor(x => x.email, new { style = "display: none;", Value = ViewBag.B.email });
 
-            @Html.TextBoxFor(x => x.email, new { @style = "display: none;", @Value = ViewBag.B.email });
+            Html.Label("Telefono: ");
+            Html.TextBoxFor(x => x.telefono, new { class = "form-control", Value = ViewBag.B.telefono }); <br />
 
-            @Html.Label("Telefono: ");
-            @Html.TextBoxFor(x => x.telefono, new { @class = "form-control", @Value = ViewBag.B.telefono }); <br />
+            Html.Label("Contraseña: ");
+            Html.TextBoxFor(x => x.contraseña, new { class = "form-control"}); <br />
 
-            @Html.Label("Contraseña: ");
-            @Html.TextBoxFor(x => x.contraseña, new { @class = "form-control"}); <br />
-
-            @Html.Label("Confirmar Contraseña: ");
-            @Html.TextBoxFor(x => x.Confcontraseña, new { @class = "form-control"}); <br />
+            Html.Label("Confirmar Contraseña: ");
+            Html.TextBoxFor(x => x.Confcontraseña, new { class = "form-control"}); <br />
             }
         }
         
@@ -78,31 +75,17 @@
 
     <input type="submit" value="Modificar" class="btn btn-primary"/><br />
     <div style="margin-top: 10px;">
-        <a href="@Url.Action("EliminarJugador", "Home", new { A = jugadorr.id }, null)">
+        <a href="Url.Action("EliminarJugador", "Home", new { A = jugadorr.id }, null)">
             <input type="button" value="Eliminar" class="btn btn-primary" />
         </a>
     </div>
 
 </form>
     -->
-
-<div style="float: left; margin-left: 270px; display: inline-block;">
-    <h3>
-        ID: @Html.Label("#J" + jugadorr.id)<br /><br />
-        NOMBRE: @Html.Label(jugadorr.nombre)<br /><br />
-        APELLIDO: @Html.Label(jugadorr.apellido)<br /><br />
-        EDAD: @Html.Label("" + jugadorr.edad)<br /><br />
-        FOTO: @Html.Label(jugadorr.foto)<br /><br />
-        TELEFONO: @Html.Label("" + jugadorr.telefono)<br /><br />
-        CALIFICACION: @Html.Label(jugadorr.calificacion.ToString())<br /><br />
-        CANTIDAD DE VOTOS: @Html.Label(jugadorr.cantidaddevotos.ToString())<br /><br />
-        EMAIL: @Html.Label("" + jugadorr.email)<br /><br /><br /><br />
-    </h3>
-</div>
-
-<div style="display: inline-block; padding: 9px 14px; background-color: lightgray; border: 1px solid black; border-radius: 4px; text-align: center; float: right; margin-right: 150px;">
+<br /><br />
+<div style="float: left; margin-left: 280px; display: inline-block; padding: 9px 14px; background-color: lightgray; border: 1px solid black; border-radius: 4px; text-align: center;">
     <h2>EQUIPOS</h2> <br />
-    <table class="table table-hover" style="width: 700px; float: right;">
+    <table class="table table-hover" style="width: 400px;">
         <thead class="thead-inverse">
             <tr>
                 <th style="text-align: center;">Id</th>
@@ -128,8 +111,23 @@
                     }
                     <td>@Html.ActionLink("VER PERFIL", "BuscarTodo", "Home", nuevo, null)</td>
                 </tr>
-            }
-        }
+                            }
+                        }
     </table>
 </div>
+
+<div style="float: right; margin-right: 150px; display: inline-block;">
+    <h3>
+        ID: @Html.Label("#J" + jugadorr.id)<br /><br />
+        NOMBRE: @Html.Label(jugadorr.nombre)<br /><br />
+        APELLIDO: @Html.Label(jugadorr.apellido)<br /><br />
+        EDAD: @Html.Label("" + jugadorr.edad)<br /><br />
+        FOTO: @Html.Label(jugadorr.foto)<br /><br />
+        TELEFONO: @Html.Label("" + jugadorr.telefono)<br /><br />
+        CALIFICACION: @Html.Label(jugadorr.calificacion.ToString())<br /><br />
+        CANTIDAD DE VOTOS: @Html.Label(jugadorr.cantidaddevotos.ToString())<br /><br />
+        EMAIL: @Html.Label("" + jugadorr.email)<br /><br /><br /><br />
+    </h3>
+</div>
+
 
