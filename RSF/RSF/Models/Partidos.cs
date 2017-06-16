@@ -107,6 +107,39 @@ namespace RSF.Models.DataAccess
                 return unPartido2;
             }
         }
+        public static Partido TraerUnPartido2(Partido unPartido)
+        {
+            Partido unPartido2 = new Partido();
+
+            try
+            {
+                ConectarDB();
+
+                OleDbCommand Consulta = conn.CreateCommand();
+                Consulta.CommandType = System.Data.CommandType.StoredProcedure;
+                Consulta.CommandText = "TraerPartidos";
+
+                OleDbDataReader dr = Consulta.ExecuteReader();
+                while (dr.Read())
+                {
+                    if (Convert.ToDateTime(dr["Fecha"].ToString()) == unPartido.Fecha && Convert.ToInt32(dr["Idcancha"].ToString()) == unPartido.IdCancha)
+                    {
+                        unPartido2.id = Convert.ToInt32(dr["Id"].ToString());
+                        conn.Close();
+                        return unPartido2;
+                    }
+                }
+
+                conn.Close();
+                return unPartido2;
+            }
+
+            catch (Exception e)
+            {
+                conn.Close();
+                return unPartido2;
+            }
+        }
         public static List<Partido> TraerPartidos()
         {
             List<Partido> ListadePartidos = new List<Partido>();

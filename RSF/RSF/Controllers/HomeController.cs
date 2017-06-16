@@ -26,41 +26,50 @@ namespace RSF.Controllers
         {
             return View();
         }
-        public ActionResult Logueado(Jugador A)
+        public ActionResult Logueado(Jugador jugadorlogueado)
         {
-            ViewBag.B = A;
+            ViewBag.JugadorLogueado = jugadorlogueado; //Envia Jugador que se logueo
             Cancha nuevacancha = new Cancha();
-            List<Cancha> ListadeCanchas = Canchas.TraerCanchas(nuevacancha);
+            List<Cancha> ListadeCanchas = Canchas.TraerCanchas(nuevacancha); //Trae la lista de todas las canchas que existen
             List<string> ListadeNombresDeCanchas = new List<string>();
-            for (int i = 0; i < ListadeCanchas.Count; i++)
+            int Contador = 0;
+            for (Contador = 0; Contador < ListadeCanchas.Count; Contador++)
             {
-                ListadeNombresDeCanchas.Add(ListadeCanchas[i].nombre);
+                ListadeNombresDeCanchas.Add(ListadeCanchas[Contador].nombre); //Trae la lista de todos los nombres de las canchas de la lista anterior
             }
-            ViewBag.C = ListadeNombresDeCanchas;
-            ViewBag.Y = ListadeCanchas;
-            ViewBag.D = Partidos.TraerPartidos();
-            List<Partido> Q = Partidos.TraerPartidos();
-            List<int> CANTJUGPART = new List<int>();
-            for (int m = 0; m < Q.Count; m++)
+            ViewBag.Combobox = ListadeNombresDeCanchas; //Envia la lista con los nombres a Logueado para el combobox en la creacion de un partido
+            ViewBag.ListaDeCanchas = ListadeCanchas;
+            ViewBag.TodosLosPartidos = Partidos.TraerPartidos(); //Trae la lista de todos los partidos que existen y la envia a logueado para mostrarlas
+            List<Partido> TodosLosPartidos = Partidos.TraerPartidos(); //Trae la lista de todos los partidos que existen
+            List<Jugador> JugadoresPorPartido = new List<Jugador>();
+            List<List<Jugador>> ListaDeListaAnterior = new List<List<Jugador>>(); //Esta lista es una lista en la que en cada posicion tiene una lista que en cada posicion tiene jugadores
+            for (Contador = 0; Contador < TodosLosPartidos.Count; Contador++)
             {
-                PartidoJugador PPPP = new PartidoJugador();
-                PPPP.idPartido = Q[m].id;
-                int ti = PartidosJugadores.TraerJugadores(PPPP).Count;
-                CANTJUGPART.Add(ti);
+                PartidoJugador partidodelosjugadoresatrer = new PartidoJugador();
+                partidodelosjugadoresatrer.idPartido = TodosLosPartidos[Contador].id; //Agarro el id de un partido
+                List<int> ListadeIdsdeJugadoresdelPartido = PartidosJugadores.TraerJugadores(partidodelosjugadoresatrer); //Traigo una lista de ids de los jugadores del partido
+                for (int Contador2 = 0; Contador2 < ListadeIdsdeJugadoresdelPartido.Count; Contador2++)
+                {
+                    Jugador unjugador = new Jugador();
+                    unjugador.id = ListadeIdsdeJugadoresdelPartido[Contador2]; //Agarro el id de un jugador del partido
+                    JugadoresPorPartido.Add(Jugadores.TraerUnJugador(unjugador)); //Agrego el jugador al que le pertenecia el id a la lista de jugadores de ese partido
+                }
+                ListaDeListaAnterior.Add(JugadoresPorPartido); //Cuando termina de agregar a todos los jugadores del partido al partido, agrego el partido a la lista de partidos
+                JugadoresPorPartido = new List<Jugador>(); //Inicializo nuevamente la lista de jugadores de un partido
             }
-            PartidoJugador nuevo = new PartidoJugador();
-            nuevo.idJugador = A.id;
-            List<int> E = PartidosJugadores.TraerPartidos(nuevo);
-            List<Partido> Enviar = new List<Partido>();
-            for (int i = 0; i < E.Count; i++)
+            ViewBag.ListadeListasdeJugadores = ListaDeListaAnterior; //Envio la lista de listas de jugadores
+            PartidoJugador mijugador = new PartidoJugador();
+            mijugador.idJugador = jugadorlogueado.id;
+            List<int> listadeidsdelospartidosdemijugador = PartidosJugadores.TraerPartidos(mijugador); //Traigo lista de IDs de los partidos de mi jugador
+            List<Partido> Listademispartidos = new List<Partido>();
+            for (int i = 0; i < listadeidsdelospartidosdemijugador.Count; i++)
             {
-                Partido JJ = new Partido();
-                JJ.id = E[i];
-                Enviar.Add(Partidos.TraerUnPartido(JJ));
+                Partido unodemispartidos = new Partido();
+                unodemispartidos.id = listadeidsdelospartidosdemijugador[i]; //Agarro el id de uno de mis partidos
+                Listademispartidos.Add(Partidos.TraerUnPartido(unodemispartidos)); //Agrego el partido a la lista de mis partidos
             }
-            ViewBag.WWWW = CANTJUGPART;
-            ViewBag.F = Enviar;
-            return View("Logueado");
+            ViewBag.MisPartidos = Listademispartidos; //Envio la lista de mis partidos
+            return View("Logueado"); //Voy a la pantalla de logueado
         }
 
         public ActionResult ModificarCancha(Cancha unaCancha)
@@ -190,70 +199,30 @@ namespace RSF.Controllers
         }
 
 
-        public ActionResult Registrar(Jugador unJugador)
+        public ActionResult Registrar(Jugador jugadoraregistrar)
         {
-            if (unJugador.contraseña == unJugador.Confcontraseña)
+            bool jugadorGuardado = Jugadores.AgregarUnJugador(jugadoraregistrar); //Si el jugador se agrego con exito devuelve true
+            if (jugadorGuardado)
             {
-                bool jugadorGuardado = Jugadores.AgregarUnJugador(unJugador);
-                if (jugadorGuardado)
-                {
-                    return LoguearJugador(unJugador);
-                }
-                else
-                {
-                    ViewBag.Error = "Error en la registracion por parte del programa.";
-                    return View("Index");
-                }
+                return LoguearJugador(jugadoraregistrar); //Si devuelve true va a la pantalla de logueado
             }
             else
             {
-                ViewBag.Error = "Las Contraseñas no coinciden.";
-                return View("Index");
+                ViewBag.ErrorEnElRegistro = "Error en la registracion por parte del programa."; 
+                return View("Index"); //Si devuelve false vuelve a la misma pantalla con mensaje de error
             }
         }
-        public ActionResult LoguearJugador(Jugador unJugador)
+        public ActionResult LoguearJugador(Jugador jugadorqueselogueo)
         {
-            Jugador Jugadordevuelto = Jugadores.TraerUnJugador(unJugador);
-            ViewBag.B = Jugadordevuelto;
-            Cancha nuevacancha = new Cancha();
-            List<Cancha> ListadeCanchas = Canchas.TraerCanchas(nuevacancha);
-            List<string> ListadeNombresDeCanchas = new List<string>();
-            for (int i = 0; i < ListadeCanchas.Count; i++)
+            jugadorqueselogueo = Jugadores.TraerUnJugador(jugadorqueselogueo); //Verifica que exista el jugador, devuelve un jugador
+            if (jugadorqueselogueo.id > 0) 
             {
-                ListadeNombresDeCanchas.Add(ListadeCanchas[i].nombre);
-            }
-            ViewBag.C = ListadeNombresDeCanchas;
-            ViewBag.Y = ListadeCanchas;
-            ViewBag.D = Partidos.TraerPartidos();
-            List<Partido> Q = Partidos.TraerPartidos();
-            List<int> CANTJUGPART = new List<int>();
-            for (int m = 0; m < Q.Count; m++)
-            {
-                PartidoJugador PPPP = new PartidoJugador();
-                PPPP.idPartido = Q[m].id;
-                int ti = PartidosJugadores.TraerJugadores(PPPP).Count;
-                CANTJUGPART.Add(ti);
-            }
-            PartidoJugador nuevo = new PartidoJugador();
-            nuevo.idJugador = Jugadordevuelto.id;
-            List<int> E = PartidosJugadores.TraerPartidos(nuevo);
-            List<Partido> Enviar = new List<Partido>();
-            for (int i = 0; i < E.Count; i++)
-            {
-                Partido JJ = new Partido();
-                JJ.id = E[i];
-                Enviar.Add(Partidos.TraerUnPartido(JJ));
-            }
-            ViewBag.WWWW = CANTJUGPART;
-            ViewBag.F = Enviar;
-            if (Jugadordevuelto.id > 0)
-            {
-                return View("Logueado");
+                return Logueado(jugadorqueselogueo); //Si el jugador devuelto tiene un id valido, existe y ejecuta el metodo Logueado
             }
             else
             {
-                ViewBag.A = "No se encontro al Jugador";
-                return View("Index");
+                ViewBag.NoSeEncontro = "No se encontro al Jugador";
+                return View("Index"); //Si el jugador devuelto no tiene un id valido, no existe y vuelve a index enviando mensaje de error
             }
         }
         public ActionResult BuscarTodo(Todos J)
@@ -410,15 +379,17 @@ namespace RSF.Controllers
             bool funciono = Jugadores.ModificarUnJugador(unJugador);
             if (funciono)
             {
-                return LoguearJugador(unJugador);
+                Todos Nuevo = new Todos();
+                Nuevo.id = unJugador.id;
+                Nuevo.nombre = "#J" + unJugador.id;
+                return BuscarTodo(Nuevo);
             }
             else
             {
                 Todos Nuevo = new Todos();
                 Nuevo.id = unJugador.id;
                 Nuevo.nombre = "#J" + unJugador.id;
-                BuscarTodo(Nuevo);
-                return View("PerfilJugador");
+                return BuscarTodo(Nuevo);
             }
         }
         public ActionResult IrAPerfilPartido(string A)
@@ -491,17 +462,48 @@ namespace RSF.Controllers
             Cancha unaCancha = new Cancha();
             unaCancha.nombre = unPartido.canchas[0];
             unPartido2.IdCancha = Canchas.TraerUnaCancha(unaCancha).id;
-            bool partidoagregado = Partidos.AgregarUnPartido(unPartido2);
-            Partido traer = Partidos.TraerUnPartido(unPartido2);
+            Partido unPartido3 = Partidos.TraerUnPartido2(unPartido2);
+            if (unPartido3.id > 0)
+            {
+                ViewBag.YaExiste = "El horario seleccionado en esta cancha esta ocupado.";
+                Jugador K = new Jugador();
+                K.id = unPartido.id;
+                return Logueado(K);
+            }
             PartidoJugador A = new PartidoJugador();
-            A.idPartido = traer.id;
             A.idJugador = unPartido.id;
-            bool jugadoragregado = PartidosJugadores.Agregar(A);
-            traer = Partidos.TraerUnPartido(traer);
-            Todos tooddooss = new Todos();
-            tooddooss.id = unPartido.id;
-            tooddooss.nombre = "#P" + traer.id;
-            return BuscarTodo(tooddooss);
+            List<int> WW = PartidosJugadores.TraerPartidos(A);
+            int oo = 0;
+            for (int T = 0; T < WW.Count; T++)
+            {
+                Partido O = new Partido();
+                O.id = WW[T];
+                O = Partidos.TraerUnPartido(O);
+                if (O.Fecha == unPartido2.Fecha)
+                {
+                    oo++;
+                }
+            }
+            if (oo > 0)
+            {
+                ViewBag.YaExiste = "Usted ya tiene un partido en este horario.";
+                Jugador K = new Jugador();
+                K.id = unPartido.id;
+                return Logueado(K);
+            }
+            else
+            {
+                Partido traer = Partidos.TraerUnPartido(unPartido2);
+                A.idPartido = traer.id;
+                bool jugadoragregado = PartidosJugadores.Agregar(A);
+                bool partidoagregado = Partidos.AgregarUnPartido(unPartido2);
+                traer = Partidos.TraerUnPartido(traer);
+                Todos tooddooss = new Todos();
+                tooddooss.id = unPartido.id;
+                tooddooss.nombre = "#P" + traer.id;
+                return BuscarTodo(tooddooss);
+            }
+            
         }
         public ActionResult AgregarCancha(Todos unaCancha)
         {

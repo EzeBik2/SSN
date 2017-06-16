@@ -11,7 +11,7 @@
 <div style="margin-left: 500px;">
     <form method="POST" action="@Url.Action("LoguearJugador", "Home")">
 
-        <br /> <h3>@ViewBag.A </h3><br />
+        <br /> <h3>@ViewBag.NoSeEncontro </h3><br />
 
         Email: @Html.TextBoxFor(x => x.email, new { @class = "form-control", @type = "email" }) <br />
 
@@ -31,7 +31,7 @@
                 <div class="modal-header"> <h4 class="modal-title" id="myModalLabel">Registro</h4> </div>
                 <div class="modal-body">
                     <form name="formular" id="formular" action="@Url.Action("Registrar", "Home")" method="POST">
-                        @ViewBag.Error
+                        @ViewBag.ErrorEnElRegistro
 
                         @Html.ValidationMessageFor(x => x.nombre)
                         Nombre:@Html.TextBoxFor(x => x.nombre, new { @class = "form-control", @id="Nombre", @Value="" })<br />

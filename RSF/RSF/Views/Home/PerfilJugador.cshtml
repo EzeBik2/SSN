@@ -116,6 +116,91 @@
     </table>
 </div>
 
+
+<script>
+    function myfunction()
+    {
+        $('#form-popover').popover({
+            content: $('#form').parent().html(),
+            placement: "left",
+            html: true,
+        });
+    }
+    function myfunction2() {
+        $('#form-popover2').popover({
+            content: $('#form2').parent().html(),
+            placement: "left",
+            html: true,
+        });
+    }
+</script>
+
+
+<div class="hidden">
+    <form method="POST" id="form" action="@Url.Action("ModificarJugador", "Home")" style="width:190px; float: left;">
+        <div style="float: left; display:inline-block;">
+            @if (ViewBag.B.id == jugadorr.id)
+            {
+                @Html.TextBoxFor(x => x.id, new { @style = "display: none;", @Value=ViewBag.B.id });
+                @Html.TextBoxFor(x => x.nombre, new { @style = "display: none;", @Value=ViewBag.B.nombre }); 
+    
+                @Html.TextBoxFor(x => x.apellido, new { @style = "display: none;", @Value = ViewBag.B.apellido }); 
+                
+                @Html.TextBoxFor(x => x.edad, new { @style = "display: none;", @Value = ViewBag.B.edad }); 
+                
+                @Html.TextBoxFor(x => x.foto, new { @style = "display: none;", @Value = ViewBag.B.foto });
+
+                @Html.TextBoxFor(x => x.email, new { @style = "display: none;", @Value = ViewBag.B.email });
+                            
+                @Html.TextBoxFor(x => x.telefono, new { @class = "form-control", @Value = ViewBag.B.telefono });
+                
+                @Html.TextBoxFor(x => x.contraseña, new { @style = "display: none;", @Value = ViewBag.B.contraseña });
+
+                <button type="submit" class="btn btn-primary" style="display:inline-block; float: right; margin-left: 10px;">
+                    <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                </button>
+            }
+            </div>
+            @if (ViewBag.B.id != jugadorr.id)
+            {
+                <h5>@Html.Label("SOLO PUEDE MODIFICAR SU JUGADOR")</h5>
+            }
+    </form>
+</div>
+<div class="hidden">
+    <form method="POST" id="form2" action="@Url.Action("ModificarJugador", "Home")" style="width:280px; float: left;">
+        <div style="float: left; display:inline-block;">
+            @if (ViewBag.B.id == jugadorr.id)
+            {
+                @Html.TextBoxFor(x => x.id, new { @style = "display: none;", @Value = ViewBag.B.id });
+                @Html.TextBoxFor(x => x.nombre, new { @style = "display: none;", @Value = ViewBag.B.nombre });
+
+                @Html.TextBoxFor(x => x.apellido, new { @style = "display: none;", @Value = ViewBag.B.apellido });
+
+                @Html.TextBoxFor(x => x.edad, new { @style = "display: none;", @Value = ViewBag.B.edad });
+
+                @Html.TextBoxFor(x => x.foto, new { @style = "display: none;", @Value = ViewBag.B.foto });
+
+                @Html.TextBoxFor(x => x.email, new { @class = "form-control", @Value = ViewBag.B.email });
+
+                @Html.TextBoxFor(x => x.telefono, new { @style = "display: none;", @Value = ViewBag.B.telefono });
+
+                @Html.TextBoxFor(x => x.contraseña, new { @style = "display: none;", @Value = ViewBag.B.contraseña });
+
+                <button type="submit" class="btn btn-primary" style="display:inline-block; float: right; margin-left: 10px;">
+                    <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                </button>
+            }
+        </div>
+        @if (ViewBag.B.id != jugadorr.id)
+            {
+            <h5>@Html.Label("SOLO PUEDE MODIFICAR SU JUGADOR")</h5>
+        }
+    </form>
+</div>
+
+
+
 <div style="float: right; margin-right: 150px; display: inline-block;">
     <h3>
         ID: @Html.Label("#J" + jugadorr.id)<br /><br />
@@ -123,10 +208,10 @@
         APELLIDO: @Html.Label(jugadorr.apellido)<br /><br />
         EDAD: @Html.Label("" + jugadorr.edad)<br /><br />
         FOTO: @Html.Label(jugadorr.foto)<br /><br />
-        TELEFONO: @Html.Label("" + jugadorr.telefono)<br /><br />
+        TELEFONO: @Html.Label("" + jugadorr.telefono)<a id="form-popover" onclick="myfunction()">[Editar]</a><br /><br />
         CALIFICACION: @Html.Label(jugadorr.calificacion.ToString())<br /><br />
         CANTIDAD DE VOTOS: @Html.Label(jugadorr.cantidaddevotos.ToString())<br /><br />
-        EMAIL: @Html.Label("" + jugadorr.email)<br /><br /><br /><br />
+        EMAIL: @Html.Label("" + jugadorr.email)<a id="form-popover2" onclick="myfunction2()">[Editar]</a><br /><br /><br /><br />
     </h3>
 </div>
 

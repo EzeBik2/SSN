@@ -4,145 +4,142 @@
 <nav class="navbar navbar-default navbar-fixed-top" style="display: block; width: 100%; height:5%; background-color: darkslateblue; color: black;">
     <div class="container">
         <div class="collapse navbar-collapse">
-            <a href="@Url.Action("Logueado", "Home", ViewBag.B, null)">
+            <a href="@Url.Action("Logueado", "Home", ViewBag.JugadorLogueado, null)">
                 <span class="btn btn-default glyphicon glyphicon-home" style="float: left; margin-top: 11px;" />
-            </a>
+            </a> <!-- Boton para volver a logueado con el Glyphicon -->
             <form method="POST" action="@Url.Action("BuscarTodo", "Home")" class="navbar-form navbar-left">
                 <div class="form-group">
-                    @Html.TextBoxFor(x => x.id, new { @style="display: none;", @Value = "" + ViewBag.B.id })
+                    @Html.TextBoxFor(x => x.id, new { @style="display: none;", @Value = "" + ViewBag.JugadorLogueado.id })
                     @Html.TextBoxFor(x => x.nombre, new { @class = "form-control", @Value = "" })
                 </div>
                 <button type="submit" class="btn btn-default" aria-haspopup="true" aria-expanded="false"> <span class="glyphicon glyphicon-search"> </span></button>
-            </form>
+            </form> <!-- Formulario para buscar cualquiercosa -->
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="#">Mensajes <span class="badge">42</span></a></li>
                 <li><a href="#">Notificaciones <span class="badge">3</span></a></li>
-                <li class="dropdown">
+                <li class="dropdown"> <!-- Dropdown en la Navbar -->
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <span class="glyphicon glyphicon-user"></span></a>
                     <ul class="dropdown-menu">
                         @{
-                            Todos nuevo = new Todos();
-                            nuevo.id = ViewBag.B.id;
-                            nuevo.nombre = "#J" + ViewBag.B.id;
+                            Todos miperfil = new Todos();
+                            miperfil.id = ViewBag.JugadorLogueado.id;
+                            miperfil.nombre = "#J" + ViewBag.JugadorLogueado.id;
                         }
-                        <li><a href="@Url.Action("BuscarTodo", "Home", nuevo, null)">Editar Perfil</a></li>
-                        <li><a href="@Url.Action("EquiposJugador", "Home", ViewBag.B, null)">Mis Equipos</a></li>
-                        <li><a href="#">Cerrar Cuenta</a></li>
+                        <li><a href="@Url.Action("BuscarTodo", "Home", miperfil, null)">Editar Perfil</a></li> <!-- Ir a Mi perfil -->
+                        <li><a href="@Url.Action("EquiposJugador", "Home", ViewBag.JugadorLogueado, null)">Mis Equipos</a></li> <!-- Ir a Mis Equipos -->
+                        <li><a href="#">Cerrar Cuenta</a></li> <!-- Aun a Desarrollar -->
                     </ul>
                 </li>
             </ul>
         </div>
     </div>
-</nav>
+</nav> <!-- Menu Principal -->
 
-<div style="margin-left: 270px; margin-top: 20px;">
+<div style="margin-left: 250px; margin-top: 20px;"> <!-- Body sin Menu Principal y Footer -->
         <div style="float:left; display: inline-block; margin:5px; padding: 9px 14px; background-color: #f7f7f9; border: 1px solid #e1e1e8; border-radius: 4px;">
-            <form method="POST" action="@Url.Action("CrearEquipo", "Home")" id="formularioo">
+            <form method="POST" action="@Url.Action("CrearEquipo", "Home")">
 
-                @Html.TextBoxFor(x => x.id, new { @style = "display: none;", @Value = "" + ViewBag.B.id })<br />
-                <div id="txtjugadores">
-                    Nombre del Equipo: @Html.TextBoxFor(x => x.nombre, new { @class = "form-control", @Value = "" })
-                </div>
-                <div id="txtcantjugadores" style="display: none;">
-                    Cantidad de Jugadores: @Html.TextBoxFor(x => x.cantjug, new { @class = "form-control", @Value = "" })
-                </div>
+                @Html.TextBoxFor(x => x.id, new { @style = "display: none;", @Value = "" + ViewBag.JugadorLogueado.id })<br />
+                Nombre del Equipo: @Html.TextBoxFor(x => x.nombre, new { @class = "form-control", @Value = "", @id = "txtNombreDelEquipo" })
+                Cantidad de Jugadores: @Html.TextBoxFor(x => x.cantjug, new { @class = "form-control", @Value = "", @id = "txtCantidadDeJugadoresDelEquipo", @style="display: none;" })
                 <br />
-                <div id="botonnn">
-                    <input type="button" value="Armar Equipo" onclick="ScriptArmarEquipo()" class="btn btn-primary" />
-                </div>
-                <div id="boton2" style="display: none;">
-                    <input type="submit" value="Ultimo Paso" class="btn btn-primary" />
-                </div>
+                <input type="button" value="Armar Equipo" onclick="ScriptArmarEquipo()" class="btn btn-primary" id="BotonIniciarScript" />
+                <input type="submit" value="Ultimo Paso" class="btn btn-primary" id="BotonFinal" style="display: none;" />
 
                 <script>
-                    function ScriptArmarEquipo()
+                    function ScriptArmarEquipo() 
                     {
-                        document.getElementById("txtjugadores").style.display = "none";
-                        document.getElementById("txtcantjugadores").style.display = "block";
-                        document.getElementById("botonnn").style.display = "none";
-                        document.getElementById("boton2").style.display = "block";
+                        document.getElementById("txtNombreDelEquipo").style.display = "none";
+                        document.getElementById("txtCantidadDeJugadoresDelEquipo").style.display = "block";
+                        document.getElementById("BotonIniciarScript").style.display = "none";
+                        document.getElementById("BotonFinal").style.display = "block";
                     }
                 </script>
-            </form>
+                <br />
+            </form> <!-- Formulario de creacion de Equipo -->
 
             <form method="POST" action="@Url.Action("CrearPartido", "Home")" style="width: 250px;">
-
-                @Html.TextBoxFor(x => x.id, new { @style = "display: none;", @Value = "" + ViewBag.B.id })<br />
-                <div id="fechaa">
-                    Fecha: @Html.TextBoxFor(x => x.fecha, new { @class = "form-control", @type = "datetime-local", @Value = "" })
-                </div>
-                <div id="cantjugadoress" style="display:none;">
-                    Cantidad de Jugadores: @Html.TextBoxFor(x => x.cantjug, new { @class = "form-control", @Value = "" })
-                </div>
-                <div id="canchaa" style="display:none;">
-                    Cancha: @Html.DropDownListFor(x => x.canchas, new SelectList(ViewBag.C), new { @class = "form-control", @Value = "" })
-                </div>
+                <h4 style="color: red;"> @ViewBag.YaExiste </h4>
+                @Html.TextBoxFor(x => x.id, new { @style = "display: none;", @Value = "" + ViewBag.JugadorLogueado.id })
+                Fecha: @Html.TextBoxFor(x => x.fecha, new { @class = "form-control", @type = "datetime-local", @Value = "", @id = "txtFechaFelPartido" })
+                Cantidad de Jugadores: @Html.TextBoxFor(x => x.cantjug, new { @class = "form-control", @Value = "", @id="txtCantidadDeJugadoresDelPartido", @style="display: none;" })
+                Cancha: @Html.DropDownListFor(x => x.canchas, new SelectList(ViewBag.Combobox), new { @class = "form-control", @Value = "", @id = "txtCanchaDelPartido", @style = "display: none;" })
                 <br />
-                <input type="button" value="Crear Partido" onclick="CrearPartido()" id="A" class="btn btn-primary" />
-                <input type="button" value="Segundo Paso" onclick="CrearPartido2()" id="B" style="display:none;" class="btn btn-primary" />
-                <input type="submit" value="Ultimo Paso" id="C" style="display:none;" class="btn btn-primary" />
+                <input type="button" value="Crear Partido" onclick="CrearPartido()" id="BotonIniciarPrimerScript" class="btn btn-primary" />
+                <input type="button" value="Segundo Paso" onclick="CrearPartido2()" id="BotonIniciarSegundoScript" style="display:none;" class="btn btn-primary" />
+                <input type="submit" value="Ultimo Paso" id="BotonFinal" style="display:none;" class="btn btn-primary" />
 
                 <script>
                     function CrearPartido()
                     {
-                        document.getElementById("fechaa").style.display = "none";
-                        document.getElementById("cantjugadoress").style.display = "block";
-                        document.getElementById("A").style.display = "none";
-                        document.getElementById("B").style.display = "block";
+                        document.getElementById("txtFechaFelPartido").style.display = "none";
+                        document.getElementById("txtCantidadDeJugadoresDelPartido").style.display = "block";
+                        document.getElementById("BotonIniciarPrimerScript").style.display = "none";
+                        document.getElementById("BotonIniciarSegundoScript").style.display = "block";
                     }
                     function CrearPartido2() {
-                        document.getElementById("cantjugadoress").style.display = "none";
-                        document.getElementById("canchaa").style.display = "block";
-                        document.getElementById("B").style.display = "none";
-                        document.getElementById("C").style.display = "block";
+                        document.getElementById("txtCantidadDeJugadoresDelPartido").style.display = "none";
+                        document.getElementById("txtCanchaDelPartido").style.display = "block";
+                        document.getElementById("BotonIniciarSegundoScript").style.display = "none";
+                        document.getElementById("BotonFinal").style.display = "block";
                     }
                 </script>
-            </form>
-        </div>
+            </form> <!-- Formulario de creacion de Partido -->
+        </div> <!-- Formularios de Creacion -->
     
-        <div style="display: inline-block; margin:5px; padding: 9px 14px; background-color: #f7f7f9; border: 1px solid #e1e1e8; border-radius: 4px;">
+        <div style="display: inline-block; margin:5px; padding: 9px 14px; background-color: #f7f7f9; border: 1px solid #e1e1e8; border-radius: 4px; float:left; width: 33%;">
             <h3 style="text-align: center;">PARTIDOS A JUGAR</h3>
             <br />
-            <table class="table table-hover">
-                <thead class="thead-inverse">
-                    <tr>
-                        <th>Id</th>
-                        <th>CantJug</th>
-                        <th>Fecha</th>
-                        <th>Cancha</th>
-                        <th>#</th>
-                    </tr>
-                </thead>
-                @for (int i = 0; i < ViewBag.D.Count; i++)
-                {
-                    <tr>
-                        @{
-                            Partido A = ViewBag.D[i];
-                            int PPPP = ViewBag.WWWW[i];
-                        }
-                        <td>@Html.Label("#P" + A.id)</td>
-                        <td>@Html.Label(A.CantJug.ToString() + "/" + PPPP)</td>
-                        <td>@Html.Label(A.Fecha.ToString())</td>
-                        @{
-                            for (int k = 0; k < ViewBag.Y.Count; k++)
-                            {
-                                if (ViewBag.Y[k].id == A.IdCancha)
+            @for (int Contador = 0; Contador < ViewBag.TodosLosPartidos.Count; Contador++)
+            {
+                Partido unPartidoaMostrar = ViewBag.TodosLosPartidos[Contador];
+                List<Jugador> ListadeJugadoresdePartidoAMostrar = ViewBag.ListadeListasdeJugadores[Contador];
+                string heading = "heading" + Contador;
+                string idcollapse = "#collapse" + Contador;
+                string collapse = "collapse" + Contador;
+                string FechadelPartidoaMostrar = unPartidoaMostrar.Fecha.ToString().Substring(0, 14);
+                int Contador2 = 0;
+                int CantidadDeJugadoresFaltantesenelPartidoaMostrar = unPartidoaMostrar.CantJug - ListadeJugadoresdePartidoAMostrar.Count;
+                <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                    <div class="panel panel-default">
+                        <div class="panel-heading" role="tab" id=@heading>
+                            <h4 class="panel-title">
+                                <a role="button" data-toggle="collapse" data-parent="#accordion" href=@idcollapse aria-expanded="true" aria-controls=@collapse>
+                                    @Html.Label("ID: #P" + unPartidoaMostrar.id + " FECHA: " + FechadelPartidoaMostrar)
+                                </a>
+                            </h4>
+                        </div>
+                        <div id=@collapse class="panel-collapse collapse in" role="tabpanel" aria-labelledby=@heading>
+                            <div class="panel-body">
+                                <h5>JUGADORES DEL PARTIDO:(FALTANTES: @CantidadDeJugadoresFaltantesenelPartidoaMostrar)</h5>
+                                @for (Contador2 = 0; Contador2 < ListadeJugadoresdePartidoAMostrar.Count; Contador2++)
                                 {
-                                    Cancha L = ViewBag.Y[k];
-                                    <td>@Html.Label(L.nombre)</td>
+                                    @Html.Label("#J" + ListadeJugadoresdePartidoAMostrar[Contador2].id + " " + ListadeJugadoresdePartidoAMostrar[Contador2].nombre + " " + ListadeJugadoresdePartidoAMostrar[Contador2].apellido) <br />
+                                    //Mostrar Uno de los Jugadores del Partido
                                 }
-                            }
-                            Todos nuevoo = new Todos();
-                            nuevoo.nombre = "#P" + A.id;
-                            nuevoo.id = ViewBag.B.id;
-                        }
-                        <td>@Html.ActionLink("VER PARTIDO", "BuscarTodo", "Home", nuevoo, null)</td>
-                    </tr>
-                }
-            </table>
-        </div>
-    
-        <div style="display: inline-block; margin:5px; padding: 9px 14px; background-color: #f7f7f9; border: 1px solid #e1e1e8; border-radius: 4px;">
+                                @for (Contador2 = 0; Contador2 < ViewBag.ListaDeCanchas.Count; Contador2++)
+                                {
+                                    if (ViewBag.ListaDeCanchas[Contador2].id == unPartidoaMostrar.IdCancha)
+                                    {
+                                        Cancha L = ViewBag.ListaDeCanchas[Contador2];
+                                        @Html.Label("CANCHA: " + L.nombre) <br />
+                                        //Mostrar Cancha del Partido
+                                    }
+                                }
+                                @{
+                                    Todos micuenta = new Todos();
+                                    micuenta.nombre = "#P" + unPartidoaMostrar.id;
+                                    micuenta.id = ViewBag.JugadorLogueado.id;
+                                }
+                                @Html.ActionLink("VER PARTIDO", "BuscarTodo", "Home", micuenta, null) <!-- Ir a Perfil del Partido -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+              }
+        </div> <!-- Todos los partidos -->
+
+        <div style="display: inline-block; margin:5px; padding: 9px 14px; background-color: #f7f7f9; border: 1px solid #e1e1e8; border-radius: 4px; float: left;">
             <h3 style="text-align: center;">MIS PARTIDOS A JUGAR</h3>
             <br />
             <table class="table table-hover">
@@ -155,33 +152,33 @@
                         <th>#</th>
                     </tr>
                 </thead>
-                @for (int i = 0; i < ViewBag.F.Count; i++)
+                @for (int Contador = 0; Contador < ViewBag.MisPartidos.Count; Contador++)
                 {
-                    <tr>
-                        @{
-                            Partido A = ViewBag.F[i];
+                <tr>
+                    @{
+                            Partido unodemispartidosamostrar = ViewBag.MisPartidos[Contador];
+                    }
+                    <td>@Html.Label("#P" + unodemispartidosamostrar.id)</td>
+                    <td>@Html.Label(unodemispartidosamostrar.CantJug.ToString())</td>
+                    <td>@Html.Label(unodemispartidosamostrar.Fecha.ToString())</td>
+                    @for (int Contador2 = 0; Contador2 < ViewBag.ListaDeCanchas.Count; Contador2++)
+                    {
+                        if (ViewBag.ListaDeCanchas[Contador2].id == unodemispartidosamostrar.IdCancha)
+                        {
+                            Cancha Canchadelpartido = ViewBag.ListaDeCanchas[Contador2];
+                            <td>@Html.Label(Canchadelpartido.nombre)</td>
                         }
-                        <td>@Html.Label("#P" + A.id)</td>
-                        <td>@Html.Label(A.CantJug.ToString())</td>
-                        <td>@Html.Label(A.Fecha.ToString())</td>
-                        @for (int k = 0; k < ViewBag.Y.Count; k++)
-                            {
-                                if (ViewBag.Y[k].id == A.IdCancha)
-                                {
-                                    Cancha L = ViewBag.Y[k];
-                                    <td>@Html.Label(L.nombre)</td>
-                                }
-                            }
-                        @{
+                    }
+                    @{
                             Todos nuevoo = new Todos();
-                            nuevoo.nombre = "#P" + A.id;
-                            nuevoo.id = ViewBag.B.id;
-                        }
-                        <td>@Html.ActionLink("VER PARTIDO", "BuscarTodo", "Home", nuevoo, null)</td>
-                    </tr>
+                            nuevoo.nombre = "#P" + unodemispartidosamostrar.id;
+                            nuevoo.id = ViewBag.JugadorLogueado.id;
+                    }
+                    <td>@Html.ActionLink("VER PARTIDO", "BuscarTodo", "Home", nuevoo, null)</td> <!-- Ir al Perfil del Partido a Mostrar -->
+                </tr>
                 }
             </table>
-        </div>
+        </div> <!-- Mis Partidos a Jugar -->
 </div>
 
 <footer style="display:block; margin-left: 270px; margin-top: 20px;">
@@ -193,7 +190,7 @@
                 <div class="modal-header"> <h4 class="modal-title" id="myModalLabel">AFILIAR UNA CANCHA</h4> </div>
                 <div class="modal-body">
                     <form action="@Url.Action("AgregarCancha", "Home")" method="POST">
-                        @Html.TextBoxFor(x => x.id, new { @style = "display: none;", @Value = "" + ViewBag.B.id })<br />
+                        @Html.TextBoxFor(x => x.id, new { @style = "display: none;", @Value = "" + ViewBag.JugadorLogueado.id })<br />
                         <H2 style="color: red;">@ViewBag.Error</H2>
                         <H3 style="color: red;">@Html.ValidationMessageFor(x => x.nombre)</H3>
                         <h4> Nombre de la Cancha: @Html.TextBoxFor(x => x.nombre, new { @class = "form-control" }) <br /><br /></h4>

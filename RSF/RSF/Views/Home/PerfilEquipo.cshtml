@@ -83,7 +83,7 @@
         });
     }
     function myfunction2() {
-        $('#form-popover').popover({
+        $('#form-popover2').popover({
             content: $('#form2').parent().html(),
             html: true,
         });
@@ -106,15 +106,23 @@
                 {
                     @Html.TextBoxFor(x => x.id2, new { @style = "display: none;", @Value = ViewBag.B.id });
                     @Html.TextBoxFor(x => x.id, new { @style = "display: none;", @Value = equipoo.id });
+                    @Html.TextBoxFor(x => x.cantjug, new { @style = "display: none;", @type = "number", @Value = equipoo.cantjug });
 
-                    @Html.TextBoxFor(x => x.nombre, new { @class = "form-control", @Value = equipoo.nombre, @style="width: 160px;" }); <br />
+                    @Html.TextBoxFor(x => x.nombre, new { @class = "form-control", @Value = equipoo.nombre, @style = "width: 160px;" }); <br />
                     Contador = 0;
+
+                    <button type="submit" class="btn btn-primary" style="display:inline-block; float: right; margin-left: 10px;">
+                        <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                    </button>
                 }
             </div>
-            <button type="submit" class="btn btn-primary" style="display:inline-block; float: right; margin-left: 10px;">
-                <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
-            </button>
+            @if (Contador == 0)
+            {
+                <h5>@Html.Label("USTED NO PERTENECE A ESTE EQUIPO, DEBE PERTENECER PARA MODIFICARLO")</h5>
+            }
         </form>
+    </div>
+    <div class="hidden">
         <form method="POST" id="form2" action="@Url.Action("ModificarEquipo", "Home")" style="width:220px; float: left;">
             <div style="float: left; display:inline-block;">
                 @foreach (Jugador jugadorr in ViewBag.G)
@@ -128,21 +136,27 @@
                 {
                     @Html.TextBoxFor(x => x.id2, new { @style = "display: none;", @Value = ViewBag.B.id });
                     @Html.TextBoxFor(x => x.id, new { @style = "display: none;", @Value = equipoo.id });
+                    @Html.TextBoxFor(x => x.nombre, new { @Value = equipoo.nombre, @style = "display: none;" });
 
                     @Html.TextBoxFor(x => x.cantjug, new { @class = "form-control", @type = "number", @Value = equipoo.cantjug, @style = "width: 160px;" }); <br />
                     Contador = 0;
+
+                    <button type="submit" class="btn btn-primary" style="display:inline-block; float: right; margin-left: 10px;">
+                        <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                    </button>
                 }
             </div>
-            <button type="submit" class="btn btn-primary" style="display:inline-block; float: right; margin-left: 10px;">
-                <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
-            </button>
+            @if (Contador == 0)
+            {
+                <h5>@Html.Label("USTED NO PERTENECE A ESTE EQUIPO, DEBE PERTENECER PARA MODIFICARLO")</h5>
+            }
         </form>
     </div>
 
     <h3>
         ID: @Html.Label("#E" + equipoo.id)<br /><br />
         NOMBRE: @Html.Label(equipoo.nombre)<a id="form-popover" onclick="myfunction()">[Editar]</a><br /><br />
-        CANTIDAD DE JUGADORES: @Html.Label("" + equipoo.cantjug)<a id="form-popover" onclick="myfunction2()">[Editar]</a><br /><br />
+        CANTIDAD DE JUGADORES: @Html.Label("" + equipoo.cantjug)<a id="form-popover2" onclick="myfunction2()">[Editar]</a><br /><br />
         CALIFICACION: @Html.Label(equipoo.calificacion.ToString())<br /><br />
         CANTIDAD DE VOTOS: @Html.Label(equipoo.cantvotos.ToString())<br /><br />
     </h3>
