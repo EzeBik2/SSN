@@ -1,6 +1,6 @@
 ﻿<head>
     <script type="text/javascript" src="~/Content/jquery-3.2.1.min.js"></script>
-</head>
+</head> <!-- Agrego JQUERY -->
 
 @using RSF.Models
 @model Jugador
@@ -11,7 +11,7 @@
 <div style="margin-left: 500px;">
     <form method="POST" action="@Url.Action("LoguearJugador", "Home")">
 
-        <br /> <h3>@ViewBag.NoSeEncontro </h3><br />
+        <br /> <h3>@ViewBag.NoSeEncontro </h3><br /> <!-- Si no encuentra al jugador devuelve un mensaje -->
 
         Email: @Html.TextBoxFor(x => x.email, new { @class = "form-control", @type = "email" }) <br />
 
@@ -19,11 +19,11 @@
 
         <input type="submit" value="Ingresar" class="btn btn-primary" style="display: inline-block" />
 
-    </form>
+    </form> <!-- Log In -->
 
     <br />
 
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal"> Registrarse </button>
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal"> Registrarse </button> <!-- Boton que abre el modal de Registro -->
 
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
         <div class="modal-dialog" role="document">
@@ -104,5 +104,5 @@
                 </div>     
             </div>
         </div>
-    </div>
+    </div> <!-- Modal de Registrp -->
 </div>

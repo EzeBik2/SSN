@@ -24,5 +24,7 @@ namespace RSF.Models
         public DateTime fecha { get; set; }
 
         public List<string> canchas { get; set; }
+
+        public List<string> equipos { get; set; }
     }
 }

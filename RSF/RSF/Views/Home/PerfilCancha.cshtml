@@ -1,7 +1,7 @@
 ﻿@using RSF.Models
 @model Cancha
 
-@{Cancha canchaa = ViewBag.A;}
+@{Cancha canchaa = ViewBag.CanchaElejida;}
 
 <br />
 <br />
@@ -25,7 +25,7 @@
                 <th>#</th>
             </tr>
         </thead>
-        @foreach (Partido partidoo in ViewBag.G)
+        @foreach (Partido partidoo in ViewBag.PartidosCancha)
         {
             <tr>
                 <td>@Html.Label("#P" + partidoo.id)</td>
@@ -37,6 +37,7 @@
                 }
                 <td>@Html.ActionLink("VER PERFIL", "BuscarTodo", "Home", nuevo, null)</td>
             </tr>
+            <!-- Falta Agregar un partido en la cancha -->
         }
     </table>
 </div>
