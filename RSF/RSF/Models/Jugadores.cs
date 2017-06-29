@@ -35,13 +35,13 @@ namespace RSF.Models.DataAccess
                 OleDbParameter apellido = new OleDbParameter("apellido", OleDbType.VarChar, 88);
                 apellido.Value = jugadorAAgregar.apellido;
                 OleDbParameter foto = new OleDbParameter("foto", OleDbType.VarChar, 88);
-                foto.Value = "";
+                foto.Value = ""; //Agregar Foto Aun No Disponible
                 OleDbParameter edad = new OleDbParameter("edad", OleDbType.VarChar, 88);
                 edad.Value = Convert.ToInt32(jugadorAAgregar.edad);
                 OleDbParameter telefono = new OleDbParameter("telefono", OleDbType.VarChar, 88);
                 telefono.Value = Convert.ToInt32(jugadorAAgregar.telefono);
                 OleDbParameter calificacion = new OleDbParameter("calificacion", OleDbType.VarChar, 88);
-                calificacion.Value = 0;
+                calificacion.Value = 0; //Calificacion aun no disponible
                 OleDbParameter cantidaddevotos = new OleDbParameter("cantidaddevotos", OleDbType.VarChar, 88);
                 cantidaddevotos.Value = 0;
                 OleDbParameter email = new OleDbParameter("email", OleDbType.VarChar, 88);

@@ -26,5 +26,6 @@ namespace RSF.Models
         public List<string> canchas { get; set; }
 
         public List<string> equipos { get; set; }
+        public List<string> barrios { get; set; }
     }
 }

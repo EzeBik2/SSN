@@ -14,10 +14,6 @@ namespace RSF.Controllers
         {
             return View();
         }
-        public ActionResult Registracion()
-        {
-            return View();
-        }
 
         public static List<string> TraerNombresDeCanchas(List<Cancha> ListadeCanchas)
         {
@@ -62,19 +58,31 @@ namespace RSF.Controllers
             }
             return Listademispartidos;
         }
+        public static List<string> TraerListadebarrios(List<Cancha> ListadeCanchas)
+        {
+            List<string> ListaDeBarrios = new List<string>();
+            for (int i = 0; i < ListadeCanchas.Count; i++)
+            {
+                if (ListaDeBarrios.Contains(ListadeCanchas[i].barrio) == false)
+                {
+                    ListaDeBarrios.Add(ListadeCanchas[i].barrio);
+                }
+            }
+            return ListaDeBarrios;
+        }
 
         public ActionResult Registrar(Jugador jugadoraregistrar)
         {
             bool jugadorGuardado = Jugadores.AgregarUnJugador(jugadoraregistrar); //Si el jugador se agrego con exito devuelve true
             if (jugadorGuardado)
             {
-                return LoguearJugador(jugadoraregistrar); //Si devuelve true va a la pantalla de logueado
+                ViewBag.ErrorEnElRegistro = "Su Usuario esta siendo moderado, espere.";
             }
             else
             {
                 ViewBag.ErrorEnElRegistro = "Error en la registracion por parte del programa.";
-                return View("Index"); //Si devuelve false vuelve a la misma pantalla con mensaje de error
             }
+            return View("Index");
         }
         public ActionResult LoguearJugador(Jugador jugadorqueselogueo)
         {
@@ -97,7 +105,8 @@ namespace RSF.Controllers
             List<Partido> TodosLosPartidos = Partidos.TraerPartidos(); //Trae la lista de todos los partidos que existen
             List<List<Jugador>> ListadeListadeJugadores = TraerListadeListadeJugadores(TodosLosPartidos); //Esta lista es una lista en la que en cada posicion tiene una lista que en cada posicion tiene jugadores
             List<Partido> Listademispartidos = Traerlistademispartidos(jugadorlogueado.id); //Trae la lista de mis patidos
-            if (Listademispartidos.Count == 0 || ListadeCanchas.Count == 0 || ListadeNombresDeCanchas.Count == 0 || TodosLosPartidos.Count == 0 || ListadeListadeJugadores.Count == 0 || jugadorlogueado.id == 0)
+            List<string> ListaBarrios = TraerListadebarrios(ListadeCanchas);
+            if (Listademispartidos.Count == 0 || ListadeCanchas.Count == 0 || ListadeNombresDeCanchas.Count == 0 || TodosLosPartidos.Count == 0 || ListadeListadeJugadores.Count == 0 || jugadorlogueado.id == 0 || ListaBarrios.Count == 0)
             {
 
                 ViewBag.NoSeEncontro = "Tuvimos un problema, vuelva a loguearse por favor.";
@@ -105,6 +114,7 @@ namespace RSF.Controllers
             }
             else
             {
+                ViewBag.ListaDeBarrios = ListaBarrios;
                 ViewBag.JugadorLogueado = jugadorlogueado; //Envia Jugador que se logueo
                 ViewBag.ListadeListasdeJugadores = ListadeListadeJugadores; //Envio la lista de listas de jugadores
                 ViewBag.MisPartidos = Listademispartidos; //Envio la lista de mis partidos
@@ -114,6 +124,7 @@ namespace RSF.Controllers
                 return View("Logueado"); //Voy a la pantalla de logueado
             }
         }
+
         public ActionResult BuscarTodo(Todos todo)
         {
             Jugador mijugador = new Jugador();
@@ -188,6 +199,43 @@ namespace RSF.Controllers
                 }
                 ViewBag.A = W;
                 return View("Todos");
+            }
+        }
+
+        public ActionResult BuscarCanchasPor(Todos todo)
+        {
+            Jugador jugadorqueselogueo = new Jugador();
+            jugadorqueselogueo.id = todo.id;
+            ViewBag.B = Jugadores.TraerUnJugador(jugadorqueselogueo); //Verifica que exista el jugador, devuelve un jugador
+
+
+            if (todo.fecha != null)
+            {
+                Cancha nuevaCancha = new Cancha();
+                List<Cancha> ListaDeCanchas = Canchas.TraerCanchas(nuevaCancha);
+                List<Partido>  Listadepartidos = Partidos.TraerPartidos();
+                for (int i = 0; i < Listadepartidos.Count; i++)
+                {
+                    if (Listadepartidos[i].Fecha == todo.fecha)
+                    {
+                        for (int o = 0; o < ListaDeCanchas.Count; o++)
+                        {
+                            if (Listadepartidos[i].IdCancha == ListaDeCanchas[o].id)
+                            {
+                                ListaDeCanchas.Remove(ListaDeCanchas[o]);
+                            }
+                        }
+                    }
+                }
+                ViewBag.ListadeCanchasDelBarrio = ListaDeCanchas;
+                return View("Canchas");
+            }
+            else
+            {
+                Cancha nuevaCancha = new Cancha();
+                nuevaCancha.barrio = todo.barrios[0];
+                ViewBag.ListadeCanchasDelBarrio = Canchas.TraerCanchas(nuevaCancha);
+                return View("Canchas");
             }
         }
 
@@ -518,10 +566,10 @@ namespace RSF.Controllers
             }
             else
             {
+                bool partidoagregado = Partidos.AgregarUnPartido(unPartido2);
                 Partido traer = Partidos.TraerUnPartido(unPartido2);
                 A.idPartido = traer.id;
                 bool jugadoragregado = PartidosJugadores.Agregar(A);
-                bool partidoagregado = Partidos.AgregarUnPartido(unPartido2);
                 traer = Partidos.TraerUnPartido(traer);
                 Todos tooddooss = new Todos();
                 tooddooss.id = unPartido.id;

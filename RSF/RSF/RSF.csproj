@@ -206,6 +206,7 @@
     <Content Include="Views\Home\Todos.cshtml" />
     <Content Include="Views\Home\EquiposJugador.cshtml" />
     <Content Include="Views\Home\PerfilPartido.cshtml" />
+    <Content Include="Views\Home\Canchas.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
