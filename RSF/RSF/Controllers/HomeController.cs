@@ -635,5 +635,18 @@ namespace RSF.Controllers
             B.id = unpartidojugador.idJugador;
             return BuscarTodo(B);
         }
+        public ActionResult QuienesSomos()
+        {
+            return View();
+        }
+
+        public ActionResult Contacto()
+        {
+            return View();
+        }
+        public ActionResult Afiliar()
+        {
+            return View();
+        }
     }
 }

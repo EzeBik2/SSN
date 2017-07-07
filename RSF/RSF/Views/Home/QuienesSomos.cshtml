@@ -3,72 +3,41 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head> <!-- Agrego JQUERY Y DISEÑO RESPONSIVE-->
 
-@using RSF.Models
-@model Cancha
-
 <nav class="navbar navbar-default navbar-fixed-top" style="display: block; width: 100%; height:5%; background-color: darkslateblue; color: black;">
     <div class="container">
         <div class="collapse navbar-collapse">
-            <a href="@Url.Action("Logueado", "Home", ViewBag.B, null)">
+            <a href="@Url.Action("Logueado", "Home", ViewBag.JugadorLogueado, null)">
                 <span class="btn btn-default glyphicon glyphicon-home" style="float: left; margin-top: 11px;" />
-            </a>
+            </a> <!-- Boton para volver a logueado con el Glyphicon -->
             <form method="POST" action="@Url.Action("BuscarTodo", "Home")" class="navbar-form navbar-left">
                 <div class="form-group">
-                    @Html.TextBoxFor(x => x.id, new { @style = "display: none;", @Value = "" + ViewBag.B.id })
+                    @Html.TextBoxFor(x => x.id, new { @style = "display: none;", @Value = "" + ViewBag.JugadorLogueado.id })
                     @Html.TextBoxFor(x => x.nombre, new { @class = "form-control", @Value = "" })
                 </div>
                 <button type="submit" class="btn btn-default" aria-haspopup="true" aria-expanded="false"> <span class="glyphicon glyphicon-search"> </span></button>
-            </form>
+            </form> <!-- Formulario para buscar cualquiercosa -->
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="#">Mensajes <span class="badge">42</span></a></li>
                 <li><a href="#">Notificaciones <span class="badge">3</span></a></li>
                 <li class="dropdown">
+                    <!-- Dropdown en la Navbar -->
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <span class="glyphicon glyphicon-user"></span></a>
                     <ul class="dropdown-menu">
                         @{
-                            Todos nuevoo = new Todos();
-                            nuevoo.id = ViewBag.B.id;
-                            nuevoo.nombre = "#J" + ViewBag.B.id.ToString();
+                            Todos miperfil = new Todos();
+                            miperfil.id = ViewBag.JugadorLogueado.id;
+                            miperfil.nombre = "#J" + ViewBag.JugadorLogueado.id;
                         }
-                        <li><a href="@Url.Action("BuscarTodo", "Home", nuevoo, null)">Editar Perfil</a></li>
-                        <li><a href="@Url.Action("EquiposJugador", "Home", ViewBag.B, null)">Mis Equipos</a></li>
-                        <li><a href="#">Cerrar Cuenta</a></li>
+                        <li><a href="@Url.Action("BuscarTodo", "Home", miperfil, null)">Editar Perfil</a></li> <!-- Ir a Mi perfil -->
+                        <li><a href="@Url.Action("EquiposJugador", "Home", ViewBag.JugadorLogueado, null)">Mis Equipos</a></li> <!-- Ir a Mis Equipos -->
+                        <li><a href="@Url.Action("Index", "Home")">Cerrar Cuenta</a></li> <!-- Cerrar Sesion -->
                     </ul>
                 </li>
             </ul>
         </div>
     </div>
-</nav>
-
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-
-<table class="table table-hover" style="width: 700px; float: right;">
-    <thead class="thead-inverse">
-        <tr>
-            <th>Id</th>
-            <th>Nombre</th>
-            <th>#</th>
-        </tr>
-    </thead>
-    @foreach (Cancha todo in ViewBag.ListadeCanchasDelBarrio)
-    {
-        <tr>
-            <td>@Html.Label("#C" + todo.id)</td>
-            <td>@Html.Label("" + todo.nombre)</td>
-            @{
-                Todos todo2 = new Todos();
-                todo2.nombre = "#C" + todo.id;
-                todo2.id = ViewBag.B.id;
-            }
-            <td>@Html.ActionLink("VER PERFIL", "BuscarTodo", "Home", todo2, null)</td>
-        </tr>
-    }
-</table>
+</nav> <!-- Menu Principal -->
+<h2>Titulo DE QUIENES SOMOS</h2>
 <footer>
     <div style="background-color:black; color:white;">
         @Html.ActionLink("Quienes somos", "QuienesSomos", "Home")
@@ -76,3 +45,4 @@
         @Html.ActionLink("Afilia una cancha", "Afiliar", "Home")
     </div>
 </footer>
+

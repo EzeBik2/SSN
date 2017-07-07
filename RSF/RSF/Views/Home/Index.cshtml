@@ -1,6 +1,7 @@
 ﻿<head>
     <script type="text/javascript" src="~/Content/jquery-3.2.1.min.js"></script>
-</head> <!-- Agrego JQUERY -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head> <!-- Agrego JQUERY Y DISEÑO RESPONSIVE-->
 
 @using RSF.Models
 @model Jugador
@@ -106,3 +107,14 @@
         </div>
     </div> <!-- Modal de Registro -->
 </div>
+<footer style="position:fixed; height:57px; bottom:0; width: 100%; text-align: center; align-content:center;">
+    <div style="align-content:center;">
+        <br>
+        @Html.ActionLink("Quienes somos", "QuienesSomos", "Home")
+         - 
+        @Html.ActionLink("Contacto", "Contacto", "Home")
+         - 
+        @Html.ActionLink("Afilia una cancha", "Afiliar", "Home")
+        <br>
+    </div>
+</footer>

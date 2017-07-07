@@ -1,3 +1,8 @@
+<head>
+    <script type="text/javascript" src="~/Content/jquery-3.2.1.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head> <!-- Agrego JQUERY Y DISEÑO RESPONSIVE-->
+
 @using RSF.Models
 @model Todos
 
@@ -241,4 +246,9 @@
             </div>
         </div>
     </div>
+        <div style="background-color:black; color:white;">
+            @Html.ActionLink("Quienes somos", "QuienesSomos", "Home")
+            @Html.ActionLink("Contacto", "Contacto", "Home")
+            @Html.ActionLink("Afilia una cancha", "Afiliar", "Home")
+        </div>
 </footer>
