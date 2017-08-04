@@ -104,7 +104,7 @@ namespace RSF.Controllers
             List<string> ListadeNombresDeCanchas = TraerNombresDeCanchas(ListadeCanchas); //Trae la lista de todos los nombres de las canchas que existen
             List<Partido> TodosLosPartidos = Partidos.TraerPartidos(); //Trae la lista de todos los partidos que existen
             List<List<Jugador>> ListadeListadeJugadores = TraerListadeListadeJugadores(TodosLosPartidos); //Esta lista es una lista en la que en cada posicion tiene una lista que en cada posicion tiene jugadores
-            List<Partido> Listademispartidos = Traerlistademispartidos(jugadorlogueado.id); //Trae la lista de mis patidos
+            List<Partido> Listademispartidos = Traerlistademispartidos(jugadorlogueado.id); //Trae la lista de mis patidos ---wrong---
             List<string> ListaBarrios = TraerListadebarrios(ListadeCanchas);
             if (Listademispartidos.Count == 0 || ListadeCanchas.Count == 0 || ListadeNombresDeCanchas.Count == 0 || TodosLosPartidos.Count == 0 || ListadeListadeJugadores.Count == 0 || jugadorlogueado.id == 0 || ListaBarrios.Count == 0)
             {
@@ -216,7 +216,7 @@ namespace RSF.Controllers
                 List<Partido>  Listadepartidos = Partidos.TraerPartidos();
                 for (int i = 0; i < Listadepartidos.Count; i++)
                 {
-                    if (Listadepartidos[i].Fecha == todo.fecha)
+                    if (Listadepartidos[i].Fecha.Equals(todo.fecha))
                     {
                         for (int o = 0; o < ListaDeCanchas.Count; o++)
                         {

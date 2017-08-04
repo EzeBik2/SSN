@@ -2,16 +2,19 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using System.Data.OleDb;
+using MySql.Data.MySqlClient;
 
 namespace RSF.Models.DataAccess
 {
     public class Canchas
     {
-        static string Proveedor = @"Provider=Microsoft.ACE.OLEDB.12.0;
-            Data Source=|DataDirectory|\Database1.accdb";
+        static MySqlCommand cmd;
 
-        static OleDbConnection conn = new OleDbConnection();
+        static string querystr;
+
+        static string Proveedor = @"Data Source=localhost; Database=DBRSF; User ID=root; Password='root'";
+
+        static MySqlConnection conn = new MySqlConnection();
 
         private static void ConectarDB()
         {
@@ -25,24 +28,10 @@ namespace RSF.Models.DataAccess
             try
             {
                 ConectarDB();
+                querystr = "INSERT into Canchas (nombre, barrio, calle, telefono) VALUES ('" + canchaAAgregar.nombre + "', '" + canchaAAgregar.barrio + "', '" + canchaAAgregar.calle + "', '" + canchaAAgregar.telefono + "' )";
+                cmd = new MySqlCommand(querystr, conn);
 
-                OleDbCommand Consulta = conn.CreateCommand();
-                Consulta.CommandType = System.Data.CommandType.StoredProcedure;
-                Consulta.CommandText = "AgregarCancha";
-
-                OleDbParameter nombre = new OleDbParameter("nombre", canchaAAgregar.nombre);
-                OleDbParameter barrio = new OleDbParameter("barrio", canchaAAgregar.barrio);
-                OleDbParameter calle = new OleDbParameter("calle", canchaAAgregar.calle);
-                OleDbParameter telefono = new OleDbParameter("telefono", canchaAAgregar.telefono);
-
-
-                Consulta.Parameters.Add(nombre);
-                Consulta.Parameters.Add(barrio);
-                Consulta.Parameters.Add(calle);
-                Consulta.Parameters.Add(telefono);
-
-
-                int resultado = (int)Consulta.ExecuteNonQuery();
+                int resultado = (int)cmd.ExecuteNonQuery();
                 bool funciono = false;
                 if (resultado == 1)
                 {
@@ -64,25 +53,11 @@ namespace RSF.Models.DataAccess
             try
             {
                 ConectarDB();
+ 
+                querystr = "UPDATE Canchas SET nombre = '" + canchaAmodificar.nombre + "', barrio = '" + canchaAmodificar.barrio + "', calle = '" + canchaAmodificar.calle + "', telefono = '" + canchaAmodificar.telefono + "' WHERE id = '" + canchaAmodificar.id + "'";
+                cmd = new MySqlCommand(querystr, conn);
 
-                OleDbCommand Consulta = conn.CreateCommand();
-                Consulta.CommandType = System.Data.CommandType.StoredProcedure;
-                Consulta.CommandText = "ModificarCancha";
-
-                OleDbParameter id = new OleDbParameter("id", canchaAmodificar.id);
-                OleDbParameter nombre = new OleDbParameter("nombre", canchaAmodificar.nombre);
-                OleDbParameter barrio = new OleDbParameter("barrio", canchaAmodificar.barrio);
-                OleDbParameter calle = new OleDbParameter("calle", canchaAmodificar.calle);
-                OleDbParameter telefono = new OleDbParameter("telefono", canchaAmodificar.telefono);
-
-                Consulta.Parameters.Add(nombre);
-                Consulta.Parameters.Add(barrio);
-                Consulta.Parameters.Add(calle);
-                Consulta.Parameters.Add(telefono);
-                Consulta.Parameters.Add(id);
-
-
-                int resultado = (int)Consulta.ExecuteNonQuery();
+                int resultado = (int)cmd.ExecuteNonQuery();
                 bool funciono = false;
                 if (resultado == 1)
                 {
@@ -107,11 +82,10 @@ namespace RSF.Models.DataAccess
             {
                 ConectarDB();
 
-                OleDbCommand Consulta = conn.CreateCommand();
-                Consulta.CommandType = System.Data.CommandType.StoredProcedure;
-                Consulta.CommandText = "TraerCanchas";
+                querystr = "SELECT* FROM Canchas WHERE id = '" + unaCancha.id + "'";
+                cmd = new MySqlCommand(querystr, conn);
+                MySqlDataReader dr = cmd.ExecuteReader();
 
-                OleDbDataReader dr = Consulta.ExecuteReader();
                 while (dr.Read())
                 {
                     if (Convert.ToInt32(dr["Id"].ToString()) == unaCancha.id)
@@ -153,11 +127,10 @@ namespace RSF.Models.DataAccess
             {
                 ConectarDB();
 
-                OleDbCommand Consulta = conn.CreateCommand();
-                Consulta.CommandType = System.Data.CommandType.StoredProcedure;
-                Consulta.CommandText = "TraerCanchas";
+                querystr = "SELECT* FROM Canchas";
+                cmd = new MySqlCommand(querystr, conn);
+                MySqlDataReader dr = cmd.ExecuteReader();
 
-                OleDbDataReader dr = Consulta.ExecuteReader();
                 while (dr.Read())
                 {
                     Cancha unaCancha2 = new Cancha();
@@ -205,15 +178,10 @@ namespace RSF.Models.DataAccess
             {
                 ConectarDB();
 
-                OleDbCommand Consulta = conn.CreateCommand();
-                Consulta.CommandType = System.Data.CommandType.StoredProcedure;
-                Consulta.CommandText = "EliminarCancha";
+                querystr = "DELETE FROM Canchas WHERE id = '" + idCancha.ToString() + "'";
+                cmd = new MySqlCommand(querystr, conn);
 
-                OleDbParameter id = new OleDbParameter("id", idCancha);
-
-                Consulta.Parameters.Add(id);
-
-                int resultado = (int)Consulta.ExecuteNonQuery();
+                int resultado = (int)cmd.ExecuteNonQuery();
                 bool funciono = false;
                 if (resultado == 1)
                 {

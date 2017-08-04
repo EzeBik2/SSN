@@ -2,16 +2,19 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using System.Data.OleDb;
+using MySql.Data.MySqlClient;
 
 namespace RSF.Models.DataAccess
 {
     public class Jugadores
     {
-        static string Proveedor = @"Provider=Microsoft.ACE.OLEDB.12.0;
-            Data Source=|DataDirectory|\Database1.accdb";
+        static MySqlCommand cmd;
 
-        static OleDbConnection conn = new OleDbConnection();
+        static string querystr;
+
+        static string Proveedor = @"Data Source=localhost; Database=DBRSF; User ID=root; Password='root'";
+
+        static MySqlConnection conn = new MySqlConnection();
 
         private static void ConectarDB()
         {
@@ -26,40 +29,10 @@ namespace RSF.Models.DataAccess
             {
                 ConectarDB();
 
-                OleDbCommand Consulta = conn.CreateCommand();
-                Consulta.CommandType = System.Data.CommandType.StoredProcedure;
-                Consulta.CommandText = "AgregarJugador";
+                querystr = "INSERT into Jugadores (nombre, apellido, foto, edad, telefono, calificacion, cantidaddevotos, email, clave) VALUES ('" + jugadorAAgregar.nombre + "', '" + jugadorAAgregar.apellido + "', '" + jugadorAAgregar.foto + "', '" + jugadorAAgregar.edad + "', '" + jugadorAAgregar.telefono + "', '" + jugadorAAgregar.calificacion + "', '" + jugadorAAgregar.cantidaddevotos + "', '" + jugadorAAgregar.email + "', '" + jugadorAAgregar.contraseña + "' )";
+                cmd = new MySqlCommand(querystr, conn);
 
-                OleDbParameter nombre = new OleDbParameter("nombre", OleDbType.VarChar, 88);
-                nombre.Value = jugadorAAgregar.nombre;
-                OleDbParameter apellido = new OleDbParameter("apellido", OleDbType.VarChar, 88);
-                apellido.Value = jugadorAAgregar.apellido;
-                OleDbParameter foto = new OleDbParameter("foto", OleDbType.VarChar, 88);
-                foto.Value = ""; //Agregar Foto Aun No Disponible
-                OleDbParameter edad = new OleDbParameter("edad", OleDbType.VarChar, 88);
-                edad.Value = Convert.ToInt32(jugadorAAgregar.edad);
-                OleDbParameter telefono = new OleDbParameter("telefono", OleDbType.VarChar, 88);
-                telefono.Value = Convert.ToInt32(jugadorAAgregar.telefono);
-                OleDbParameter calificacion = new OleDbParameter("calificacion", OleDbType.VarChar, 88);
-                calificacion.Value = 0; //Calificacion aun no disponible
-                OleDbParameter cantidaddevotos = new OleDbParameter("cantidaddevotos", OleDbType.VarChar, 88);
-                cantidaddevotos.Value = 0;
-                OleDbParameter email = new OleDbParameter("email", OleDbType.VarChar, 88);
-                email.Value = jugadorAAgregar.email;
-                OleDbParameter contraseña = new OleDbParameter("contraseña", OleDbType.VarChar, 88);
-                contraseña.Value = jugadorAAgregar.contraseña;
-
-                Consulta.Parameters.Add(nombre);
-                Consulta.Parameters.Add(apellido);
-                Consulta.Parameters.Add(foto);
-                Consulta.Parameters.Add(edad);
-                Consulta.Parameters.Add(telefono);
-                Consulta.Parameters.Add(calificacion);
-                Consulta.Parameters.Add(cantidaddevotos);
-                Consulta.Parameters.Add(email);
-                Consulta.Parameters.Add(contraseña);
-
-                int resultado = (int)Consulta.ExecuteNonQuery();
+                int resultado = (int)cmd.ExecuteNonQuery();
                 bool funciono = false;
                 if (resultado == 1)
                 {
@@ -82,33 +55,10 @@ namespace RSF.Models.DataAccess
             {
                 ConectarDB();
 
-                OleDbCommand Consulta = conn.CreateCommand();
-                Consulta.CommandType = System.Data.CommandType.StoredProcedure;
-                Consulta.CommandText = "ModificarJugador";
+                querystr = "UPDATE Jugadores SET nombre = '" + jugadorAModificar.nombre + "', apellido = '" + jugadorAModificar.apellido + "', foto = '" + jugadorAModificar.foto + "', edad = '" + jugadorAModificar.edad + "', telefono = '" + jugadorAModificar.telefono + "', calificacion = '" + jugadorAModificar.calificacion + "', cantidaddevotos = '" + jugadorAModificar.cantidaddevotos + "', email = '" + jugadorAModificar.email + "', contraseña = '" + jugadorAModificar.contraseña + "' WHERE id = '" + jugadorAModificar.id + "'";
+                cmd = new MySqlCommand(querystr, conn);
 
-                OleDbParameter nombre = new OleDbParameter("nombre", jugadorAModificar.nombre);
-                OleDbParameter apellido = new OleDbParameter("apellido", jugadorAModificar.apellido);
-                OleDbParameter foto = new OleDbParameter("foto", "");
-                OleDbParameter edad = new OleDbParameter("edad", Convert.ToInt32(jugadorAModificar.edad));
-                OleDbParameter telefono = new OleDbParameter("telefono", Convert.ToInt32(jugadorAModificar.telefono));
-                OleDbParameter calificacion = new OleDbParameter("calificacion", jugadorAModificar.calificacion);
-                OleDbParameter cantidaddevotos = new OleDbParameter("cantvotos", jugadorAModificar.cantidaddevotos);
-                OleDbParameter email = new OleDbParameter("email", jugadorAModificar.email);
-                OleDbParameter contraseña = new OleDbParameter("contraseña", jugadorAModificar.contraseña);
-                OleDbParameter id = new OleDbParameter("id", jugadorAModificar.id);
-
-                Consulta.Parameters.Add(nombre);
-                Consulta.Parameters.Add(apellido);
-                Consulta.Parameters.Add(foto);
-                Consulta.Parameters.Add(edad);
-                Consulta.Parameters.Add(telefono);
-                Consulta.Parameters.Add(calificacion);
-                Consulta.Parameters.Add(cantidaddevotos);
-                Consulta.Parameters.Add(email);
-                Consulta.Parameters.Add(contraseña);
-                Consulta.Parameters.Add(id);
-
-                int resultado = (int)Consulta.ExecuteNonQuery();
+                int resultado = (int)cmd.ExecuteNonQuery();
                 bool funciono = false;
                 if (resultado == 1)
                 {
@@ -133,40 +83,24 @@ namespace RSF.Models.DataAccess
             {
                 ConectarDB();
 
-                OleDbCommand Consulta = conn.CreateCommand();
-                Consulta.CommandType = System.Data.CommandType.StoredProcedure;
-                Consulta.CommandText = "TraerJugadores";
+                querystr = "SELECT* FROM Jugadores";
+                cmd = new MySqlCommand(querystr, conn);
+                MySqlDataReader dr = cmd.ExecuteReader();
 
-                OleDbDataReader dr = Consulta.ExecuteReader();
                 while (dr.Read())
-                {
-                    if (Convert.ToInt32(dr["Id"].ToString()) == unJugador.id)
+                {                  
+                    if (dr["email"].ToString() == unJugador.email && dr["clave"].ToString() == unJugador.contraseña)
                     {
-                        unJugador2.id = Convert.ToInt32(dr["Id"].ToString());
-                        unJugador2.nombre = dr["Nombre"].ToString();
-                        unJugador2.apellido = dr["Apellido"].ToString();
-                        unJugador2.foto = dr["Foto"].ToString();
-                        unJugador2.edad = Convert.ToInt32(dr["Edad"].ToString());
-                        unJugador2.telefono = Convert.ToInt32(dr["Telefono"].ToString());
-                        unJugador2.calificacion = Convert.ToInt32(dr["Calificacion"].ToString());
-                        unJugador2.cantidaddevotos = Convert.ToInt32(dr["Cantidaddevotos"].ToString());
-                        unJugador2.email = dr["Email"].ToString();
-                        unJugador2.contraseña = dr["Contraseña"].ToString();
-                        conn.Close();
-                        return unJugador2;
-                    }
-                    if (dr["Email"].ToString() == unJugador.email && dr["Contraseña"].ToString() == unJugador.contraseña)
-                    {
-                        unJugador2.id = Convert.ToInt32(dr["Id"].ToString());
-                        unJugador2.nombre = dr["Nombre"].ToString();
-                        unJugador2.apellido = dr["Apellido"].ToString();
-                        unJugador2.foto = dr["Foto"].ToString();
-                        unJugador2.edad = Convert.ToInt32(dr["Edad"].ToString());
-                        unJugador2.telefono = Convert.ToInt32(dr["Telefono"].ToString());
-                        unJugador2.calificacion = Convert.ToInt32(dr["Calificacion"].ToString());
-                        unJugador2.cantidaddevotos = Convert.ToInt32(dr["CantidaddeVotos"].ToString());
-                        unJugador2.email = dr["Email"].ToString();
-                        unJugador2.contraseña = dr["Contraseña"].ToString();
+                        unJugador2.id = Convert.ToInt32(dr["id"].ToString());
+                        unJugador2.nombre = dr["nombre"].ToString();
+                        unJugador2.apellido = dr["apellido"].ToString();
+                        unJugador2.foto = dr["foto"].ToString();
+                        unJugador2.edad = Convert.ToInt32(dr["edad"].ToString());
+                        unJugador2.telefono = Convert.ToInt32(dr["telefono"].ToString());
+                        unJugador2.calificacion = Convert.ToInt32(dr["calificacion"].ToString());
+                        unJugador2.cantidaddevotos = Convert.ToInt32(dr["cantidaddeVotos"].ToString());
+                        unJugador2.email = dr["email"].ToString();
+                        unJugador2.contraseña = dr["clave"].ToString();
                         conn.Close();
                         return unJugador2;
                     }
@@ -190,24 +124,23 @@ namespace RSF.Models.DataAccess
             {
                 ConectarDB();
 
-                OleDbCommand Consulta = conn.CreateCommand();
-                Consulta.CommandType = System.Data.CommandType.StoredProcedure;
-                Consulta.CommandText = "TraerJugadores";
+                querystr = "SELECT* FROM Jugadores";
+                cmd = new MySqlCommand(querystr, conn);
+                MySqlDataReader dr = cmd.ExecuteReader();
 
-                OleDbDataReader dr = Consulta.ExecuteReader();
                 while (dr.Read())
                 {
                     Jugador unJugador2 = new Jugador();
-                    unJugador2.id = Convert.ToInt32(dr["Id"].ToString());
-                    unJugador2.nombre = dr["Nombre"].ToString();
-                    unJugador2.apellido = dr["Apellido"].ToString();
-                    unJugador2.foto = dr["Foto"].ToString();
-                    unJugador2.edad = Convert.ToInt32(dr["Edad"].ToString());
-                    unJugador2.telefono = Convert.ToInt32(dr["Telefono"].ToString());
-                    unJugador2.calificacion = Convert.ToInt32(dr["Calificacion"].ToString());
-                    unJugador2.cantidaddevotos = Convert.ToInt32(dr["CantidaddeVotos"].ToString());
-                    unJugador2.email = dr["Email"].ToString();
-                    unJugador2.contraseña = dr["Contraseña"].ToString();
+                    unJugador2.id = Convert.ToInt32(dr["id"].ToString());
+                    unJugador2.nombre = dr["nombre"].ToString();
+                    unJugador2.apellido = dr["apellido"].ToString();
+                    unJugador2.foto = dr["foto"].ToString();
+                    unJugador2.edad = Convert.ToInt32(dr["edad"].ToString());
+                    unJugador2.telefono = Convert.ToInt32(dr["telefono"].ToString());
+                    unJugador2.calificacion = Convert.ToInt32(dr["calificacion"].ToString());
+                    unJugador2.cantidaddevotos = Convert.ToInt32(dr["cantidaddevotos"].ToString());
+                    unJugador2.email = dr["email"].ToString();
+                    unJugador2.contraseña = dr["clave"].ToString();
                     if (unJugador2.id == unJugador.id)
                     {
                         ListadeJugadores.Add(unJugador2);
@@ -236,15 +169,10 @@ namespace RSF.Models.DataAccess
             {
                 ConectarDB();
 
-                OleDbCommand Consulta = conn.CreateCommand();
-                Consulta.CommandType = System.Data.CommandType.StoredProcedure;
-                Consulta.CommandText = "EliminarJugador";
+                querystr = "DELETE FROM Jugadores WHERE id = '" + A.ToString() + "'";
+                cmd = new MySqlCommand(querystr, conn);
 
-                OleDbParameter id = new OleDbParameter("id", A);
-
-                Consulta.Parameters.Add(id);
-
-                int resultado = (int)Consulta.ExecuteNonQuery();
+                int resultado = (int)cmd.ExecuteNonQuery();
                 bool funciono = false;
                 if (resultado == 1)
                 {

@@ -2,49 +2,36 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using System.Data.OleDb;
+using MySql.Data.MySqlClient;
 
 namespace RSF.Models.DataAccess
 {
     public class Equipos
     {
-        static string Proveedor = @"Provider=Microsoft.ACE.OLEDB.12.0;
-            Data Source=|DataDirectory|\Database1.accdb";
+        static MySqlCommand cmd;
 
-        static OleDbConnection conn = new OleDbConnection();
+        static string querystr;
+
+        static string Proveedor = @"Data Source=localhost; Database=DBRSF; User ID=root; Password='root'";
+
+        static MySqlConnection conn = new MySqlConnection();
 
         private static void ConectarDB()
         {
             conn.ConnectionString = Proveedor;
             conn.Open();
         }
-        
+
         public static bool AgregarUnEquipo(Equipo equipoAAgregar)
         {
             try
             {
                 ConectarDB();
 
-                OleDbCommand Consulta = conn.CreateCommand();
-                Consulta.CommandType = System.Data.CommandType.StoredProcedure;
-                Consulta.CommandText = "AgregarEquipo";
+                querystr = "INSERT into Equipos (nombre, cantjug, calificacion, votos) VALUES ('" + equipoAAgregar.nombre + "', '" + equipoAAgregar.cantjug + "', '" + equipoAAgregar.calificacion + "', '" + equipoAAgregar.cantvotos + "' )";
+                cmd = new MySqlCommand(querystr, conn);
 
-                OleDbParameter nombre = new OleDbParameter("nombre", OleDbType.VarChar, 88);
-                nombre.Value = equipoAAgregar.nombre;
-                OleDbParameter cantjug = new OleDbParameter("cantjug", OleDbType.VarChar, 88);
-                cantjug.Value = equipoAAgregar.cantjug;
-                OleDbParameter calificacion = new OleDbParameter("calificacion", OleDbType.VarChar, 88);
-                calificacion.Value = equipoAAgregar.calificacion;
-                OleDbParameter cantidaddevotos = new OleDbParameter("cantvotos", OleDbType.VarChar, 88);
-                cantidaddevotos.Value = equipoAAgregar.cantvotos;
-
-                Consulta.Parameters.Add(nombre);
-                Consulta.Parameters.Add(cantjug);
-                Consulta.Parameters.Add(calificacion);
-                Consulta.Parameters.Add(cantidaddevotos);
-
-
-                int resultado = (int)Consulta.ExecuteNonQuery();
+                int resultado = (int)cmd.ExecuteNonQuery();
                 bool funciono = false;
                 if (resultado == 1)
                 {
@@ -67,28 +54,11 @@ namespace RSF.Models.DataAccess
             {
                 ConectarDB();
 
-                OleDbCommand Consulta = conn.CreateCommand();
-                Consulta.CommandType = System.Data.CommandType.StoredProcedure;
-                Consulta.CommandText = "ModificarEquipo";
+                querystr = "UPDATE Equipos SET nombre = '" + equipoAModificar.nombre + "', barrio = '" + equipoAModificar.cantjug + "', calle = '" + equipoAModificar.calificacion + "', telefono = '" + equipoAModificar.cantvotos + "' WHERE id = '" + equipoAModificar.id + "'";
+                cmd = new MySqlCommand(querystr, conn);
 
-                OleDbParameter nombre = new OleDbParameter("nombre", OleDbType.VarChar, 88);
-                nombre.Value = equipoAModificar.nombre;
-                OleDbParameter cantjug = new OleDbParameter("cantjug", OleDbType.VarChar, 88);
-                cantjug.Value = equipoAModificar.cantjug;
-                OleDbParameter calificacion = new OleDbParameter("calificacion", OleDbType.VarChar, 88);
-                calificacion.Value = equipoAModificar.calificacion;
-                OleDbParameter cantidaddevotos = new OleDbParameter("cantvotos", OleDbType.VarChar, 88);
-                cantidaddevotos.Value = equipoAModificar.cantvotos;
-                OleDbParameter id = new OleDbParameter("id", OleDbType.VarChar, 88);
-                id.Value = equipoAModificar.id;
 
-                Consulta.Parameters.Add(nombre);
-                Consulta.Parameters.Add(cantjug);
-                Consulta.Parameters.Add(calificacion);
-                Consulta.Parameters.Add(cantidaddevotos);
-                Consulta.Parameters.Add(id);
-
-                int resultado = (int)Consulta.ExecuteNonQuery();
+                int resultado = (int)cmd.ExecuteNonQuery();
                 bool funciono = false;
                 if (resultado == 1)
                 {
@@ -113,11 +83,10 @@ namespace RSF.Models.DataAccess
             {
                 ConectarDB();
 
-                OleDbCommand Consulta = conn.CreateCommand();
-                Consulta.CommandType = System.Data.CommandType.StoredProcedure;
-                Consulta.CommandText = "TraerEquipos";
+                querystr = "SELECT * FROM Equipos WHERE id = '" + unEquipo.id + "'";
+                cmd = new MySqlCommand(querystr, conn);
+                MySqlDataReader dr = cmd.ExecuteReader();
 
-                OleDbDataReader dr = Consulta.ExecuteReader();
                 while (dr.Read())
                 {
                     if (unEquipo.id > 0)
@@ -165,11 +134,10 @@ namespace RSF.Models.DataAccess
             {
                 ConectarDB();
 
-                OleDbCommand Consulta = conn.CreateCommand();
-                Consulta.CommandType = System.Data.CommandType.StoredProcedure;
-                Consulta.CommandText = "TraerEquipos";
+                querystr = "SELECT * FROM Equipos";
+                cmd = new MySqlCommand(querystr, conn);
+                MySqlDataReader dr = cmd.ExecuteReader();
 
-                OleDbDataReader dr = Consulta.ExecuteReader();
                 while (dr.Read())
                 {
                     Equipo unEquipo2 = new Equipo();
@@ -203,15 +171,10 @@ namespace RSF.Models.DataAccess
             {
                 ConectarDB();
 
-                OleDbCommand Consulta = conn.CreateCommand();
-                Consulta.CommandType = System.Data.CommandType.StoredProcedure;
-                Consulta.CommandText = "EliminarEquipo";
+                querystr = "DELETE FROM Equipos WHERE id = '" + A + "'";
+                cmd = new MySqlCommand(querystr, conn);
 
-                OleDbParameter id = new OleDbParameter("id", A);
-
-                Consulta.Parameters.Add(id);
-
-                int resultado = (int)Consulta.ExecuteNonQuery();
+                int resultado = (int)cmd.ExecuteNonQuery();
                 bool funciono = false;
                 if (resultado == 1)
                 {

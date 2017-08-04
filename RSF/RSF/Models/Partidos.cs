@@ -2,16 +2,19 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using System.Data.OleDb;
+using MySql.Data.MySqlClient;
 
 namespace RSF.Models.DataAccess
 {
     public class Partidos
     {
-        static string Proveedor = @"Provider=Microsoft.ACE.OLEDB.12.0;
-            Data Source=|DataDirectory|\Database1.accdb";
+        static MySqlCommand cmd;
 
-        static OleDbConnection conn = new OleDbConnection();
+        static string querystr;
+
+        static string Proveedor = @"Data Source=localhost; Database=DBRSF; User ID=root; Password='root'";
+
+        static MySqlConnection conn = new MySqlConnection();
 
         private static void ConectarDB()
         {
@@ -25,23 +28,10 @@ namespace RSF.Models.DataAccess
             {
                 ConectarDB();
 
-                OleDbCommand Consulta = conn.CreateCommand();
-                Consulta.CommandType = System.Data.CommandType.StoredProcedure;
-                Consulta.CommandText = "AgregarPartido";
-                
-                OleDbParameter cantjug = new OleDbParameter("Cantjug", OleDbType.VarChar, 88);
-                cantjug.Value = partidoAAgregar.CantJug;
-                OleDbParameter fecha = new OleDbParameter("Fecha", OleDbType.VarChar, 88);
-                fecha.Value = partidoAAgregar.Fecha;
-                OleDbParameter idcancha = new OleDbParameter("Idcancha", OleDbType.VarChar, 88);
-                idcancha.Value = partidoAAgregar.IdCancha;
-                
-                Consulta.Parameters.Add(cantjug);
-                Consulta.Parameters.Add(fecha);
-                Consulta.Parameters.Add(idcancha);
+                querystr = "INSERT into Partidos (fecha, cantjug, idcancha) VALUES ('" + partidoAAgregar.Fecha + "', '" + partidoAAgregar.CantJug + "', '" + partidoAAgregar.IdCancha + "' )";
+                cmd = new MySqlCommand(querystr, conn);
 
-
-                int resultado = (int)Consulta.ExecuteNonQuery();
+                int resultado = (int)cmd.ExecuteNonQuery();
                 bool funciono = false;
                 if (resultado == 1)
                 {
@@ -67,31 +57,30 @@ namespace RSF.Models.DataAccess
             {
                 ConectarDB();
 
-                OleDbCommand Consulta = conn.CreateCommand();
-                Consulta.CommandType = System.Data.CommandType.StoredProcedure;
-                Consulta.CommandText = "TraerPartidos";
+                querystr = "SELECT* FROM Partidos";
+                cmd = new MySqlCommand(querystr, conn);
+                MySqlDataReader dr = cmd.ExecuteReader();
 
-                OleDbDataReader dr = Consulta.ExecuteReader();
                 while (dr.Read())
                 {
                     if (unPartido.id > 0)
                     {
-                        if (Convert.ToInt32(dr["Id"].ToString()) == unPartido.id)
+                        if (Convert.ToInt32(dr["id"].ToString()) == unPartido.id)
                         {
-                            unPartido2.id = Convert.ToInt32(dr["Id"].ToString());
-                            unPartido2.CantJug = Convert.ToInt32(dr["Cantjug"].ToString());
-                            unPartido2.Fecha = Convert.ToDateTime(dr["Fecha"].ToString());
-                            unPartido2.IdCancha = Convert.ToInt32(dr["Idcancha"].ToString());
+                            unPartido2.id = Convert.ToInt32(dr["id"].ToString());
+                            unPartido2.Fecha = Convert.ToDateTime(dr["fecha"].ToString());
+                            unPartido2.CantJug = Convert.ToInt32(dr["cantjug"].ToString());
+                            unPartido2.IdCancha = Convert.ToInt32(dr["idcancha"].ToString());
                             conn.Close();
                             return unPartido2;
                         }
                     }
-                    if (Convert.ToInt32(dr["Cantjug"].ToString()) == unPartido.CantJug && Convert.ToDateTime(dr["Fecha"].ToString()) == unPartido.Fecha && Convert.ToInt32(dr["Idcancha"].ToString()) == unPartido.IdCancha)
+                    if (Convert.ToInt32(dr["cantjug"].ToString()) == unPartido.CantJug && Convert.ToDateTime(dr["fecha"].ToString()) == unPartido.Fecha && Convert.ToInt32(dr["idcancha"].ToString()) == unPartido.IdCancha)
                     {
-                        unPartido2.id = Convert.ToInt32(dr["Id"].ToString());
-                        unPartido2.CantJug = Convert.ToInt32(dr["Cantjug"].ToString());
-                        unPartido2.Fecha = Convert.ToDateTime(dr["Fecha"].ToString());
-                        unPartido2.IdCancha = Convert.ToInt32(dr["Idcancha"].ToString());
+                        unPartido2.id = Convert.ToInt32(dr["id"].ToString());
+                        unPartido2.Fecha = Convert.ToDateTime(dr["fecha"].ToString());
+                        unPartido2.CantJug = Convert.ToInt32(dr["cantjug"].ToString());
+                        unPartido2.IdCancha = Convert.ToInt32(dr["idcancha"].ToString());
                         conn.Close();
                         return unPartido2;
                     }
@@ -115,11 +104,10 @@ namespace RSF.Models.DataAccess
             {
                 ConectarDB();
 
-                OleDbCommand Consulta = conn.CreateCommand();
-                Consulta.CommandType = System.Data.CommandType.StoredProcedure;
-                Consulta.CommandText = "TraerPartidos";
+                querystr = "SELECT* FROM Partidos WHERE id = '" + unPartido.id + "'";
+                cmd = new MySqlCommand(querystr, conn);
+                MySqlDataReader dr = cmd.ExecuteReader();
 
-                OleDbDataReader dr = Consulta.ExecuteReader();
                 while (dr.Read())
                 {
                     if (Convert.ToDateTime(dr["Fecha"].ToString()) == unPartido.Fecha && Convert.ToInt32(dr["Idcancha"].ToString()) == unPartido.IdCancha)
@@ -147,18 +135,17 @@ namespace RSF.Models.DataAccess
             {
                 ConectarDB();
 
-                OleDbCommand Consulta = conn.CreateCommand();
-                Consulta.CommandType = System.Data.CommandType.StoredProcedure;
-                Consulta.CommandText = "TraerPartidos";
+                querystr = "SELECT * FROM Partidos";
+                cmd = new MySqlCommand(querystr, conn);
+                MySqlDataReader dr = cmd.ExecuteReader();
 
-                OleDbDataReader dr = Consulta.ExecuteReader();
                 while (dr.Read())
                 {
                     Partido unPartido2 = new Partido();
-                    unPartido2.id = Convert.ToInt32(dr["Id"].ToString());
-                    unPartido2.CantJug = Convert.ToInt32(dr["Cantjug"].ToString());
-                    unPartido2.Fecha = Convert.ToDateTime(dr["Fecha"].ToString());
-                    unPartido2.IdCancha = Convert.ToInt32(dr["Idcancha"].ToString());   
+                    unPartido2.id = Convert.ToInt32(dr["id"].ToString());
+                    unPartido2.Fecha = Convert.ToDateTime(dr["fecha"].ToString());
+                    unPartido2.CantJug = Convert.ToInt32(dr["cantjug"].ToString());
+                    unPartido2.IdCancha = Convert.ToInt32(dr["idcancha"].ToString());
                     ListadePartidos.Add(unPartido2);
                 }
                 conn.Close();
