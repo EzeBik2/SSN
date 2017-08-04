@@ -27,8 +27,9 @@ namespace RSF.Models.DataAccess
             try
             {
                 ConectarDB();
+                
 
-                querystr = "INSERT into Partidos (fecha, cantjug, idcancha) VALUES ('" + partidoAAgregar.Fecha + "', '" + partidoAAgregar.CantJug + "', '" + partidoAAgregar.IdCancha + "' )";
+                querystr = "INSERT into Partidos (fecha, cantjug, idcancha) VALUES ('" + partidoAAgregar.Fecha.ToString("yyyy-MM-dd HH:mm:ss") + "', '" + partidoAAgregar.CantJug + "', '" + partidoAAgregar.IdCancha + "' )";
                 cmd = new MySqlCommand(querystr, conn);
 
                 int resultado = (int)cmd.ExecuteNonQuery();
@@ -104,7 +105,7 @@ namespace RSF.Models.DataAccess
             {
                 ConectarDB();
 
-                querystr = "SELECT* FROM Partidos WHERE id = '" + unPartido.id + "'";
+                querystr = "SELECT * FROM Partidos";
                 cmd = new MySqlCommand(querystr, conn);
                 MySqlDataReader dr = cmd.ExecuteReader();
 

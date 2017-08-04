@@ -214,6 +214,7 @@
     <Content Include="Views\Home\QuienesSomos.cshtml" />
     <Content Include="Views\Home\Contacto.cshtml" />
     <Content Include="Views\Home\Afiliar.cshtml" />
+    <Content Include="Views\Home\LoginFB.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

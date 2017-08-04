@@ -83,13 +83,28 @@ namespace RSF.Models.DataAccess
             {
                 ConectarDB();
 
-                querystr = "SELECT* FROM Jugadores";
+                querystr = "SELECT * FROM Jugadores";
                 cmd = new MySqlCommand(querystr, conn);
                 MySqlDataReader dr = cmd.ExecuteReader();
 
                 while (dr.Read())
                 {                  
                     if (dr["email"].ToString() == unJugador.email && dr["clave"].ToString() == unJugador.contraseña)
+                    {
+                        unJugador2.id = Convert.ToInt32(dr["id"].ToString());
+                        unJugador2.nombre = dr["nombre"].ToString();
+                        unJugador2.apellido = dr["apellido"].ToString();
+                        unJugador2.foto = dr["foto"].ToString();
+                        unJugador2.edad = Convert.ToInt32(dr["edad"].ToString());
+                        unJugador2.telefono = Convert.ToInt32(dr["telefono"].ToString());
+                        unJugador2.calificacion = Convert.ToInt32(dr["calificacion"].ToString());
+                        unJugador2.cantidaddevotos = Convert.ToInt32(dr["cantidaddeVotos"].ToString());
+                        unJugador2.email = dr["email"].ToString();
+                        unJugador2.contraseña = dr["clave"].ToString();
+                        conn.Close();
+                        return unJugador2;
+                    }
+                    if (Convert.ToInt32(dr["id"].ToString()) == unJugador.id)
                     {
                         unJugador2.id = Convert.ToInt32(dr["id"].ToString());
                         unJugador2.nombre = dr["nombre"].ToString();
@@ -124,7 +139,7 @@ namespace RSF.Models.DataAccess
             {
                 ConectarDB();
 
-                querystr = "SELECT* FROM Jugadores";
+                querystr = "SELECT * FROM Jugadores";
                 cmd = new MySqlCommand(querystr, conn);
                 MySqlDataReader dr = cmd.ExecuteReader();
 

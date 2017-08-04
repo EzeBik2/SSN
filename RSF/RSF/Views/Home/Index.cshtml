@@ -1,7 +1,25 @@
 ﻿<head>
     <script type="text/javascript" src="~/Content/jquery-3.2.1.min.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-</head> <!-- Agrego JQUERY Y DISEÑO RESPONSIVE-->
+    <div id="fb-root"></div>
+    <script>
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '453227671719537',
+      xfbml      : true,
+      version    : 'v2.10'
+    });
+    FB.AppEvents.logPageView();
+  };
+(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/es_ES/sdk.js#xfbml=1&version=v2.10&appId=453227671719537";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+</head> <!-- Agrego JQUERY, el SDK de facebook Y DISEÑO RESPONSIVE-->
 
 @using RSF.Models
 @model Jugador
@@ -106,15 +124,9 @@
             </div>
         </div>
     </div> <!-- Modal de Registro -->
+
+    <br>
+    <br>
+    <div class="fb-login-button" data-width="250px" data-max-rows="1" data-height="500px" data-size="medium" data-button-type="login_with" data-show-faces="true" data-auto-logout-link="true" data-use-continue-as="true"></div>
+    <br>
 </div>
-<footer style="position:fixed; height:57px; bottom:0; width: 100%; text-align: center; align-content:center;">
-    <div style="align-content:center;">
-        <br>
-        @Html.ActionLink("Quienes somos", "QuienesSomos", "Home")
-         - 
-        @Html.ActionLink("Contacto", "Contacto", "Home")
-         - 
-        @Html.ActionLink("Afilia una cancha", "Afiliar", "Home")
-        <br>
-    </div>
-</footer>

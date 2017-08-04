@@ -82,7 +82,7 @@ namespace RSF.Models.DataAccess
             {
                 ConectarDB();
 
-                querystr = "SELECT* FROM Canchas WHERE id = '" + unaCancha.id + "'";
+                querystr = "SELECT * FROM Canchas";
                 cmd = new MySqlCommand(querystr, conn);
                 MySqlDataReader dr = cmd.ExecuteReader();
 

@@ -106,7 +106,7 @@ namespace RSF.Controllers
             List<List<Jugador>> ListadeListadeJugadores = TraerListadeListadeJugadores(TodosLosPartidos); //Esta lista es una lista en la que en cada posicion tiene una lista que en cada posicion tiene jugadores
             List<Partido> Listademispartidos = Traerlistademispartidos(jugadorlogueado.id); //Trae la lista de mis patidos ---wrong---
             List<string> ListaBarrios = TraerListadebarrios(ListadeCanchas);
-            if (Listademispartidos.Count == 0 || ListadeCanchas.Count == 0 || ListadeNombresDeCanchas.Count == 0 || TodosLosPartidos.Count == 0 || ListadeListadeJugadores.Count == 0 || jugadorlogueado.id == 0 || ListaBarrios.Count == 0)
+            if (ListadeCanchas.Count == 0 || ListadeNombresDeCanchas.Count == 0 || TodosLosPartidos.Count == 0 || ListadeListadeJugadores.Count == 0 || jugadorlogueado.id == 0 || ListaBarrios.Count == 0)
             {
 
                 ViewBag.NoSeEncontro = "Tuvimos un problema, vuelva a loguearse por favor.";

@@ -216,39 +216,32 @@
         </div> <!-- Mis Partidos a Jugar -->
 </div>
 
-<footer style="display:block; margin-left: 270px; margin-top: 20px;">
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" style=" float: right; margin-right: 50px;"> AFILIAR UNA CANCHA </button>
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" style="float: right; margin-right: 50px;"> AFILIAR UNA CANCHA </button>
 
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header"> <h4 class="modal-title" id="myModalLabel">AFILIAR UNA CANCHA</h4> </div>
-                <div class="modal-body">
-                    <form action="@Url.Action("AgregarCancha", "Home")" method="POST">
-                        @Html.TextBoxFor(x => x.id, new { @style = "display: none;", @Value = "" + ViewBag.JugadorLogueado.id })<br />
-                        <H2 style="color: red;">@ViewBag.Error</H2>
-                        <H3 style="color: red;">@Html.ValidationMessageFor(x => x.nombre)</H3>
-                        <h4> Nombre de la Cancha: @Html.TextBoxFor(x => x.nombre, new { @class = "form-control" }) <br /><br /></h4>
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header"> <h4 class="modal-title" id="myModalLabel">AFILIAR UNA CANCHA</h4> </div>
+            <div class="modal-body">
+                <form action="@Url.Action("AgregarCancha", "Home")" method="POST">
+                    @Html.TextBoxFor(x => x.id, new { @style = "display: none;", @Value = "" + ViewBag.JugadorLogueado.id })<br />
+                    <H2 style="color: red;">@ViewBag.Error</H2>
+                    <H3 style="color: red;">@Html.ValidationMessageFor(x => x.nombre)</H3>
+                    <h4> Nombre de la Cancha: @Html.TextBoxFor(x => x.nombre, new { @class = "form-control" }) <br /><br /></h4>
 
-                        <H3 style="color: red;">@Html.ValidationMessageFor(x => x.telefono)</H3>
-                        <h4> Telefono de la Cancha: @Html.TextBoxFor(x => x.telefono, new { @class = "form-control" }) <br /><br /></h4>
+                    <H3 style="color: red;">@Html.ValidationMessageFor(x => x.telefono)</H3>
+                    <h4> Telefono de la Cancha: @Html.TextBoxFor(x => x.telefono, new { @class = "form-control" }) <br /><br /></h4>
 
-                        <H3 style="color: red;">@Html.ValidationMessageFor(x => x.barrio)</H3>
-                        <h4> Barrio de la Cancha: @Html.TextBoxFor(x => x.barrio, new { @class = "form-control" }) <br /><br /></h4>
+                    <H3 style="color: red;">@Html.ValidationMessageFor(x => x.barrio)</H3>
+                    <h4> Barrio de la Cancha: @Html.TextBoxFor(x => x.barrio, new { @class = "form-control" }) <br /><br /></h4>
 
-                        <H3 style="color: red;">@Html.ValidationMessageFor(x => x.calle)</H3>
-                        <h4> Calle de la Cancha: @Html.TextBoxFor(x => x.calle, new { @class = "form-control" }) <br /><br /></h4>
+                    <H3 style="color: red;">@Html.ValidationMessageFor(x => x.calle)</H3>
+                    <h4> Calle de la Cancha: @Html.TextBoxFor(x => x.calle, new { @class = "form-control" }) <br /><br /></h4>
 
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <input type="submit" value="Afiliar" class="btn btn-primary" />
-                    </form>
-                </div>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <input type="submit" value="Afiliar" class="btn btn-primary" />
+                </form>
             </div>
         </div>
     </div>
-        <div style="background-color:black; color:white;">
-            @Html.ActionLink("Quienes somos", "QuienesSomos", "Home")
-            @Html.ActionLink("Contacto", "Contacto", "Home")
-            @Html.ActionLink("Afilia una cancha", "Afiliar", "Home")
-        </div>
-</footer>
+</div>

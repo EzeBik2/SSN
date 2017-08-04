@@ -28,7 +28,7 @@ namespace RSF.Models.DataAccess
             {
                 ConectarDB();
 
-                querystr = "INSERT into Equipos (nombre, cantjug, calificacion, votos) VALUES ('" + equipoAAgregar.nombre + "', '" + equipoAAgregar.cantjug + "', '" + equipoAAgregar.calificacion + "', '" + equipoAAgregar.cantvotos + "' )";
+                querystr = "INSERT into Equipos (nombre, cantjug, calificacion, cantvotos) VALUES ('" + equipoAAgregar.nombre + "', '" + equipoAAgregar.cantjug + "', '" + 0 + "', '" + 0 + "' )";
                 cmd = new MySqlCommand(querystr, conn);
 
                 int resultado = (int)cmd.ExecuteNonQuery();
@@ -83,7 +83,7 @@ namespace RSF.Models.DataAccess
             {
                 ConectarDB();
 
-                querystr = "SELECT * FROM Equipos WHERE id = '" + unEquipo.id + "'";
+                querystr = "SELECT * FROM Equipos";
                 cmd = new MySqlCommand(querystr, conn);
                 MySqlDataReader dr = cmd.ExecuteReader();
 
