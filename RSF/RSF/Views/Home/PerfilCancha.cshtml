@@ -4,7 +4,7 @@
 </head> <!-- Agrego JQUERY Y DISEÑO RESPONSIVE-->
 
 @using RSF.Models
-@model Cancha
+@model Todos
 
 
 @{Cancha canchaa = ViewBag.CanchaElejida;}
@@ -45,5 +45,41 @@
             </tr>
             <!-- Falta Agregar un partido en la cancha -->
         }
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" style="float: right; margin-right: 50px;"> Crear Un Partido </button>
+
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header"> <h4 class="modal-title" id="myModalLabel">AFILIAR UNA CANCHA</h4> </div>
+                    <div class="modal-body">
+                        <form method="POST" action="@Url.Action("CrearPartido", "Home")" style="width: 250px;">
+                            <h4 style="color: red;"> @ViewBag.YaExiste </h4>
+                            @Html.TextBoxFor(x => x.id, new { @style = "display: none;", @Value = "" + ViewBag.JugadorLogueado.id })
+                            <div id="txtFechaFelPartido">
+                                Fecha: @Html.TextBoxFor(x => x.fecha, new { @class = "form-control", @type = "datetime-local", @Value = "" })
+                            </div>
+                            <div id="txtCantidadDeJugadoresDelPartido" style="display: none;">
+                                Cantidad de Jugadores: @Html.TextBoxFor(x => x.cantjug, new { @class = "form-control", @Value = "" })
+                            </div>
+                            <div id="txtCanchaDelPartido" style="display: none;">
+                                Cancha: @Html.DropDownListFor(x => x.canchas, new SelectList(ViewBag.Combobox), new { @class = "form-control", @Value = canchaa.nombre })
+                            </div>
+                            <br />
+                            <input type="button" value="Crear Partido" onclick="CrearPartido()" id="BotonIniciarPrimerScript" class="btn btn-primary" />
+                            <input type="submit" value="Segundo Paso" onclick="CrearPartido2()" id="BotonIniciarSegundoScript" style="display:none;" class="btn btn-primary" />
+                            
+                            <script>
+                                function CrearPartido() {
+                                    document.getElementById("txtFechaFelPartido").style.display = "none";
+                                    document.getElementById("txtCantidadDeJugadoresDelPartido").style.display = "block";
+                                    document.getElementById("BotonIniciarPrimerScript").style.display = "none";
+                                    document.getElementById("BotonIniciarSegundoScript").style.display = "block";
+                                }
+                            </script>
+                        </form> <!-- Formulario de creacion de Partido -->
+                    </div>
+                </div>
+            </div>
+        </div>
     </table>
 </div>

@@ -146,7 +146,7 @@ namespace RSF.Models.DataAccess
                     unEquipo2.cantjug = Convert.ToInt32(dr["Cantjug"].ToString());
                     unEquipo2.calificacion = Convert.ToInt32(dr["Calificacion"].ToString());
                     unEquipo2.cantvotos = Convert.ToInt32(dr["Cantvotos"].ToString());
-                    if (unEquipo2.nombre == unEquipo.nombre)
+                    if (unEquipo2.nombre.Contains(unEquipo.nombre))
                     {
                         ListadeEquipos.Add(unEquipo2);
                     }

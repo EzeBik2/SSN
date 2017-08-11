@@ -58,7 +58,7 @@ namespace RSF.Models.DataAccess
             {
                 ConectarDB();
 
-                querystr = "SELECT* FROM Partidos";
+                querystr = "SELECT * FROM Partidos";
                 cmd = new MySqlCommand(querystr, conn);
                 MySqlDataReader dr = cmd.ExecuteReader();
 

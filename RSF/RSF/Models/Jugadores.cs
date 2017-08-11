@@ -162,7 +162,7 @@ namespace RSF.Models.DataAccess
                     }
                     else
                     {
-                        if (unJugador2.nombre == unJugador.nombre)
+                        if (unJugador2.nombre.Contains(unJugador.nombre))
                         {
                             ListadeJugadores.Add(unJugador2);
                         }

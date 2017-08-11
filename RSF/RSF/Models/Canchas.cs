@@ -139,7 +139,7 @@ namespace RSF.Models.DataAccess
                     unaCancha2.barrio = dr["Barrio"].ToString();
                     unaCancha2.calle = dr["Calle"].ToString();
                     unaCancha2.telefono = Convert.ToInt32(dr["Telefono"].ToString());
-                    if (unaCancha2.nombre == unaCancha.nombre)
+                    if (unaCancha2.nombre.Contains(unaCancha.nombre))
                     {
                         ListadeCanchas.Add(unaCancha2);
                     }
