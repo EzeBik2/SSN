@@ -106,23 +106,75 @@ namespace RSF.Controllers
             List<List<Jugador>> ListadeListadeJugadores = TraerListadeListadeJugadores(TodosLosPartidos); //Esta lista es una lista en la que en cada posicion tiene una lista que en cada posicion tiene jugadores
             List<Partido> Listademispartidos = Traerlistademispartidos(jugadorlogueado.id); //Trae la lista de mis patidos ---wrong---
             List<string> ListaBarrios = TraerListadebarrios(ListadeCanchas);
-            if (ListadeCanchas.Count == 0 || ListadeNombresDeCanchas.Count == 0 || TodosLosPartidos.Count == 0 || ListadeListadeJugadores.Count == 0 || jugadorlogueado.id == 0 || ListaBarrios.Count == 0)
+            EquipoJugador A = new EquipoJugador();
+            A.idJugador = jugadorlogueado.id;
+            Equipo b = new Equipo();
+            List<int> MisEquipos = EquiposJugadores.TraerEquipos(A);
+            List<string> NombreMisEquipos = new List<string>();
+            List<string> NombreNoMisEquipos = new List<string>();
+            List<Equipo> NOMisEquipos = Equipos.TraerEquipos(b);
+            for (int i = 0; i < MisEquipos.Count; i++)
             {
-
-                ViewBag.NoSeEncontro = "Tuvimos un problema, vuelva a loguearse por favor.";
-                return Index(); //Si fallo el programa que vuelva a inicio.
+                Equipo C = new Equipo();
+                C.id = MisEquipos[i];
+                C = Equipos.TraerUnEquipo(C);
+                NombreMisEquipos.Add(C.nombre);
+                for (int h = 0; h < NOMisEquipos.Count; h++)
+                {
+                    if (NOMisEquipos[h].id == MisEquipos[i])
+                    {
+                        NOMisEquipos.Remove(C);
+                    }
+                }
             }
-            else
+            for (int w = 0; w < NOMisEquipos.Count; w++)
             {
-                ViewBag.ListaDeBarrios = ListaBarrios;
+                NombreNoMisEquipos.Add(NOMisEquipos[w].nombre);
+            }
+            //if (ListadeCanchas.Count == 0 || ListadeNombresDeCanchas.Count == 0 || TodosLosPartidos.Count == 0 || ListadeListadeJugadores.Count == 0 || jugadorlogueado.id == 0 || ListaBarrios.Count == 0)
+            //{
+
+            //    ViewBag.NoSeEncontro = "Tuvimos un problema, vuelva a loguearse por favor.";
+            //    return Index(); //Si fallo el programa que vuelva a inicio.
+            //}
+            //else
+            //{
+            ViewBag.ListaDeBarrios = ListaBarrios;
                 ViewBag.JugadorLogueado = jugadorlogueado; //Envia Jugador que se logueo
                 ViewBag.ListadeListasdeJugadores = ListadeListadeJugadores; //Envio la lista de listas de jugadores
                 ViewBag.MisPartidos = Listademispartidos; //Envio la lista de mis partidos
                 ViewBag.Combobox = ListadeNombresDeCanchas; //Envia la lista con los nombres a Logueado para el combobox en la creacion de un partido
                 ViewBag.ListaDeCanchas = ListadeCanchas;
                 ViewBag.TodosLosPartidos = TodosLosPartidos; //Trae la lista de todos los partidos que existen y la envia a logueado para mostrarlas
-                return View("Logueado"); //Voy a la pantalla de logueado
-            }
+            ViewBag.NombreMisEquipos = NombreMisEquipos;
+            ViewBag.NombreNoMisEquipos = NombreNoMisEquipos;
+            return View("Logueado"); //Voy a la pantalla de logueado
+            //}
+        }
+
+        public ActionResult CrearDesafio(Todos unTodo)
+        {
+            Desafio A = new Desafio();
+            A.fecha = unTodo.fecha;
+            A.cantidaddejugadores = unTodo.cantjug;
+            Cancha unaCancha = new Cancha();
+            unaCancha.nombre = unTodo.canchas[0];
+            unaCancha = Canchas.TraerUnaCancha(unaCancha);
+            A.idcancha = unaCancha.id;
+            Equipo unEquipo = new Equipo();
+            unEquipo.nombre = unTodo.MisEquipos[0];
+            unEquipo = Equipos.TraerUnEquipo(unEquipo);
+            A.idequipo1 = unEquipo.id;
+            Equipo unEquipo2 = new Equipo();
+            unEquipo2.nombre = unTodo.NoMisEquipos[0];
+            unEquipo2 = Equipos.TraerUnEquipo(unEquipo2);
+            A.idequipo2 = unEquipo2.id;
+            ViewBag.A = Desafios.CrearDesafio(A);
+            Jugador mijugador = new Jugador();
+            mijugador.id = unTodo.id;
+            ViewBag.B = Jugadores.TraerUnJugador(mijugador); //Envia Jugador logueado
+            return View("PerfilDesafio");
+            
         }
 
         public ActionResult BuscarTodo(Todos todo)
@@ -352,7 +404,7 @@ namespace RSF.Controllers
                 }
             }
         }
-        public ActionResult EliminarJugador(int A)
+        public ActionResult EliminarUnJugador(int A)
         {
             bool Funciono = Jugadores.EliminarUnJugador(A);
             if (Funciono)

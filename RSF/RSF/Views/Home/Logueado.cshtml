@@ -43,7 +43,7 @@
 <div style="margin-left: 250px; margin-top: 20px;"> <!-- Body sin Menu Principal y Footer -->
         <div style="float:left; display: inline-block; margin:5px; padding: 9px 14px; background-color: #f7f7f9; border: 1px solid #e1e1e8; border-radius: 4px;">
             <form method="POST" action="@Url.Action("CrearEquipo", "Home")">
-
+                <h2>CREAR EQUIPO</h2>
                 @Html.TextBoxFor(x => x.id, new { @style = "display: none;", @Value = "" + ViewBag.JugadorLogueado.id })<br />
                 <div id = "txtNombreDelEquipo">
                     Nombre del Equipo: @Html.TextBoxFor(x => x.nombre, new { @class = "form-control", @Value = "" })
@@ -68,6 +68,7 @@
             </form> <!-- Formulario de creacion de Equipo -->
 
             <form method="POST" action="@Url.Action("CrearPartido", "Home")" style="width: 250px;">
+                <h2>CREAR PARTIDO</h2>
                 <h4 style="color: red;"> @ViewBag.YaExiste </h4>
                 @Html.TextBoxFor(x => x.id, new { @style = "display: none;", @Value = "" + ViewBag.JugadorLogueado.id })
                 <div id = "txtFechaFelPartido">
@@ -115,7 +116,48 @@
                 <br />
                 <input type="submit" value="BUSCAR" class="btn btn-primary" />
 
-            </form> <!-- Formulario de Busqueda de Canchas -->    
+            </form> <!-- Formulario de Busqueda de Canchas -->  
+
+            <form method="POST" action="@Url.Action("CrearDesafio", "Home")" style="width: 250px;">
+                <h2>CREAR DESAFIO</h2>
+                <h4 style="color: red;"> @ViewBag.YaExiste </h4>
+                @Html.TextBoxFor(x => x.id, new { @style = "display: none;", @Value = "" + ViewBag.JugadorLogueado.id })
+                <div id="txtFechaFelPartido2">
+                    Fecha: @Html.TextBoxFor(x => x.fecha, new { @class = "form-control", @type = "datetime-local", @Value = "" })
+                </div>
+                <div id="txtCantidadDeJugadoresDelPartido2" style="display: none;">
+                    Cantidad de Jugadores: @Html.TextBoxFor(x => x.cantjug, new { @class = "form-control", @Value = "" })
+                </div>
+                <div id="txtCanchaDelPartido2" style="display: none;">
+                    Cancha: @Html.DropDownListFor(x => x.canchas, new SelectList(ViewBag.Combobox), new { @class = "form-control", @Value = "" })
+                </div>
+                <div id="txtEquipo1"">
+                    Equipo1: @Html.DropDownListFor(x => x.MisEquipos, new SelectList(ViewBag.NombreMisEquipos), new { @class = "form-control", @Value = "" })
+                </div>
+                <div id="txtEquipo2"">
+                    Equipo2: @Html.DropDownListFor(x => x.NoMisEquipos, new SelectList(ViewBag.NombreNoMisEquipos), new { @class = "form-control", @Value = "" })
+                </div>
+                <br />
+                <input type="button" value="Crear Partido" onclick="CrearPartido100()" id="BotonIniciarPrimerScript2" class="btn btn-primary" />
+                <input type="button" value="Segundo Paso" onclick="CrearPartido102()" id="BotonIniciarSegundoScript2" style="display:none;" class="btn btn-primary" />
+                <input type="submit" value="Ultimo Paso" id="BotonFinal3" style="display:none;" class="btn btn-primary" />
+
+                <script>
+                    function CrearPartido100()
+                    {
+                        document.getElementById("txtFechaFelPartido2").style.display = "none";
+                        document.getElementById("txtCantidadDeJugadoresDelPartido2").style.display = "block";
+                        document.getElementById("BotonIniciarPrimerScript2").style.display = "none";
+                        document.getElementById("BotonIniciarSegundoScript2").style.display = "block";
+                    }
+                    function CrearPartido102() {
+                        document.getElementById("txtCantidadDeJugadoresDelPartido2").style.display = "none";
+                        document.getElementById("txtCanchaDelPartido2").style.display = "block";
+                        document.getElementById("BotonIniciarSegundoScript2").style.display = "none";
+                        document.getElementById("BotonFinal3").style.display = "block";
+                    }
+                </script>
+            </form> <!-- Formulario de creacion de Partido -->  
         </div> <!-- Formularios de Creacion -->
     
         <div style="display: inline-block; margin:5px; padding: 9px 14px; background-color: #f7f7f9; border: 1px solid #e1e1e8; border-radius: 4px; float:left; width: 33%;">
@@ -166,7 +208,7 @@
                                     LLLL.idJugador = ViewBag.JugadorLogueado.id;
                                 }
                                 @Html.ActionLink("VER PARTIDO", "BuscarTodo", "Home", micuenta, null) <!-- Ir a Perfil del Partido -->
-                                <a href="@Url.Action("EntrarAPartido", "Home", LLLL, null)"><input type="button" value="Entrar al Equipo" class="btn btn-primary" /></a>
+                                <a href="@Url.Action("EntrarAPartido", "Home", LLLL, null)"><input type="button" value="Entrar al Partido" class="btn btn-primary" /></a>
                             </div>
                         </div>
                     </div>

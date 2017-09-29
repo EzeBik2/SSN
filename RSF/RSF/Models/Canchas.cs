@@ -139,28 +139,31 @@ namespace RSF.Models.DataAccess
                     unaCancha2.barrio = dr["Barrio"].ToString();
                     unaCancha2.calle = dr["Calle"].ToString();
                     unaCancha2.telefono = Convert.ToInt32(dr["Telefono"].ToString());
-                    if (unaCancha2.nombre.Contains(unaCancha.nombre))
+                    if (unaCancha.id == 0 && unaCancha.nombre == null)
                     {
                         ListadeCanchas.Add(unaCancha2);
                     }
                     else
                     {
-                        if (unaCancha2.id == unaCancha.id)
+                        if (unaCancha2.nombre.Contains(unaCancha.nombre))
                         {
                             ListadeCanchas.Add(unaCancha2);
                         }
                         else
                         {
-                            if (unaCancha2.barrio == unaCancha.barrio)
+                            if (unaCancha2.id == unaCancha.id)
                             {
                                 ListadeCanchas.Add(unaCancha2);
                             }
+                            else
+                            {
+                                if (unaCancha2.barrio == unaCancha.barrio)
+                                {
+                                    ListadeCanchas.Add(unaCancha2);
+                                }
+                            }
                         }
-                    }
-                    if (unaCancha.id == 0 && unaCancha.nombre==null)
-                    {
-                        ListadeCanchas.Add(unaCancha2);
-                    }
+                    }                    
                 }
                 conn.Close();
                 return ListadeCanchas;

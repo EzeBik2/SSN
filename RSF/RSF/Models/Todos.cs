@@ -27,5 +27,7 @@ namespace RSF.Models
 
         public List<string> equipos { get; set; }
         public List<string> barrios { get; set; }
+        public List<string> MisEquipos { get; set; }
+        public List<string> NoMisEquipos { get; set; }
     }
 }

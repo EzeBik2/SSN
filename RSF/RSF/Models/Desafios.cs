@@ -1,12 +1,12 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using MySql.Data.MySqlClient;
 
-namespace RSF.Models.DataAccess
+namespace RSF.Models
 {
-    public class Equipos
+    public class Desafios
     {
         static MySqlCommand cmd;
 
@@ -22,13 +22,15 @@ namespace RSF.Models.DataAccess
             conn.Open();
         }
 
-        public static bool AgregarUnEquipo(Equipo equipoAAgregar)
+        public static Desafio CrearDesafio(Desafio desafioAAgregar)
         {
+            Desafio desafio2 = new Desafio();
+
             try
             {
                 ConectarDB();
 
-                querystr = "INSERT into Equipos (nombre, cantjug, calificacion, cantvotos) VALUES ('" + equipoAAgregar.nombre + "', '" + equipoAAgregar.cantjug + "', '" + 0 + "', '" + 0 + "' )";
+                querystr = "INSERT into Desafios (IdCancha, Fecha, IdEquipo1, IdEquipo2, CantidadDeJugadores) VALUES ('" + desafioAAgregar.idcancha + "', '" + desafioAAgregar.fecha.ToString("yyyy-MM-dd HH:mm:ss") + "', '" + desafioAAgregar.idequipo1 + "', '" + desafioAAgregar.idequipo2 + "', '" + desafioAAgregar.cantidaddejugadores + "' )";
                 cmd = new MySqlCommand(querystr, conn);
 
                 int resultado = (int)cmd.ExecuteNonQuery();
@@ -39,13 +41,35 @@ namespace RSF.Models.DataAccess
                 }
 
                 conn.Close();
-                return funciono;
+               
+                     ConectarDB();
+
+                    querystr = "SELECT * FROM Desafios";
+                    cmd = new MySqlCommand(querystr, conn);
+                    MySqlDataReader dr = cmd.ExecuteReader();
+
+                    while (dr.Read())
+                    {
+                        if (Convert.ToDateTime(dr["Fecha"].ToString()) == desafioAAgregar.fecha && Convert.ToInt32(dr["IdCancha"].ToString()) == desafioAAgregar.idcancha)
+                        {
+                            desafio2.Id = Convert.ToInt32(dr["Id"].ToString());
+                            desafio2.idcancha = Convert.ToInt32(dr["IdCancha"].ToString());
+                            desafio2.fecha = Convert.ToDateTime(dr["Fecha"].ToString());
+                            desafio2.cantidaddejugadores = Convert.ToInt32(dr["CantidadDeJugadores"].ToString());
+                            desafio2.idequipo1 = Convert.ToInt32(dr["IdEquipo1"].ToString());
+                            desafio2.idequipo2 = Convert.ToInt32(dr["IdEquipo2"].ToString());
+                            conn.Close();
+                        }
+                    }
+
+                    conn.Close();
+                    return desafio2;
             }
 
             catch (Exception e)
             {
                 conn.Close();
-                return false;
+                return desafio2;
             }
         }
         public static bool ModificarUnEquipo(Equipo equipoAModificar)
@@ -114,7 +138,7 @@ namespace RSF.Models.DataAccess
                             conn.Close();
                             return unEquipo2;
                         }
-                    }                    
+                    }
                 }
 
                 conn.Close();
@@ -146,21 +170,14 @@ namespace RSF.Models.DataAccess
                     unEquipo2.cantjug = Convert.ToInt32(dr["Cantjug"].ToString());
                     unEquipo2.calificacion = Convert.ToInt32(dr["Calificacion"].ToString());
                     unEquipo2.cantvotos = Convert.ToInt32(dr["Cantvotos"].ToString());
-                    if (unEquipo.id == 0 && unEquipo.nombre == null)
+                    if (unEquipo2.nombre.Contains(unEquipo.nombre))
                     {
                         ListadeEquipos.Add(unEquipo2);
                     }
-                    else
+                    if (unEquipo2.id == unEquipo.id)
                     {
-                        if (unEquipo2.nombre.Contains(unEquipo.nombre))
-                        {
-                            ListadeEquipos.Add(unEquipo2);
-                        }
-                        if (unEquipo2.id == unEquipo.id)
-                        {
-                            ListadeEquipos.Add(unEquipo2);
-                        }
-                    }                    
+                        ListadeEquipos.Add(unEquipo2);
+                    }
                 }
                 conn.Close();
                 return ListadeEquipos;
